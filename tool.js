@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         "   - **Environmental Clearances:** If required for the proposed commercial activity, check for environmental clearances.",
                         "**3. Financial & Legal Due Diligence:**",
                         "   - **Property Tax Dues:** Check that no property tax or other commercial charges are outstanding.",
-                        "   - **Rental or Lease Agreement:** If the land is currently rented or leased, carefully review existing agreements and their terms.",
+                            "   - **Rental or Lease Agreement:** If the land is currently rented or leased, carefully review existing agreements and their terms.",
                         "   - **Company / Firm Owned Land:** If the seller is a company or firm, check its incorporation documents, authorized signatories, and board resolutions."
                     ]
                 }
@@ -112,17 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         "   - **उत्तर प्रदेश शहरी नियोजन और विकास अधिनियम, 1973:** इस अधिनियम के प्रावधानों और स्थानीय विकास प्राधिकरणों द्वारा बनाए गए नियमों को समझें।",
                         "   - **भू-उपयोग परिवर्तन (Land Use Change):** यदि आवासीय उपयोग के लिए कृषि भूमि खरीदी जा रही है, तो उत्तर प्रदेश ज़मींदारी विनाश और भूमि व्यवस्था अधिनियम के तहत भूमि को गैर-कृषि (NA) में परिवर्तित करने की प्रक्रिया को पूरा करें।"
                     ],
-                    en: {
-                        residential: [
-                            "**Uttar Pradesh Specific Information:**",
-                            "   - **Bhulekh Portal:** In Uttar Pradesh, check **Bhulekh portal** (upbhulekh.gov.in) to verify Khasra, Khatauni, and Gata Sankhya (plot number) details online.",
-                            "   - **Lal Dora Area:** Ensure the land is outside the 'Lal Dora' (village inhabited) area if purchasing in urban or rural populated areas. Rules for land within Lal Dora may differ.",
-                            "   - **Development Authorities:** In cities, verify approved master plans, zoning, and layouts from local development authorities (e.g., LDA, GDA, Noida Authority).",
-                            "   - **Warisan Portal:** For inheritance and succession matters, check the 'Warisan' portal (vaaris.up.nic.in) to ensure the seller's ownership is undisputed.",
-                            "   - **UP Urban Planning and Development Act, 1973:** Understand the provisions of this act and the regulations made by local development authorities.",
-                            "   - **Land Use Change:** If agricultural land is being bought for residential use, complete the process of converting the land to non-agricultural (NA) under the Uttar Pradesh Zamindari Abolition and Land Reforms Act."
-                        ],
-                    },
                     agricultural: [
                         "**उत्तर प्रदेश विशिष्ट जानकारी (Uttar Pradesh Specific Information):**",
                         "   - **भूलेख पोर्टल (Bhulekh Portal) पर खतौनी और खसरा:** उत्तर प्रदेश में कृषि भूमि के लिए, भूलेख पोर्टल पर खतौनी (Record of Rights) और खसरा (Field Book) की ऑनलाइन जांच सबसे महत्वपूर्ण है। यह भूमि के मालिकाना हक, क्षेत्रफल, और पिछले 5 वर्षों के कृषि विवरण को दर्शाता है।",
@@ -131,73 +120,108 @@ document.addEventListener('DOMContentLoaded', function() {
                         "   - **उत्तर प्रदेश राजस्व संहिता, 2006:** इस संहिता के प्रावधानों को समझें, खासकर कृषि भूमि के हस्तांतरण, विरासत, और गैर-कृषि उपयोग में परिवर्तन से संबंधित।",
                         "   - **अल्पसंख्यक / SC/ST की भूमि:** सुनिश्चित करें कि विक्रेता अल्पसंख्यकों या अनुसूचित जाति/जनजाति वर्ग से नहीं है यदि आप इन श्रेणियों से संबंधित नहीं हैं, क्योंकि ऐसी भूमि की खरीद-फरोख्त पर विशिष्ट प्रतिबंध हो सकते हैं।"
                     ],
-                    en: {
-                        agricultural: [
-                            "**Uttar Pradesh Specific Information:**",
-                            "   - **Khatauni and Khasra on Bhulekh Portal:** For agricultural land in Uttar Pradesh, online verification of Khatauni (Record of Rights) and Khasra (Field Book) on the Bhulekh portal is crucial. It shows land ownership, area, and agricultural details for the last 5 years.",
-                            "   - **Chakbandi Status (Land Consolidation):** If Chakbandi (land consolidation) has occurred or is in progress, verify the new Gata Sankhya (plot number) and correct boundaries. Old records may differ due to Chakbandi.",
-                            "   - **Impact of Government Schemes:** Check if the land falls under the acquisition area of any government project like a canal, expressway, or other development projects for which the Uttar Pradesh government has issued a notification.",
-                            "   - **UP Revenue Code, 2006:** Understand the provisions of this code, especially related to the transfer, inheritance, and conversion of agricultural land for non-agricultural use.",
-                            "   - **Land of Minorities / SC/ST:** Ensure that the seller is not from minority or Scheduled Caste/Tribe categories if you are not, as there may be specific restrictions on the sale of such land."
-                        ],
-                    },
                     commercial: [
-                        "**उत्तर प्रदेश विशिष्ट जानकारी (Uttar Pradesh Specific Information):**",
+                        "**उत्तर प्रदेश विशिष्ट जानकारी (Uttar Pradesh Pradesh Specific Information):**",
                         "   - **विकास प्राधिकरणों के नियम:** उत्तर प्रदेश में व्यावसायिक भूमि के लिए, लखनऊ विकास प्राधिकरण (LDA), गाजियाबाद विकास प्राधिकरण (GDA), नोएडा/ग्रेटर नोएडा अथॉरिटी जैसे स्थानीय विकास प्राधिकरणों से जोनिंग, मास्टर प्लान, और भूमि उपयोग के नियमों की पुष्टि करें।",
                         "   - **भू-परिवर्तन (Land Conversion):** सुनिश्चित करें कि भूमि का व्यावसायिक उपयोग के लिए उपयुक्त भू-परिवर्तन (Agricultural to Commercial) राजस्व विभाग से अनुमोदित है।",
                         "   - **फायर सेफ्टी और पर्यावरण अनापत्ति (Fire Safety & Environmental NOC):** प्रस्तावित व्यावसायिक इकाई के लिए उत्तर प्रदेश फायर सर्विस और राज्य प्रदूषण नियंत्रण बोर्ड से आवश्यक अनापत्ति प्रमाण पत्र प्राप्त करें।",
                         "   - **उद्योग विभाग के लाइसेंस:** यदि कोई विशेष उद्योग स्थापित किया जा रहा है, तो उत्तर प्रदेश सरकार के उद्योग विभाग से आवश्यक लाइसेंस और अनुमतियों की जांच करें।",
                         "   - **व्यावसायिक भवन उपनियम:** स्थानीय नगर निगम या विकास प्राधिकरण के व्यावसायिक भवन उपनियमों का अध्ययन करें।"
+                    ]
+                },
+                en: {
+                    residential: [
+                        "**Uttar Pradesh Specific Information:**",
+                        "   - **Bhulekh Portal:** In Uttar Pradesh, check **Bhulekh portal** (upbhulekh.gov.in) to verify Khasra, Khatauni, and Gata Sankhya (plot number) details online.",
+                        "   - **Lal Dora Area:** Ensure the land is outside the 'Lal Dora' (village inhabited) area if purchasing in urban or rural populated areas. Rules for land within Lal Dora may differ.",
+                        "   - **Development Authorities:** In cities, verify approved master plans, zoning, and layouts from local development authorities (e.g., LDA, GDA, Noida Authority).",
+                        "   - **Warisan Portal:** For inheritance and succession matters, check the 'Warisan' portal (vaaris.up.nic.in) to ensure the seller's ownership is undisputed.",
+                        "   - **UP Urban Planning and Development Act, 1973:** Understand the provisions of this act and the regulations made by local development authorities.",
+                        "   - **Land Use Change:** If agricultural land is being bought for residential use, complete the process of converting the land to non-agricultural (NA) under the Uttar Pradesh Zamindari Abolition and Land Reforms Act."
                     ],
-                    en: {
-                        commercial: [
-                            "**Uttar Pradesh Specific Information:**",
-                            "   - **Regulations of Development Authorities:** For commercial land in Uttar Pradesh, confirm zoning, master plan, and land use regulations with local development authorities like Lucknow Development Authority (LDA), Ghaziabad Development Authority (GDA), or Noida/Greater Noida Authority.",
-                            "   - **Land Conversion:** Ensure that the land conversion (Agricultural to Commercial) for commercial use is approved by the Revenue Department.",
-                            "   - **Fire Safety and Environmental NOC:** Obtain necessary No Objection Certificates from the Uttar Pradesh Fire Service and the State Pollution Control Board for the proposed commercial establishment.",
-                            "   - **Licenses from Industry Department:** If a specific industry is being set up, check for necessary licenses and permits from the Uttar Pradesh government's Industry Department.",
-                            "   - **Commercial Building Bylaws:** Study the commercial building bylaws of the local municipal corporation or development authority."
-                        ],
-                    }
+                    agricultural: [
+                        "**Uttar Pradesh Specific Information:**",
+                        "   - **Khatauni and Khasra on Bhulekh Portal:** For agricultural land in Uttar Pradesh, online verification of Khatauni (Record of Rights) and Khasra (Field Book) on the Bhulekh portal is crucial. It shows land ownership, area, and agricultural details for the last 5 years.",
+                        "   - **Chakbandi Status (Land Consolidation):** If Chakbandi (land consolidation) has occurred or is in progress, verify the new Gata Sankhya (plot number) and correct boundaries. Old records may differ due to Chakbandi.",
+                        "   - **Impact of Government Schemes:** Check if the land falls under the acquisition area of any government project like a canal, expressway, or other development projects for which the Uttar Pradesh government has issued a notification.",
+                        "   - **UP Revenue Code, 2006:** Understand the provisions of this code, especially related to the transfer, inheritance, and conversion of agricultural land for non-agricultural use.",
+                        "   - **Land of Minorities / SC/ST:** Ensure that the seller is not from minority or Scheduled Caste/Tribe categories if you are not, as there may be specific restrictions on the sale of such land."
+                    ],
+                    commercial: [
+                        "**Uttar Pradesh Specific Information:**",
+                        "   - **Regulations of Development Authorities:** For commercial land in Uttar Pradesh, confirm zoning, master plan, and land use regulations with local development authorities like Lucknow Development Authority (LDA), Ghaziabad Development Authority (GDA), or Noida/Greater Noida Authority.",
+                        "   - **Land Conversion:** Ensure that the land conversion (Agricultural to Commercial) for commercial use is approved by the Revenue Department.",
+                        "   - **Fire Safety and Environmental NOC:** Obtain necessary No Objection Certificates from the Uttar Pradesh Fire Service and the State Pollution Control Board for the proposed commercial establishment.",
+                        "   - **Licenses from Industry Department:** If a specific industry is being set up, check for necessary licenses and permits from the Uttar Pradesh government's Industry Department.",
+                        "   - **Commercial Building Bylaws:** Study the commercial building bylaws of the local municipal corporation or development authority."
+                    ]
                 }
             }
     };
     
     function displayResults(lang) {
+        console.log(`displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`);
+        
         const selectedLandType = landTypeSelect.value;
         const selectedState = stateSelect.value;
         
-        resultsList.innerHTML = '';
-        resultsSection.style.display = 'block';
+        resultsList.innerHTML = ''; // Clear previous results
+        resultsSection.classList.remove('hidden'); // Ensure results section is visible
 
         let resultsToDisplay = [];
 
-        resultsToDisplay = resultsToDisplay.concat(resultsData.general[lang][selectedLandType]);
+        // Check if a state is selected
+        if (!selectedState) {
+            console.log("No state selected. Showing general guidelines and warning.");
+            resultsList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">${lang === 'hi' ? 'कृपया जांच शुरू करने से पहले एक राज्य चुनें। सामान्य दिशानिर्देश नीचे दिए गए हैं।' : 'Please select a state before starting verification. General guidelines are listed below.'}</li>`;
+            
+            // Always show general guidelines even if no state is selected
+            if (resultsData.general[lang] && resultsData.general[lang][selectedLandType]) {
+                resultsToDisplay = resultsToDisplay.concat(resultsData.general[lang][selectedLandType]);
+            } else {
+                console.warn(`General data missing for land type: ${selectedLandType} in lang: ${lang}`);
+            }
+        } else {
+            console.log(`State selected: ${selectedState}. Fetching specific and general guidelines.`);
+            // Display general guidelines first
+            if (resultsData.general[lang] && resultsData.general[lang][selectedLandType]) {
+                resultsToDisplay = resultsToDisplay.concat(resultsData.general[lang][selectedLandType]);
+            } else {
+                console.warn(`General data missing for land type: ${selectedLandType} in lang: ${lang}`);
+            }
 
-        if (selectedState && resultsData[selectedState] && resultsData[selectedState][lang] && resultsData[selectedState][lang][selectedLandType]) {
-            resultsToDisplay = resultsToDisplay.concat(resultsData[selectedState][lang][selectedLandType]);
+            // Add state-specific guidelines if a state is selected and data exists for it
+            if (resultsData[selectedState] && resultsData[selectedState][lang] && resultsData[selectedState][lang][selectedLandType]) {
+                resultsToDisplay = resultsToDisplay.concat(resultsData[selectedState][lang][selectedLandType]);
+            } else {
+                console.warn(`State-specific data missing for state: ${selectedState}, land type: ${selectedLandType} in lang: ${lang}`);
+            }
         }
 
-        if (!selectedState) {
-            resultsList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">${lang === 'hi' ? 'कृपया जांच शुरू करने से पहले एक राज्य चुनें। सामान्य दिशानिर्देश नीचे दिए गए हैं।' : 'Please select a state before starting verification. General guidelines are listed below.'}</li>`;
+        if (resultsToDisplay.length === 0 && selectedState !== "") {
+            // This case should ideally not happen if data is comprehensive, but as a fallback
+            resultsList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">${lang === 'hi' ? 'कोई जानकारी उपलब्ध नहीं। कृपया अपना चयन जांचें।' : 'No information available. Please check your selection.'}</li>`;
         }
 
         resultsToDisplay.forEach(item => {
             const li = document.createElement('li');
-            li.innerHTML = item;
-            li.classList.add('bg-green-50', 'p-4', 'rounded-lg', 'mb-2', 'text-base', 'leading-relaxed', 'text-green-800');
+            li.innerHTML = item; // Use innerHTML to render bold text from data
+            li.classList.add('bg-green-50', 'p-4', 'rounded-lg', 'mb-2', 'text-base', 'leading-relaxed', 'text-green-800'); // Tailwind classes for styling list items
             resultsList.appendChild(li);
         });
 
+        // Add a small note about consulting experts
         const stateNote = document.createElement('li');
         stateNote.innerHTML = lang === 'hi' ? 
             `**अत्यंत महत्वपूर्ण नोट:** यह जानकारी केवल सामान्य मार्गदर्शन के लिए है और इसमें सभी कानूनी पहलुओं को शामिल करना संभव नहीं है। जमीन के बड़े लेनदेन में हमेशा **स्थानीय कानूनी विशेषज्ञ या वकील** से अनिवार्य रूप से सलाह लें, क्योंकि राज्य-वार भिन्न होते हैं, अक्सर बदलते रहते हैं, और आपकी विशिष्ट स्थिति पर लागू हो सकते हैं। यह टूल केवल एक प्रारंभिक दिशानिर्देश के रूप में कार्य करता है।` : 
             `**Extremely Important Note:** This information is for general guidance only and cannot cover all legal aspects. For any significant land transaction, it is **mandatory to consult a local legal expert or lawyer**. Laws vary by state, change frequently, and may apply differently to your specific situation. This tool serves only as an initial guideline.`;
         stateNote.classList.add('bg-blue-50', 'p-4', 'rounded-lg', 'mb-2', 'text-sm', 'leading-relaxed', 'text-blue-800', 'mt-4');
         resultsList.appendChild(stateNote);
+        console.log("Results displayed.");
     }
     
     verifyBtn.addEventListener('click', function() {
+        console.log("Verify button clicked.");
         const currentLang = document.documentElement.lang;
         displayResults(currentLang);
     });
