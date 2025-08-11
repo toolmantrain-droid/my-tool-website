@@ -3,33 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Title: यह ब्राउज़र टैब में दिखाई देगा और SEO के लिए महत्वपूर्ण है। डेटा एट्रिब्यूट्स (data-hi, data-en) भाषा बदलने के लिए हैं। -->
     <title data-hi="टूलमंत्रा - आपकी रोज़ की समस्याओं का डिजिटल समाधान" data-en="ToolMantra - Digital Solutions for Your Daily Problems">टूलमंत्रा - आपकी रोज़ की समस्याओं का डिजिटल समाधान</title>
+    <!-- CSS स्टाइलशीट को लिंक करता है। 'style.css' आपकी वेबसाइट के डिज़ाइन और लेआउट को परिभाषित करता है। -->
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts से 'Poppins' फॉन्ट इम्पोर्ट करता है ताकि टेक्स्ट अच्छा दिखे। -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome आइकन्स के लिए CDN, जैसे शील्ड, मैप मार्कर, यूजर्स आदि आइकन्स के लिए। -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
+    <!-- Header Section: यह वेबसाइट का शीर्ष भाग है जिसमें लोगो और नेविगेशन लिंक होते हैं। -->
     <header>
         <div class="container">
+            <!-- वेबसाइट का लोगो -->
             <div class="logo">ToolMantra</div>
+            <!-- नेविगेशन बार -->
             <nav>
                 <ul>
+                    <!-- होम, ब्लॉग, सभी टूल के लिए नेविगेशन लिंक -->
                     <li><a href="index.html" data-hi="होम" data-en="Home">होम</a></li>
                     <li><a href="blog.html" data-hi="ब्लॉग" data-en="Blog">ब्लॉग</a></li>
                     <li><a href="all-tools.html" data-hi="सभी टूल" data-en="All Tools">सभी टूल</a></li>
+                    <!-- भाषा बदलने वाला बटन। 'main.js' स्क्रिप्ट इसे कार्यात्मक बनाती है। -->
                     <li class="language-switcher"><button id="lang-btn" data-hi="English" data-en="हिंदी">English</button></li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- Main Content Area: यहाँ वेबसाइट की सभी मुख्य सामग्री होती है। -->
     <main>
+
+        <!-- Hero Section: यह वेबसाइट का पहला बड़ा सेक्शन है, आमतौर पर एक आकर्षक शीर्षक और विवरण के साथ। -->
         <section class="hero-section">
             <div class="container">
+                <!-- मुख्य शीर्षक -->
                 <h1 data-hi="Aapki Roz ki Samasyaon ka Digital Samadhan" data-en="Digital Solutions for Your Daily Problems">Aapki Roz ki Samasyaon ka Digital Samadhan</h1>
+                <!-- संक्षिप्त विवरण -->
                 <p data-hi="ToolMantra India ka pehla aisa free toolbox hai jo aapke kanooni, financial, aur rozmarra ke kaamo ko aasan banata hai, aur rozmarra ke kaamo ko aasan banata hai." data-en="ToolMantra is India's first free toolbox that simplifies your legal, financial, and daily tasks.">ToolMantra India ka pehla aisa free toolbox hai jo aapke kanooni, financial, aur rozmarra ke kaamo ko aasan banata hai, aur rozmarra ke kaamo ko aasan banata hai.</p>
-                <a href="all-tools.html" class="cta-button" data-hi="सभी टूल देखें" data-en="Explore All Tools">सभी टूल देखें</a>
+                <!-- कॉल-टू-एक्शन बटन -->
+                <a href="#" class="cta-button" data-hi="सभी टूल देखें" data-en="Explore All Tools">सभी टूल देखें</a>
             </div>
         </section>
+
+        <!-- Trust Section: यह ग्राहकों का विश्वास बनाने के लिए विशेषताएं या लाभ दिखाता है। -->
         <section class="trust-section">
             <div class="container">
                 <div class="feature-item">
@@ -46,12 +65,17 @@
                 </div>
             </div>
         </section>
+
+        <!-- Tools Section: यह विभिन्न टूल श्रेणियों और उनके कार्ड्स को प्रदर्शित करता है। -->
         <section class="tools-section">
             <div class="container">
+                
+                <!-- Government & Legal Tools Category -->
                 <div class="tool-category">
                     <h2 data-hi="सरकारी और कानूनी टूल" data-en="Government & Legal Tools">सरकारी और कानूनी टूल</h2>
                     <p data-hi="Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake." data-en="We have organized all tools into simple categories so you can find the right solution at the right time.">Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake.</p>
                     <div class="tool-cards">
+                        <!-- Land Verification Tool Card: 'jaanch.html' पेज से लिंक होता है। -->
                         <a href="jaanch.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">🏡</span>
@@ -59,6 +83,7 @@
                                 <p data-hi="जमीन खरीदने से पहले कानूनी जानकारी, और ताजा कानून का हिसाब लगाएं।" data-en="Verify legal details and current laws before purchasing land.">जमीन खरीदने से पहले कानूनी जानकारी, और ताजा कानून का हिसाब लगाएं।</p>
                             </div>
                         </a>
+                        <!-- Legal First Step Guide Tool Card: 'legal-first-step.html' पेज से लिंक होता है। -->
                         <a href="legal-first-step.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">⚖️</span>
@@ -66,6 +91,7 @@
                                 <p data-hi="Jameen vivaad, cheque bounce, ya office complaint mein apko pehla kadam jaankari." data-en="Get initial guidance on land disputes, cheque bounce, or official complaints.">Jameen vivaad, cheque bounce, ya office complaint mein apko pehla kadam jaankari.</p>
                             </div>
                         </a>
+                        <!-- Know Your Local Officer Tool Card: 'know-officer.html' पेज से लिंक होता है। -->
                         <a href="know-officer.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">👮</span>
@@ -73,6 +99,7 @@
                                 <p data-hi="Apne area ka PIN code daalkar zaroori afsaron (Ward Officer, SHO) ki jaankari paayen." data-en="Find key officials (Ward Officer, SHO) by entering your area's PIN code.">Apne area ka PIN code daalkar zaroori afsaron (Ward Officer, SHO) ki jaankari paayen.</p>
                             </div>
                         </a>
+                        <!-- Driving License Mock Test Tool Card: 'dl-mock-test.html' पेज से लिंक होता है। -->
                         <a href="dl-mock-test.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">🚗</span>
@@ -82,10 +109,13 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Writing & Productivity Tools Category -->
                 <div class="tool-category">
                     <h2 data-hi="लेखन और उत्पादकता टूल" data-en="Writing & Productivity Tools">लेखन और उत्पादकता टूल</h2>
                     <p data-hi="Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake." data-en="We have organized all tools into simple categories so you can find the right solution at the right time.">Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake.</p>
                     <div class="tool-cards">
+                        <!-- Application Letter Generator Tool Card: 'application-generator.html' पेज से लिंक होता है। -->
                         <a href="application-generator.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">✍️</span>
@@ -93,6 +123,7 @@
                                 <p data-hi="School office, ya bank ke liye kisi bhi bhasha mein application likhein." data-en="Write application letters for school, office, or bank in any language.">School office, ya bank ke liye kisi bhi bhasha mein application likhein。</p>
                             </div>
                         </a>
+                        <!-- Complaint Letter Generator Tool Card: 'complaint-generator.html' पेज से लिंक होता है। -->
                         <a href="complaint-generator.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">📜</span>
@@ -100,6 +131,7 @@
                                 <p data-hi="Sarkari vibhagon (Nagar Nigam, Bijli Board) ke liye shikayat patra taiyaar karein." data-en="Generate complaint letters for government departments like Nagar Nigam.">Sarkari vibhagon (Nagar Nigam, Bijli Board) ke liye shikayat patra taiyaar karein。</p>
                             </div>
                         </a>
+                        <!-- RTI Application Helper Tool Card: 'rti-helper.html' पेज से लिंक होता है। -->
                         <a href="rti-helper.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">📄</span>
@@ -107,6 +139,7 @@
                                 <p data-hi="Sarkari vibhagon se jaankari maangne ke liye RTI application ka format banayen." data-en="Create a format for an RTI application to get information from government departments.">Sarkari vibhagon se jaankari maangne ke liye RTI application ka format banayen。</p>
                             </div>
                         </a>
+                        <!-- Digital Visiting Card Maker Tool Card: 'digital-vcard.html' पेज से लिंक होता है। -->
                         <a href="digital-vcard.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">📇</span>
@@ -116,10 +149,13 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Finance & Tax Tools Category -->
                 <div class="tool-category">
                     <h2 data-hi="वित्त और टैक्स टूल" data-en="Finance & Tax Tools">वित्त और टैक्स टूल</h2>
                     <p data-hi="Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake." data-en="We have organized all tools into simple categories so you can find the right solution at the right time.">Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake。</p>
                     <div class="tool-cards">
+                        <!-- ITR Refund Calculator Tool Card: 'itr-refund.html' पेज से लिंक होता है। -->
                         <a href="itr-refund.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">💰</span>
@@ -127,6 +163,7 @@
                                 <p data-hi="Apne kate hue TDS ke aadhaar par potential tax refund ka pata lagayen." data-en="Find your potential tax refund based on the TDS deducted.">Apne kate hue TDS ke aadhaar par potential tax refund ka pata lagayen。</p>
                             </div>
                         </a>
+                        <!-- Personal Tax Saving Planner Tool Card: 'tax-saving-planner.html' पेज से लिंक होता है। -->
                         <a href="tax-saving-planner.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">💼</span>
@@ -134,6 +171,7 @@
                                 <p data-hi="Apni income ke anusaar tax bachane ke liye best investment options jaannein." data-en="Get the best tax-saving investment options based on your income.">Apni income ke anusaar tax bachane ke liye best investment options jaannein。</p>
                             </div>
                         </a>
+                        <!-- Post Office Scheme Calculator Tool Card: 'post-office-calc.html' पेज से लिंक होता है। -->
                         <a href="post-office-calc.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">🏦</span>
@@ -141,6 +179,7 @@
                                 <p data-hi="SCSS, Sukanya, KVP, NSC jaisi schemes mein apne investment par return calculate karein." data-en="Calculate returns on your investments in schemes like SCSS, Sukanya, KVP, etc.">SCSS, Sukanya, KVP, NSC jaisi schemes mein apne investment par return calculate karein。</p>
                             </div>
                         </a>
+                        <!-- Which ITR Form to Fill? Tool Card: 'which-itr-form.html' पेज से लिंक होता है। -->
                         <a href="which-itr-form.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">📝</span>
@@ -150,10 +189,13 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Jyotish (Astrology) Tools Category -->
                 <div class="tool-category">
                     <h2 data-hi="ज्योतिष (Astrology) टूल" data-en="Jyotish (Astrology) Tools">ज्योतिष (Astrology) टूल</h2>
                     <p data-hi="Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake." data-en="We have organized all tools into simple categories so you can find the right solution at the right time.">Humne sabhi tools ko aasan categories mein baanta hai, taaki aapko sahi samay par sahi solution mil sake。</p>
                     <div class="tool-cards">
+                        <!-- Nakshatra Baby Name Finder Tool Card: 'nakshatra-name.html' पेज से लिंक होता है। -->
                         <a href="nakshatra-name.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">👶</span>
@@ -161,6 +203,7 @@
                                 <p data-hi="Bachche ke anusaar Nakshatra ke naam chudne se naam chunein." data-en="Choose a name based on the child's Nakshatra.">Bachche ke anusaar Nakshatra ke naam chudne se naam chunein。</p>
                             </div>
                         </a>
+                        <!-- Auspicious Time Finder Tool Card: 'shubh-muhurat.html' पेज से लिंक होता है। -->
                         <a href="shubh-muhurat.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">✨</span>
@@ -168,6 +211,7 @@
                                 <p data-hi="Naye kaam, gaadi kharidne ya griha pravesh ke liye shubh samay jaannein." data-en="Find an auspicious time for new work, buying a vehicle, or housewarming.">Naye kaam, gaadi kharidne ya griha pravesh ke liye shubh samay jaannein。</p>
                             </div>
                         </a>
+                        <!-- Kundli Matching Tool Card: 'kundli-matching.html' पेज से लिंक होता है। -->
                         <a href="kundli-matching.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">❤️</span>
@@ -175,6 +219,7 @@
                                 <p data-hi="Vivah ke liye Guna Milan aur Kundli matching karein." data-en="Perform Guna Milan and Kundli matching for marriage.">Vivah ke liye Guna Milan aur Kundli matching karein。</p>
                             </div>
                         </a>
+                        <!-- Panchang Tool Card: 'panchang.html' पेज से लिंक होता है। -->
                         <a href="panchang.html" class="tool-link">
                             <div class="tool-card">
                                 <span class="tool-icon">🗓️</span>
@@ -184,13 +229,17 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </section>
+
+        <!-- Testimonials Section: यह उपयोगकर्ताओं की प्रशंसापत्र (testimonials) दिखाता है। -->
         <section class="testimonials-section">
             <div class="container">
                 <h2 data-hi="हमारे उपयोगकर्ता क्या कहते हैं" data-en="What Our Users Say">हमारे उपयोगकर्ता क्या कहते हैं</h2>
                 <p data-hi="हमें ख़ुशी है कि हम लाखों लोगों की मदद कर रहे हैं।" data-en="We are happy to be helping millions of people.">हमें ख़ुशी है कि हम लाखों लोगों की मदद कर रहे हैं。</p>
                 <div class="testimonial-cards">
+                    <!-- व्यक्तिगत प्रशंसापत्र कार्ड्स -->
                     <div class="testimonial-card">
                         <p>"Application Letter Generator tool ne mera bahut samay bachaya. School ki chutti ke liye application likhna ab bahut aasan ho gaya hai."</p>
                         <div class="user-info">
@@ -222,7 +271,10 @@
                 <a href="#" class="cta-button" data-hi="समीक्षा लिखें" data-en="Write a Review">समीक्षा लिखें</a>
             </div>
         </section>
+
     </main>
+
+    <!-- Footer Section: यह वेबसाइट का निचला भाग है जिसमें ब्रांड की जानकारी, त्वरित लिंक और कानूनी लिंक होते हैं। -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -252,6 +304,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript फ़ाइल को लिंक करता है। यह भाषा बदलने जैसी सामान्य वेबसाइट कार्यक्षमताओं को नियंत्रित करती है। -->
     <script src="main.js"></script>
 </body>
 </html>
