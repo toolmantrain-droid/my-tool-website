@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving License Mock Test - ToolMantra</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Driving License Mock Test</h2>
+                <p id="tool-description">Practice traffic rules and signs before the RTO exam to ensure you are well-prepared.</p>
+
+                <div class="form-group mb-5 text-left">
+                    <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">Select Your State (for relevant RTO links):</label>
+                    <select id="state-select" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">-- Select a State --</option>
+                        <option value="uttar-pradesh">Uttar Pradesh</option>
+                        <option value="maharashtra">Maharashtra</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="bihar">Bihar</option>
+                        <option value="west-bengal">West Bengal</option>
+                        <option value="madhya-pradesh">Madhya Pradesh</option>
+                        <option value="rajasthan">Rajasthan</option>
+                        <option value="gujarat">Gujarat</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="tamil-nadu">Tamil Nadu</option>
+                        <!-- Add more states as needed -->
+                    </select>
+                </div>
+
+                <div id="quiz-container" class="text-left">
+                    <div id="question-display" class="bg-gray-100 p-6 rounded-lg mb-4 shadow-sm">
+                        <p class="text-lg font-semibold" id="question-text">Loading question...</p>
+                        <div id="options-container" class="mt-4 space-y-2">
+                            <!-- Options will be dynamically loaded here -->
+                        </div>
+                    </div>
+                    <button id="next-question-btn" class="cta-button w-full py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors duration-300 text-lg">Next Question</button>
+                    <button id="submit-quiz-btn" class="cta-button w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors duration-300 text-lg mt-4 hidden">Submit Test</button>
+                </div>
+
+                <div id="quiz-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
+                    <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">Test Results</h3>
+                    <p class="text-lg mb-2">Your Score: <span id="score-display" class="font-bold"></span></p>
+                    <p class="text-lg mb-4">You <span id="pass-fail-status" class="font-bold"></span> the test!</p>
+                    <button id="retake-test-btn" class="cta-button py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base">Retake Test</button>
+                    <ul id="answers-review-list" class="list-none p-0 mt-4">
+                        <!-- Answer review will be dynamically added here -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+    <script src="dl-mock-test-tool.js"></script>
+</body>
+</html>
