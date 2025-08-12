@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-hi="विस्तृत जमीन जांच टूल" data-en="Detailed Land Verification Tool">विस्तृत जमीन जांच टूल</title>
+    <title>Detailed Land Verification Tool</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -14,10 +14,10 @@
             <div class="logo">ToolMantra</div>
             <nav>
                 <ul>
-                    <li><a href="index.html" data-hi="होम" data-en="Home">होम</a></li>
-                    <li><a href="blog.html" data-hi="ब्लॉग" data-en="Blog">ब्लॉग</a></li>
-                    <li><a href="all-tools.html" data-hi="सभी टूल" data-en="All Tools">सभी टूल</a></li>
-                    <li class="language-switcher"><button id="lang-btn" data-hi="English" data-en="हिंदी">English</button></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                    <!-- Language switcher removed as per request -->
                 </ul>
             </nav>
         </div>
@@ -25,33 +25,32 @@
     <main>
         <section class="tool-container">
             <div class="tool-content">
-                <h2 id="tool-heading" data-hi='जमीन खरीदने की "जांच" टूल' data-en='Land "Verification" Tool'>जमीन खरीदने की "जांच" टूल</h2>
-                <p id="tool-description" data-hi="जमीन खरीदने से पहले कानूनी जानकारी, और ताजा कानून का हिसाब लगाएं।" data-en="Verify legal details and current laws before purchasing land.">जमीन खरीदने से पहले कानूनी जानकारी, और ताजा कानून का हिसाब लगाएं।</p>
+                <h2 id="tool-heading">Land "Verification" Tool</h2>
+                <p id="tool-description">Verify legal details and current laws before purchasing land.</p>
                 <div class="form-group">
-                    <label for="state-select" id="label-state" data-hi="राज्य चुनें:" data-en="Select State:">राज्य चुनें:</label>
+                    <label for="state-select" id="label-state">Select State:</label>
                     <select id="state-select">
-                        <option value="" data-hi="-- एक राज्य चुनें --" data-en="-- Select a State --">-- एक राज्य चुनें --</option>
-                        <option value="andhra-pradesh" data-hi="आंध्र प्रदेश" data-en="Andhra Pradesh">आंध्र प्रदेश</option>
-                        <option value="uttar-pradesh" data-hi="उत्तर प्रदेश" data-en="Uttar Pradesh">उत्तर प्रदेश</option>
-                        <option value="maharashtra" data-hi="महाराष्ट्र" data-en="Maharashtra">महाराष्ट्र</option>
-                        <option value="karnataka" data-hi="कर्नाटक" data-en="Karnataka">कर्नाटक</option>
-                        <option value="tamil-nadu" data-hi="तमिलनाडु" data-en="Tamil Nadu">तमिलनाडु</option>
-                        <option value="gujarat" data-hi="गुजरात" data-en="Gujarat">गुजरात</option>
-                        <option value="rajasthan" data-hi="राजस्थान" data-en="Rajasthan">राजस्थान</option>
+                        <option value="">-- Select a State --</option>
+                        <option value="andhra-pradesh">Andhra Pradesh</option>
+                        <option value="uttar-pradesh">Uttar Pradesh</option>
+                        <option value="maharashtra">Maharashtra</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="tamil-nadu">Tamil Nadu</option>
+                        <option value="gujarat">Gujarat</option>
+                        <option value="rajasthan">Rajasthan</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="land-type" id="label-land-type" data-hi="जमीन का प्रकार चुनें:" data-en="Select Land Type:">जमीन का प्रकार चुनें:</label>
+                    <label for="land-type" id="label-land-type">Select Land Type:</label>
                     <select id="land-type">
-                        <option value="residential" data-hi="आवासीय" data-en="Residential">आवासीय</option>
-                        <option value="agricultural" data-hi="कृषि" data-en="Agricultural">कृषि</option>
-                        <option value="commercial" data-hi="व्यावसायिक" data-en="Commercial">व्यावसायिक</option>
+                        <option value="residential">Residential</option>
+                        <option value="agricultural">Agricultural</option>
+                        <option value="commercial">Commercial</option>
                     </select>
                 </div>
-                <button id="verify-btn" class="cta-button" data-hi="जांच शुरू करें" data-en="Start Verification">जांच शुरू करें</button>
-                <!-- यहाँ 'style="display: none;"' को हटा दिया गया है और 'class="hidden"' का उपयोग किया गया है। -->
+                <button id="verify-btn" class="cta-button">Start Verification</button>
                 <div id="results-section" class="hidden">
-                    <h3 id="results-title" data-hi="जांच के परिणाम" data-en="Verification Results">जांच के परिणाम</h3>
+                    <h3 id="results-title">Verification Results</h3>
                     <ul id="results-list"></ul>
                 </div>
             </div>
@@ -61,28 +60,28 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3 data-hi="टूलमंत्रा" data-en="ToolMantra">टूलमंत्रा</h3>
-                    <p data-hi="टूलमंत्रा भारत का पहला ऐसा फ्री टूलबॉक्स है जो आम आदमी की रोज़ की समस्याओं का आसान बनाता है। हमारा लक्ष्य हर भारतीय को ज़रूरी डिजिटल टूल्स मुफ्त में प्रदान करना है।" data-en="ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.">टूलमंत्रा भारत का पहला ऐसा फ्री टूलबॉक्स है जो आम आदमी की रोज़ की समस्याओं का आसान बनाता है। हमारा लक्ष्य हर भारतीय को ज़रूरी डिजिटल टूल्स मुफ्त में प्रदान करना है।</p>
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
                 </div>
                 <div class="footer-links">
-                    <h4 data-hi="त्वरित लिंक" data-en="Quick Links">त्वरित लिंक</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html" data-hi="होम" data-en="Home">होम</a></li>
-                        <li><a href="blog.html" data-hi="ब्लॉग" data-en="Blog">ब्लॉग</a></li>
-                        <li><a href="#" data-hi="सभी टूल" data-en="All Tools">सभी टूल</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4 data-hi="कानूनी" data-en="Legal">कानूनी</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="privacy.html" data-hi="गोपनीयता नीति" data-en="Privacy Policy">गोपनीयता नीति</a></li>
-                        <li><a href="terms.html" data-hi="नियम एवं शर्तें" data-en="Terms & Conditions">नियम एवं शर्तें</a></li>
-                        <li><a href="terms.html" data-hi="अस्वीकरण" data-en="Disclaimer">अस्वीकरण</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p data-hi="&copy; 2024 टूलमंत्रा। सभी अधिकार सुरक्षित हैं।" data-en="&copy; 2024 ToolMantra. All Rights Reserved.">&copy; 2024 टूलमंत्रा। सभी अधिकार सुरक्षित हैं。</p>
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
