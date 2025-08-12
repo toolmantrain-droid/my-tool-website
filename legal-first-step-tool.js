@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("legal-first-step-tool.js: DOM content loaded. Initializing legal first step tool script.");
 
-    // Get references to the HTML elements
+    // Getting references to the HTML elements
     const getGuidanceBtn = document.getElementById('get-guidance-btn');
     const issueTypeSelect = document.getElementById('issue-type-select');
     const guidanceResultsSection = document.getElementById('guidance-results-section');
@@ -62,6 +62,16 @@ document.addEventListener('DOMContentLoaded', function() {
             "**3. Pay the Fine:** If you accept the violation, pay the fine online or at designated payment centers within the stipulated time to avoid further penalties.",
             "**4. Contest the Challan (If applicable):** If you believe the challan was issued incorrectly, you can contest it by appearing before the traffic court or designated authority on the date mentioned on the challan, or as per online instructions. Gather evidence (photos, videos) to support your claim.",
             "**5. Legal Advice:** For serious violations or complex situations, consider consulting a lawyer."
+        ],
+        'website-seo': [ // New SEO guidance added here
+            "**1. Content Quality & Relevancy:** Create high-quality, unique, and valuable content that directly answers user queries. Ensure it's relevant to your target audience.",
+            "**2. Keyword Research & Usage:** Identify keywords people use to search for your services. Strategically use these keywords in your content, headings, and meta descriptions.",
+            "**3. User Experience (UX):** Ensure your website is fast, easy to navigate, and mobile-friendly. A good UX reduces bounce rates and encourages longer visits.",
+            "**4. Backlinks (Off-Page SEO):** Get high-quality backlinks from reputable websites. This signals to Google that your site is trustworthy and authoritative.",
+            "**5. Technical SEO:** Optimize your website's technical aspects, including site speed, mobile responsiveness, clear site structure, and proper use of schema markup.",
+            "**6. Domain Authority & Trust:** Build your website's authority over time through consistent quality content, positive user signals, and ethical SEO practices.",
+            "**7. Competitive Analysis:** Understand what your competitors are doing well in terms of SEO and identify opportunities to differentiate and improve your own strategy.",
+            "**8. Regular Updates:** Keep your content fresh and updated. Google favors websites that provide current and accurate information."
         ]
     };
 
