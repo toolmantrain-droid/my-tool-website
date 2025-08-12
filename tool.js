@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
          = []
 
         // Check if a state is selected
-        if (!selectedState) {
+         (!selectedState) {
             console.log("No state selected. Showing general guidelines and warning.");
             resultsList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">${lang === 'hi' ? 'कृपया जांच शुरू करने से पहले एक राज्य चुनें। सामान्य दिशानिर्देश नीचे दिए गए हैं।' : 'Please select a state before starting verification. General guidelines are listed below.'}</li>`;
             
