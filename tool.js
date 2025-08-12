@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
       (lang) 
         .log(`displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`)
         
-         = landTypeSelect.value;
+         = landTypeSelect.value
         const selectedState = stateSelect.value;
         
         resultsList.innerHTML = ''; // Clear previous results
