@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
            = stateSelect.value
         
        .innerHTML = '' // Clear previous results
-        resultsSection.classList.remove('hidden'); // Ensure results section is visible
+        .classList.remove('hidden') // Ensure results section is visible
 
         let resultsToDisplay = [];
 
