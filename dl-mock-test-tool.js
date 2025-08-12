@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const passFailStatus = document.getElementById('pass-fail-status');
     const retakeTestBtn = document.getElementById('retake-test-btn');
     const answersReviewList = document.getElementById('answers-review-list');
+    const messageBox = document.createElement('div'); // For in-page messages instead of alert
+    messageBox.classList.add('bg-red-100', 'border', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative', 'mb-4', 'hidden');
+    messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+    questionDisplay.parentNode.insertBefore(messageBox, questionDisplay.nextSibling); // Insert after question display
 
     // Check if essential elements are found
     if (!stateSelect) console.error("dl-mock-test-tool.js Error: 'state-select' element not found.");
@@ -32,64 +36,80 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mock Test Questions and Answers
     const questions = [
         {
-            question: "What does a triangular road sign with a red border and a black symbol of a pedestrian mean?",
+            question: "What does this road sign indicate?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/India_road_sign_A1.svg/100px-India_road_sign_A1.svg.png", // Pedestrian Crossing
+            altText: "Triangular road sign with red border and black pedestrian symbol, indicating pedestrian crossing ahead.",
             options: ["Pedestrian crossing ahead", "No pedestrians allowed", "School ahead", "Hospital ahead"],
             answer: "Pedestrian crossing ahead",
-            explanation: "This sign indicates that there is a pedestrian crossing ahead, warning drivers to be cautious."
+            explanation: "This sign is a warning sign indicating that there is a designated pedestrian crossing zone ahead. Drivers should slow down and be prepared to stop."
         },
         {
             question: "What is the legal drinking age for driving in most Indian states?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/India_road_sign_R1.svg/100px-India_road_sign_R1.svg.png", // No Entry (example of a mandatory sign)
+            altText: "Circular road sign with red border and white horizontal bar, indicating no entry.",
             options: ["18 years", "21 years", "25 years", "No age limit"],
             answer: "21 years",
-            explanation: "In most Indian states, the legal drinking age for driving (and consuming alcohol) is 21 years. Driving under the influence of alcohol is a serious offense."
+            explanation: "In most Indian states, the legal drinking age for driving (and consuming alcohol) is 21 years. Driving under the influence of alcohol is a serious offense punishable by law under the Motor Vehicles Act."
         },
         {
             question: "What does a solid white line on the road indicate?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/India_road_marking_solid_white_line.svg/100px-India_road_marking_solid_white_line.svg.png", // Solid White Line
+            altText: "Road marking showing a solid white line.",
             options: ["You can change lanes", "You must not change lanes", "Overtaking is allowed", "Parking is allowed"],
             answer: "You must not change lanes",
-            explanation: "A solid white line indicates that changing lanes is prohibited. You must stay in your current lane."
+            explanation: "A solid white line indicates that changing lanes, overtaking, or crossing the line is prohibited. You must stay in your current lane."
         },
         {
             question: "What should you do if your vehicle breaks down on a highway?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/India_road_sign_W1.svg/100px-India_road_sign_W1.svg.png", // Warning Triangle (example)
+            altText: "Triangular road sign with red border and black exclamation mark, indicating general warning.",
             options: ["Leave the vehicle and seek help", "Park on the side, turn on hazard lights, and place a warning triangle", "Try to fix it in the middle of the road", "Call a friend to tow you"],
             answer: "Park on the side, turn on hazard lights, and place a warning triangle",
-            explanation: "Safety first! Move your vehicle to the extreme left, turn on hazard lights, and place a warning triangle 50-100 meters behind to alert other drivers."
+            explanation: "In case of a breakdown on a highway, move your vehicle to the extreme left, turn on hazard lights, and place a warning triangle 50-100 meters behind your vehicle to alert other drivers and prevent accidents."
         },
         {
             question: "What is the maximum speed limit for a light motor vehicle (LMV) on a national highway in India (unless otherwise specified)?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/India_road_sign_R2.svg/100px-India_road_sign_R2.svg.png", // Speed Limit (example)
+            altText: "Circular road sign with red border and number 50, indicating speed limit.",
             options: ["60 km/h", "80 km/h", "100 km/h", "120 km/h"],
             answer: "100 km/h",
-            explanation: "While specific limits can vary by state and road, the general maximum speed limit for LMVs on National Highways is 100 km/h. Always check local signage."
+            explanation: "While specific limits can vary by state and road, the general maximum speed limit for LMVs on National Highways is 100 km/h. Always check local signage for specific speed limits."
         },
         {
-            question: "What does a circular sign with a red border and a white background with a black arrow pointing left and a red diagonal line through it mean?",
+            question: "What does this circular road sign mean?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/India_road_sign_R4.svg/100px-India_road_sign_R4.svg.png", // No Left Turn
+            altText: "Circular road sign with red border and black arrow pointing left with a red diagonal line through it, indicating no left turn.",
             options: ["Turn left", "No left turn", "One way left", "Left lane ahead"],
             answer: "No left turn",
-            explanation: "This sign indicates that taking a left turn is prohibited at that intersection."
+            explanation: "This mandatory sign indicates that taking a left turn is prohibited at that intersection or road section."
         },
         {
             question: "When approaching a roundabout, what should you do?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/India_road_sign_M1.svg/100px-India_road_sign_M1.svg.png", // Roundabout (example of mandatory sign)
+            altText: "Blue circular road sign with white arrows forming a roundabout symbol, indicating mandatory roundabout.",
             options: ["Give way to traffic from the right", "Give way to traffic from the left", "Stop and wait for all traffic to pass", "Enter without stopping"],
             answer: "Give way to traffic from the right",
-            explanation: "In India, traffic in a roundabout moves clockwise. You must give way to traffic already in the roundabout coming from your right."
+            explanation: "In India, traffic in a roundabout moves clockwise. You must give way to traffic already in the roundabout coming from your right. This is a fundamental rule for safe navigation through roundabouts."
         },
         {
             question: "What is the penalty for driving without a valid driving license in India?",
             options: ["Small fine", "Imprisonment or heavy fine", "Warning only", "No penalty"],
             answer: "Imprisonment or heavy fine",
-            explanation: "Driving without a valid license is a serious offense under the Motor Vehicles Act, attracting significant fines and/or imprisonment."
+            explanation: "Driving without a valid license is a serious offense under the Motor Vehicles Act, attracting significant fines (up to ₹5,000 for first offense) and/or imprisonment. It is illegal and unsafe."
         },
         {
-            question: "What does a blue circular sign with a white arrow pointing straight ahead mean?",
+            question: "What does this blue circular road sign mean?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/India_road_sign_M2.svg/100px-India_road_sign_M2.svg.png", // Go Straight Only
+            altText: "Blue circular road sign with a white arrow pointing straight ahead, indicating go straight only.",
             options: ["Go straight only", "One way street", "No entry", "Stop ahead"],
             answer: "Go straight only",
-            explanation: "This mandatory sign indicates that vehicles must proceed straight ahead only."
+            explanation: "This mandatory sign indicates that vehicles must proceed straight ahead only and are not permitted to turn left or right."
         },
         {
             question: "What is the minimum age to obtain a learner's license for a geared two-wheeler (motorcycle with gear)?",
             options: ["16 years", "18 years", "20 years", "21 years"],
             answer: "18 years",
-            explanation: "The minimum age for a learner's license for a geared two-wheeler is 18 years. For a non-geared two-wheeler (like a scooter) without gear, it's 16 years with parental consent."
+            explanation: "The minimum age for a learner's license for a geared two-wheeler is 18 years. For a non-geared two-wheeler (like a scooter) without gear, it's 16 years with parental consent, as per the Motor Vehicles Act."
         }
     ];
 
@@ -141,11 +161,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // Function to show in-page message
+    function showMessage(text, type = 'error') {
+        const messageBoxText = document.getElementById('message-box-text');
+        messageBoxText.textContent = text;
+        messageBox.classList.remove('hidden');
+        if (type === 'error') {
+            messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+            messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+        } else { // For success or info
+            messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+            messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+        }
+        // Hide message after some time
+        setTimeout(() => {
+            messageBox.classList.add('hidden');
+        }, 5000);
+    }
+
     // Function to load a question
     function loadQuestion() {
         if (currentQuestionIndex < questions.length) {
             const q = questions[currentQuestionIndex];
-            questionText.textContent = `Q${currentQuestionIndex + 1}: ${q.question}`;
+            
+            // Clear previous content in questionDisplay
+            questionDisplay.innerHTML = ''; 
+
+            // Add question text
+            const questionP = document.createElement('p');
+            questionP.classList.add('text-lg', 'font-semibold');
+            questionP.textContent = `Q${currentQuestionIndex + 1}: ${q.question}`;
+            questionDisplay.appendChild(questionP);
+
+            // Add image if available
+            if (q.image) {
+                const questionImg = document.createElement('img');
+                questionImg.src = q.image;
+                questionImg.alt = q.altText || `Road sign for: ${q.question}`; // Alt text for accessibility and SEO
+                questionImg.classList.add('mt-4', 'mb-4', 'max-w-xs', 'h-auto', 'rounded-lg', 'shadow-md'); // Tailwind classes for image styling
+                // Fallback for broken images
+                questionImg.onerror = function() {
+                    this.onerror=null; // Prevents infinite loop if fallback also fails
+                    this.src='https://placehold.co/100x100/CCCCCC/000000?text=Image+Not+Found'; // Generic fallback
+                    this.alt='Image not found';
+                };
+                questionDisplay.appendChild(questionImg);
+            }
+
             optionsContainer.innerHTML = ''; // Clear previous options
 
             q.options.forEach((option, index) => {
@@ -157,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 radioInput.value = option;
                 radioInput.id = `option${index}`;
                 radioInput.classList.add('mr-2', 'form-radio', 'h-4', 'w-4', 'text-purple-600'); // Tailwind for radio styling
+                radioInput.setAttribute('aria-label', `Option ${index + 1}: ${option}`); // Accessibility
 
                 const radioLabel = document.createElement('label');
                 radioLabel.htmlFor = `option${index}`;
@@ -169,7 +232,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             nextQuestionBtn.classList.remove('hidden');
+            nextQuestionBtn.setAttribute('aria-label', 'Next Question'); // Accessibility
             submitQuizBtn.classList.add('hidden');
+            submitQuizBtn.setAttribute('aria-label', 'Submit Test'); // Accessibility
             quizResultsSection.classList.add('hidden'); // Hide results section during test
             
             // Show submit button on the last question
@@ -228,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             li.innerHTML = `
                 <p class="font-semibold">${index + 1}. ${q.question}</p>
+                ${q.image ? `<img src="${q.image}" alt="${q.altText || 'Road sign'}" class="my-2 max-w-[80px] h-auto rounded-md">` : ''}
                 <p>Your Answer: <span class="${isCorrect ? 'text-green-700' : 'text-red-700'}">${userAnswer || 'Not Answered'}</span></p>
                 <p>Correct Answer: <span class="text-green-700">${q.answer}</span></p>
                 <p class="text-sm text-gray-600">Explanation: ${q.explanation}</p>
@@ -272,6 +338,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li>**Comprehensive explanations** for every answer, including relevant sections of the Motor Vehicles Act.</li>
                 <li>**Personalized learning paths** based on user performance.</li>
                 <li>**Strong authoritative backlinks** from educational or government-related sites.</li>
+                <li>**Implementation of Structured Data (Schema.org)** for test questions and answers to help Google understand your content better.</li>
+                <li>**Proper use of Canonical Tags** on pages with similar content (e.g., if you have state-specific test versions) to avoid duplicate content issues.</li>
+                <li>**Continuous content updates** to reflect changes in RTO rules and questions.</li>
             </ul>
             This tool serves as a functional demonstration of a mock test.
         `;
@@ -281,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event Listeners
     nextQuestionBtn.addEventListener('click', function() {
         if (getSelectedAnswer() === null) {
-            alert("Please select an answer before proceeding."); // Using alert for simplicity, can be replaced with custom modal
+            showMessage("Please select an answer before proceeding.");
             return;
         }
         checkAnswer();
@@ -295,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     submitQuizBtn.addEventListener('click', function() {
         if (getSelectedAnswer() === null && currentQuestionIndex === questions.length - 1) {
-            alert("Please select an answer before submitting."); // Using alert for simplicity
+            showMessage("Please select an answer before submitting.");
             return;
         }
         checkAnswer(); // Check the last answer
@@ -309,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         quizResultsSection.classList.add('hidden');
         quizContainer.classList.remove('hidden');
         loadQuestion();
+        messageBox.classList.add('hidden'); // Hide message box on retake
     });
 
     // Initial load
