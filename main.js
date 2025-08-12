@@ -1,41 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const langBtn = document.getElementById('lang-btn');
-    const allElements = document.querySelectorAll('[data-hi], [data-en]');
+    // No language switching logic needed as per request.
+    // This file can be used for any other general website-wide JavaScript functionality.
 
-    let isEnglish = false;
+    // Example: You might still want to check if certain elements exist
+    // const someElement = document.getElementById('some-id');
+    // if (!someElement) console.error("Error: 'some-id' element not found.");
 
-    const updateLanguage = () => {
-        const newLang = isEnglish ? 'en' : 'hi';
-        document.documentElement.lang = newLang; 
-
-        allElements.forEach(el => {
-            if (el.dataset[newLang]) {
-                if (el.tagName === 'TITLE') {
-                    document.title = el.dataset[newLang];
-                } else if (el.tagName === 'OPTION') {
-                    if (el.value === "") { 
-                        el.textContent = isEnglish ? "-- Select a State --" : "-- एक राज्य चुनें --";
-                    } else {
-                        el.textContent = el.dataset[newLang];
-                    }
-                } else {
-                    el.textContent = el.dataset[newLang];
-                }
-            }
-        });
-        
-        langBtn.textContent = isEnglish ? 'हिंदी' : 'English';
-        
-        const verifyBtn = document.getElementById('verify-btn');
-        if (verifyBtn) {
-            verifyBtn.textContent = isEnglish ? 'Start Verification' : 'जांच शुरू करें';
-        }
-    };
-
-    langBtn.addEventListener('click', () => {
-        isEnglish = !isEnglish;
-        updateLanguage();
-    });
-    
-    updateLanguage(); 
+    // Ensure the HTML lang attribute is always 'en'
+    document.documentElement.lang = 'en';
 });
