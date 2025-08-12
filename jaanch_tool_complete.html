@@ -304,24 +304,24 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log("Script loaded and DOM content loaded.");
+            console.log("Script loaded and DOM content loaded: यह संदेश दर्शाता है कि HTML डॉक्यूमेंट पूरी तरह से लोड हो गया है और JavaScript स्क्रिप्ट चलना शुरू हो गई है।");
 
             // Get references to DOM elements
             const langBtn = document.getElementById('lang-btn');
             const verifyBtn = document.getElementById('verify-btn');
             const stateSelect = document.getElementById('state-select');
             const landTypeSelect = document.getElementById('land-type');
-            const resultsSection = document.getElementById('results-section'); // This element needs to be correctly identified
+            const resultsSection = document.getElementById('results-section'); 
             const resultsList = document.getElementById('results-list');
             const allElements = document.querySelectorAll('[data-hi], [data-en]');
 
             // Check if essential elements are found
-            if (!verifyBtn) console.error("Error: 'verify-btn' not found.");
-            if (!stateSelect) console.error("Error: 'state-select' not found.");
-            if (!landTypeSelect) console.error("Error: 'land-type' not found.");
-            if (!resultsSection) console.error("Error: 'results-section' not found. This is likely the cause of the 'Cannot read properties of null' error.");
-            if (!resultsList) console.error("Error: 'results-list' not found.");
-            if (!langBtn) console.error("Error: 'lang-btn' not found.");
+            if (!verifyBtn) console.error("Error: 'verify-btn' element not found. सुनिश्चित करें कि HTML में 'verify-btn' ID वाला बटन मौजूद है।");
+            if (!stateSelect) console.error("Error: 'state-select' element not found. सुनिश्चित करें कि HTML में 'state-select' ID वाला ड्रॉपडाउन मौजूद है।");
+            if (!landTypeSelect) console.error("Error: 'land-type' element not found. सुनिश्चित करें कि HTML में 'land-type' ID वाला ड्रॉपdown मौजूद है।");
+            if (!resultsSection) console.error("Error: 'results-section' element not found. यह अक्सर 'Cannot read properties of null' एरर का कारण होता है। सुनिश्चित करें कि HTML में 'results-section' ID वाला div मौजूद है।");
+            if (!resultsList) console.error("Error: 'results-list' element not found. सुनिश्चित करें कि HTML में 'results-list' ID वाला ul/ol मौजूद है।");
+            if (!langBtn) console.error("Error: 'lang-btn' element not found. सुनिश्चित करें कि HTML में 'lang-btn' ID वाला बटन मौजूद है।");
 
 
             let isEnglish = false; 
@@ -382,7 +382,7 @@
                             "   - **मास्टर प्लान:** सुनिश्चित करें कि जमीन शहर के मास्टर प्लान में व्यावसायिक क्षेत्र के रूप में चिन्हित है।",
                             "   - **एफएआर (FAR - Floor Area Ratio) / एफएसआई (FSI - Floor Space Index):** यह जांचें कि प्रस्तावित निर्माण के लिए स्वीकार्य FAR/FSI क्या है।",
                             "**2. अनुमतियां और लाइसेंस (Permissions & Licenses):**",
-                            "   - **अनापत्ति प्रमाण पत्र (NOCs):** संबंधित विभागों (जैसे अग्निशमन, पर्यावरण, यातायात, नगर पालिका) से सभी आवश्यक NOCs प्राप्त करें।",
+                            "   - **अनापत्ति प्रमाण पत्र (NOCs):** संबंधित विभागों (जैसे प्रदूषण नियंत्रण बोर्ड, अग्निशमन विभाग, शहरी विकास प्राधिकरण) से सभी आवश्यक NOCs प्राप्त करें।",
                             "   - **निर्माण योजना अनुमोदन:** स्थानीय विकास प्राधिकरण से निर्माण योजना के अनुमोदन की प्रक्रिया और आवश्यकताओं को समझें।",
                             "   - **पर्यावरण मंजूरी (Environmental Clearances):** यदि प्रस्तावित व्यावसायिक गतिविधि के लिए आवश्यक हो, तो पर्यावरण मंजूरी की जांच करें।",
                             "**3. वित्तीय और कानूनी जांच (Financial & Legal Due Diligence):**",
@@ -420,7 +420,7 @@
                             "   - **Payment Methods:** Ensure all payments are made through legal and transparent methods and keep records.",
                             "**7. Post-Purchase Formalities:**",
                             "   - **Mutation:** Ensure to get the mutation done in your name in the revenue records after purchase.",
-                            "   - **Property Tax Update:** Update the property tax records with the local authority in your name."
+                            "      - **Property Tax Update:** Update the property tax records with the local authority in your name."
                         ],
                         agricultural: [
                             "**1. Land Records Verification:**",
@@ -576,7 +576,7 @@
 
             // Function to update all text elements on the page based on the current language
             const updateLanguage = () => {
-                console.log("updateLanguage called.");
+                console.log("updateLanguage called: यह फंक्शन भाषा बदलने के लिए सभी टेक्स्ट एलिमेंट्स को अपडेट करता है।");
                 const newLang = isEnglish ? 'en' : 'hi';
                 document.documentElement.lang = newLang; // Update HTML lang attribute
 
@@ -606,7 +606,7 @@
                 // Re-display results in the new language if the results section is currently visible
                 // Also check if resultsSection is not null before trying to access its classList
                 if (resultsSection && !resultsSection.classList.contains('hidden')) {
-                    console.log("Results section visible, re-displaying results after language change.");
+                    console.log("Results section visible, re-displaying results after language change: यदि परिणाम सेक्शन दिख रहा है, तो भाषा बदलने पर परिणामों को नई भाषा में फिर से प्रदर्शित किया जा रहा है।");
                     displayResults(newLang);
                 }
             };
@@ -614,23 +614,23 @@
             // Event listener for the "Start Verification" button
             if (verifyBtn) { // Ensure verifyBtn is not null before adding listener
                 verifyBtn.addEventListener('click', function() {
-                    console.log("Verify button clicked. Attempting to display results.");
+                    console.log("Verify button clicked. Attempting to display results: 'जांच शुरू करें' बटन पर क्लिक किया गया है, अब परिणाम प्रदर्शित करने का प्रयास किया जा रहा है।");
                     const currentLang = document.documentElement.lang;
                     displayResults(currentLang);
                 });
             } else {
-                console.error("Initialization Error: 'verify-btn' element not found.");
+                console.error("Initialization Error: 'verify-btn' element not found. स्क्रिप्ट शुरू होने पर 'verify-btn' ID वाला बटन नहीं मिला।");
             }
 
             // Event listener for the language switcher button
             if (langBtn) { // Ensure langBtn is not null before adding listener
                 langBtn.addEventListener('click', () => {
-                    console.log("Language button clicked.");
+                    console.log("Language button clicked: भाषा बदलने वाले बटन पर क्लिक किया गया है।");
                     isEnglish = !isEnglish;
                     updateLanguage();
                 });
             } else {
-                console.error("Initialization Error: 'lang-btn' element not found.");
+                console.error("Initialization Error: 'lang-btn' element not found. स्क्रिप्ट शुरू होने पर 'lang-btn' ID वाला बटन नहीं मिला।");
             }
             
             // Initial language setup when the page loads
