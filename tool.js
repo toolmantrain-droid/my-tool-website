@@ -1,10 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("tool.js: DOM content loaded. Initializing tool script.");
+
+    // Getting references to the HTML elements
     const verifyBtn = document.getElementById('verify-btn');
     const stateSelect = document.getElementById('state-select');
     const landTypeSelect = document.getElementById('land-type');
     const resultsSection = document.getElementById('results-section');
     const resultsList = document.getElementById('results-list');
 
+    // Data for verification results in both Hindi and English
+    // This data includes general guidelines and specific guidelines for Uttar Pradesh.
     const resultsData = {
         general: {
             hi: {
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         "**4. Environmental & Other Aspects:**",
                         "   - **Soil Quality & Water Availability:** If purchasing for agriculture, assess soil quality and availability of water sources.",
                         "   - **Government Schemes:** Check if the land falls under any government project (e.g., canal, highway, industrial zone) for acquisition."
-                    ],
+                        ],
                     commercial: [
                         "**1. Zoning & Master Plan:**",
                         "   - **Land Use Certificate:** Obtain this certificate from the local planning authority confirming the land is approved for commercial use.",
@@ -96,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         "   - **Environmental Clearances:** If required for the proposed commercial activity, check for environmental clearances.",
                         "**3. Financial & Legal Due Diligence:**",
                         "   - **Property Tax Dues:** Check that no property tax or other commercial charges are outstanding.",
-                            "   - **Rental or Lease Agreement:** If the land is currently rented or leased, carefully review existing agreements and their terms.",
+                        "   - **Rental or Lease Agreement:** If the land is currently rented or leased, carefully review existing agreements and their terms.",
                         "   - **Company / Firm Owned Land:** If the seller is a company or firm, check its incorporation documents, authorized signatories, and board resolutions."
                     ]
                 }
@@ -121,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         "   - **अल्पसंख्यक / SC/ST की भूमि:** सुनिश्चित करें कि विक्रेता अल्पसंख्यकों या अनुसूचित जाति/जनजाति वर्ग से नहीं है यदि आप इन श्रेणियों से संबंधित नहीं हैं, क्योंकि ऐसी भूमि की खरीद-फरोख्त पर विशिष्ट प्रतिबंध हो सकते हैं।"
                     ],
                     commercial: [
-                        "**उत्तर प्रदेश विशिष्ट जानकारी (Uttar Pradesh Pradesh Specific Information):**",
+                        "**उत्तर प्रदेश विशिष्ट जानकारी (Uttar Pradesh Specific Information):**",
                         "   - **विकास प्राधिकरणों के नियम:** उत्तर प्रदेश में व्यावसायिक भूमि के लिए, लखनऊ विकास प्राधिकरण (LDA), गाजियाबाद विकास प्राधिकरण (GDA), नोएडा/ग्रेटर नोएडा अथॉरिटी जैसे स्थानीय विकास प्राधिकरणों से जोनिंग, मास्टर प्लान, और भूमि उपयोग के नियमों की पुष्टि करें।",
                         "   - **भू-परिवर्तन (Land Conversion):** सुनिश्चित करें कि भूमि का व्यावसायिक उपयोग के लिए उपयुक्त भू-परिवर्तन (Agricultural to Commercial) राजस्व विभाग से अनुमोदित है।",
                         "   - **फायर सेफ्टी और पर्यावरण अनापत्ति (Fire Safety & Environmental NOC):** प्रस्तावित व्यावसायिक इकाई के लिए उत्तर प्रदेश फायर सर्विस और राज्य प्रदूषण नियंत्रण बोर्ड से आवश्यक अनापत्ति प्रमाण पत्र प्राप्त करें।",
@@ -157,44 +162,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     ]
                 }
             }
-    }
+    };
     
-      (lang) 
-        .log(`displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`)
+    // Function to display results based on selected land type and current language
+    function displayResults(lang) {
+        console.log(`tool.js: displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`);
         
-           = landTypeSelect.value
-           = stateSelect.value
+        const selectedLandType = landTypeSelect.value;
+        const selectedState = stateSelect.value;
         
-       .innerHTML = '' // Clear previous results
-        .classList.remove('hidden') // Ensure results section is visible
+        resultsList.innerHTML = ''; // Clear previous results
+        resultsSection.classList.remove('hidden'); // Ensure results section is visible
 
-         = []
+        let resultsToDisplay = [];
 
         // Check if a state is selected
-         (!selectedState) 
-            console.log("No state selected. Showing general guidelines and warning.");
+        if (!selectedState) {
+            console.log("tool.js: No state selected. Showing general guidelines and warning.");
             resultsList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">${lang === 'hi' ? 'कृपया जांच शुरू करने से पहले एक राज्य चुनें। सामान्य दिशानिर्देश नीचे दिए गए हैं।' : 'Please select a state before starting verification. General guidelines are listed below.'}</li>`;
             
             // Always show general guidelines even if no state is selected
             if (resultsData.general[lang] && resultsData.general[lang][selectedLandType]) {
                 resultsToDisplay = resultsToDisplay.concat(resultsData.general[lang][selectedLandType]);
             } else {
-                console.warn(`General data missing for land type: ${selectedLandType} in lang: ${lang}`);
+                console.warn(`tool.js: General data missing for land type: ${selectedLandType} in lang: ${lang}`);
             }
         } else {
-            console.log(`State selected: ${selectedState}. Fetching specific and general guidelines.`);
+            console.log(`tool.js: State selected: ${selectedState}. Fetching specific and general guidelines.`);
             // Display general guidelines first
             if (resultsData.general[lang] && resultsData.general[lang][selectedLandType]) {
                 resultsToDisplay = resultsToDisplay.concat(resultsData.general[lang][selectedLandType]);
             } else {
-                console.warn(`General data missing for land type: ${selectedLandType} in lang: ${lang}`);
+                console.warn(`tool.js: General data missing for land type: ${selectedLandType} in lang: ${lang}`);
             }
 
             // Add state-specific guidelines if a state is selected and data exists for it
             if (resultsData[selectedState] && resultsData[selectedState][lang] && resultsData[selectedState][lang][selectedLandType]) {
                 resultsToDisplay = resultsToDisplay.concat(resultsData[selectedState][lang][selectedLandType]);
             } else {
-                console.warn(`State-specific data missing for state: ${selectedState}, land type: ${selectedLandType} in lang: ${lang}`);
+                console.warn(`tool.js: State-specific data missing for state: ${selectedState}, land type: ${selectedLandType} in lang: ${lang}`);
             }
         }
 
@@ -217,12 +223,23 @@ document.addEventListener('DOMContentLoaded', function() {
             `**Extremely Important Note:** This information is for general guidance only and cannot cover all legal aspects. For any significant land transaction, it is **mandatory to consult a local legal expert or lawyer**. Laws vary by state, change frequently, and may apply differently to your specific situation. This tool serves only as an initial guideline.`;
         stateNote.classList.add('bg-blue-50', 'p-4', 'rounded-lg', 'mb-2', 'text-sm', 'leading-relaxed', 'text-blue-800', 'mt-4');
         resultsList.appendChild(stateNote);
-        console.log("Results displayed.");
+        console.log("tool.js: Results displayed.");
     }
     
-    verifyBtn.addEventListener('click', function() {
-        console.log("Verify button clicked.");
-        const currentLang = document.documentElement.lang;
-        displayResults(currentLang);
-    });
+    // Event listener for the "Start Verification" button
+    if (verifyBtn) { // Check if the button exists before adding event listener
+        verifyBtn.addEventListener('click', function() {
+            console.log("tool.js: Verify button clicked. Attempting to display results.");
+            const currentLang = document.documentElement.lang; // Get current language from the HTML lang attribute
+            displayResults(currentLang);
+        });
+    } else {
+        console.error("tool.js: Verify button (ID 'verify-btn') not found in the DOM.");
+    }
+
+    // Initial display of results (optional, can be removed if you only want results after click)
+    // You might want to call displayResults() here if you want default results on page load
+    // For now, it's commented out as results are expected after user interaction.
+    // const initialLang = document.documentElement.lang;
+    // displayResults(initialLang); 
 });
