@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
        .innerHTML = '' // Clear previous results
         .classList.remove('hidden') // Ensure results section is visible
 
-        let resultsToDisplay = [];
+        resultsToDisplay = []
 
         // Check if a state is selected
         if (!selectedState) {
