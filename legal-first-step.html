@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal First Step Guide - ToolMantra</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Legal First Step Guide</h2>
+                <p id="tool-description">Get initial guidance on various legal issues like land disputes, cheque bounce, or official complaints.</p>
+
+                <div class="form-group mb-5 text-left">
+                    <label for="issue-type-select" id="label-issue-type" class="block font-semibold mb-2 text-purple-700">Select Legal Issue Type:</label>
+                    <select id="issue-type-select" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">-- Select an Issue --</option>
+                        <option value="land-dispute">Land Dispute</option>
+                        <option value="cheque-bounce">Cheque Bounce</option>
+                        <option value="office-complaint">Office Complaint</option>
+                        <option value="consumer-complaint">Consumer Complaint</option>
+                        <option value="family-dispute">Family Dispute</option>
+                        <option value="cyber-crime">Cyber Crime</option>
+                        <option value="traffic-violation">Traffic Violation</option>
+                    </select>
+                </div>
+                
+                <button id="get-guidance-btn" class="cta-button w-full py-3 px-6 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-colors duration-300 text-lg">Get Guidance</button>
+
+                <div id="guidance-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
+                    <h3 id="guidance-results-title" class="text-2xl font-semibold text-purple-700 mb-4">First Steps Guidance</h3>
+                    <ul id="guidance-list" class="list-none p-0">
+                        <!-- Guidance will be dynamically added here -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+    <script src="legal-first-step-tool.js"></script>
+</body>
+</html>
