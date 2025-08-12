@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Sample Data for Local Officers (Illustrative - Real data needs external API/database)
     // This data is expanded to include more states and districts for demonstration.
-    // Added state_portal_link, police_portal_link, revenue_portal_link, health_portal_link, pwd_portal_link, rural_dev_portal_link for each state.
+    // Added state_portal_link, police_portal_link, revenue_portal_link, health_portal_link, pwd_portal_link, rural_dev_portal_link, irrigation_portal_link for each state.
     const officerData = {
         'uttar-pradesh': {
             state_portal_link: 'https://up.gov.in/',
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://uphealth.up.nic.in/',
             pwd_portal_link: 'https://uppwd.gov.in/',
             rural_dev_portal_link: 'https://rural.up.nic.in/',
+            irrigation_portal_link: 'https://id.up.nic.in/', // Added Irrigation Link
             'lucknow': [
                 { designation: 'District Magistrate (DM)', name: 'Shri Surya Pratap Singh (Mock)', contact: 'dm.lko@up.gov.in', address: 'DM Office, Collectorate, Lucknow', pincode: '226001' },
                 { designation: 'Superintendent of Police (SP) - City', name: 'Smt. Ritu Sharma (Mock)', contact: 'spcity.lko@uppolice.gov.in', address: 'SP City Office, Lalbagh, Lucknow', pincode: '226001' },
@@ -92,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://arogya.maharashtra.gov.in/',
             pwd_portal_link: 'https://mahapwd.com/',
             rural_dev_portal_link: 'https://rdd.maharashtra.gov.in/',
+            irrigation_portal_link: 'https://wrd.maharashtra.gov.in/', // Added Irrigation Link
             'mumbai': [
                 { designation: 'District Collector', name: 'Smt. Priya Deshmukh (Mock)', contact: 'collector.mumbai@nic.in', address: 'Collector Office, Bandra, Mumbai', pincode: '400051' },
                 { designation: 'Commissioner of Police', name: 'Shri Rajesh Patil (Mock)', contact: 'cp.mumbai@mahapolice.gov.in', address: 'Police Headquarters, Crawford Market, Mumbai', pincode: '400001' },
@@ -192,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             police_portal_link: 'https://biharpolice.bih.nic.in/',
             health_portal_link: 'https://health.bih.nic.in/',
             rural_dev_portal_link: 'https://rdd.bih.nic.in/',
+            irrigation_portal_link: 'https://wrd.bih.nic.in/', // Added Irrigation Link
             'patna': [
                 { designation: 'District Magistrate (DM)', name: 'Shri Alok Kumar (Mock)', contact: 'dm.patna@bih.nic.in', address: 'DM Office, Collectorate, Patna', pincode: '800001' },
                 { designation: 'Superintendent of Police (SP) - City', name: 'Smt. Preeti Devi (Mock)', contact: 'spcity.patna@bihpolice.gov.in', address: 'SP City Office, Patna', pincode: '800001' },
@@ -241,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://www.wbhealth.gov.in/',
             pwd_portal_link: 'https://wbpwd.gov.in/',
             rural_dev_portal_link: 'https://wbdpr.gov.in/',
+            irrigation_portal_link: 'https://wbiwd.gov.in/', // Added Irrigation Link
             'kolkata': [
                 { designation: 'District Magistrate (DM)', name: 'Smt. Indrani Bose (Mock)', contact: 'dm.kol@wb.gov.in', address: 'DM Office, Alipore, Kolkata', pincode: '700027' },
                 { designation: 'Commissioner of Police', name: 'Shri Sourav Das (Mock)', contact: 'cp.kol@kolkatapolice.gov.in', address: 'Police Headquarters, Lalbazar, Kolkata', pincode: '700001' },
@@ -289,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://health.mp.gov.in/',
             pwd_portal_link: 'https://mppwd.gov.in/',
             rural_dev_portal_link: 'https://mprural.mp.gov.in/',
+            irrigation_portal_link: 'https://mpwrd.gov.in/', // Added Irrigation Link
             'bhopal': [
                 { designation: 'District Collector', name: 'Ms. Surbhi Jain (Mock)', contact: 'collector.bhopal@mp.gov.in', address: 'Collectorate, Bhopal', pincode: '462001' },
                 { designation: 'Superintendent of Police (SP)', name: 'Shri Vivek Sharma (Mock)', contact: 'sp.bhopal@mppolice.gov.in', address: 'SP Office, Bhopal', pincode: '462001' },
@@ -339,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://rajswasthya.nic.in/',
             pwd_portal_link: 'https://pwd.rajasthan.gov.in/',
             rural_dev_portal_link: 'https://rdpr.rajasthan.gov.in/',
+            irrigation_portal_link: 'https://water.rajasthan.gov.in/', // Added Irrigation Link
             'jaipur': [
                 { designation: 'District Collector', name: 'Shri Pawan Kumar (Mock)', contact: 'collector.jaipur@raj.nic.in', address: 'Collectorate, Jaipur', pincode: '302001' },
                 { designation: 'Superintendent of Police (SP)', name: 'Smt. Rina Sharma (Mock)', contact: 'sp.jaipur@rajpolice.gov.in', address: 'SP Office, Jaipur', pincode: '302001' },
@@ -388,6 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://nrhm.gujarat.gov.in/',
             pwd_portal_link: 'https://rnb.gujarat.gov.in/',
             rural_dev_portal_link: 'https://panchayat.gujarat.gov.in/',
+            irrigation_portal_link: 'https://narmada.gujarat.gov.in/', // Added Irrigation Link
             'ahmedabad': [
                 { designation: 'District Collector', name: 'Shri Dhruv Patel (Mock)', contact: 'collector.ahmedabad@gujarat.gov.in', address: 'Collector Office, Ahmedabad', pincode: '380001' },
                 { designation: 'Commissioner of Police', name: 'Smt. Neha Shah (Mock)', contact: 'cp.ahmedabad@gujaratpolice.gov.in', address: 'Police Commissionerate, Ahmedabad', pincode: '380001' },
@@ -437,6 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://karunadu.karnataka.gov.in/hfw/Pages/index.aspx',
             pwd_portal_link: 'https://kpwd.karnataka.gov.in/',
             rural_dev_portal_link: 'https://rdpr.karnataka.gov.in/',
+            irrigation_portal_link: 'https://waterresources.karnataka.gov.in/', // Added Irrigation Link
             'bengaluru': [
                 { designation: 'District Commissioner', name: 'Smt. Lakshmi Rao (Mock)', contact: 'dc.bengaluru@nic.in', address: 'DC Office, Bengaluru Urban', pincode: '560001' },
                 { designation: 'Commissioner of Police', name: 'Shri Kiran Reddy (Mock)', contact: 'cp.bengaluru@ksp.gov.in', address: 'Police Commissionerate, Bengaluru', pincode: '560001' },
@@ -486,6 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
             health_portal_link: 'https://tnhealth.tn.gov.in/',
             pwd_portal_link: 'https://www.tn.gov.in/department/16', // PWD is dept 16
             rural_dev_portal_link: 'https://www.tnrd.gov.in/',
+            irrigation_portal_link: 'https://www.tn.gov.in/department/10', // Added Irrigation Link (Water Resources Dept)
             'chennai': [
                 { designation: 'District Collector', name: 'Dr. Kavya Murthy (Mock)', contact: 'collector.chennai@tn.nic.in', address: 'Collectorate, Chennai', pincode: '600001' },
                 { designation: 'Commissioner of Police', name: 'Shri Prakash Raj (Mock)', contact: 'cp.chennai@tnpolice.gov.in', address: 'Police Commissionerate, Chennai', pincode: '600008' },
@@ -549,6 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let healthPortalLink = '';
         let pwdPortalLink = '';
         let ruralDevPortalLink = '';
+        let irrigationPortalLink = ''; // New: Irrigation Portal Link
 
         if (!selectedState || !districtName) {
             officerList.innerHTML = `<li class="bg-red-50 p-4 rounded-lg mb-2 text-base leading-relaxed text-red-800">Please select a State and enter a District/City to find officer details.</li>`;
@@ -563,6 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
             healthPortalLink = officerData[selectedState].health_portal_link || '';
             pwdPortalLink = officerData[selectedState].pwd_portal_link || '';
             ruralDevPortalLink = officerData[selectedState].rural_dev_portal_link || '';
+            irrigationPortalLink = officerData[selectedState].irrigation_portal_link || ''; // Get Irrigation Link
         }
 
         // Primary lookup by State and District/City
@@ -620,6 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${healthPortalLink ? `<li><a href="${healthPortalLink}" target="_blank" class="text-blue-700 hover:underline">State Health Department</a></li>` : ''}
                 ${pwdPortalLink ? `<li><a href="${pwdPortalLink}" target="_blank" class="text-blue-700 hover:underline">State Public Works Department (PWD)</a></li>` : ''}
                 ${ruralDevPortalLink ? `<li><a href="${ruralDevPortalLink}" target="_blank" class="text-blue-700 hover:underline">State Rural Development Department</a></li>` : ''}
+                ${irrigationPortalLink ? `<li><a href="${irrigationPortalLink}" target="_blank" class="text-blue-700 hover:underline">State Irrigation Department</a></li>` : ''}
                 <li>For specific departmental (e.g., Electricity, Water Supply) or local body (e.g., Municipal Corporation, Zilla Parishad) officer details, please visit their respective official websites or contact their main offices.</li>
             </ul>
             <br>
