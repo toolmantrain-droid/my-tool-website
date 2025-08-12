@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
            = landTypeSelect.value
            = stateSelect.value
         
-        resultsList.innerHTML = ''; // Clear previous results
+       .innerHTML = ''; // Clear previous results
         resultsSection.classList.remove('hidden'); // Ensure results section is visible
 
         let resultsToDisplay = [];
