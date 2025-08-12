@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
     }
     
-      (lang) {
+      (lang) 
         console.log(`displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`);
         
         const selectedLandType = landTypeSelect.value;
