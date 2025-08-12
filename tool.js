@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
       (lang) 
         .log(`displayResults called. Current lang: ${lang}, Land Type: ${landTypeSelect.value}, State: ${stateSelect.value}`)
         
-           landTypeSelect.value
-           stateSelect.value
+           = landTypeSelect.value
+           = stateSelect.value
         
         resultsList.innerHTML = ''; // Clear previous results
         resultsSection.classList.remove('hidden'); // Ensure results section is visible
