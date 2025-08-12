@@ -26,7 +26,7 @@
         <section class="tool-container">
             <div class="tool-content">
                 <h2 id="tool-heading">Know Your Local Officer</h2>
-                <p id="tool-description">Find key local officials (e.g., District Magistrate, SP, Municipal Commissioner) by selecting your state and district/city.</p>
+                <p id="tool-description">Find key local officials (e.g., District Magistrate, SP, Municipal Commissioner) by selecting your state, district/city, and optionally by pincode.</p>
 
                 <div class="form-group mb-5 text-left">
                     <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">Select State:</label>
@@ -51,6 +51,11 @@
                     <input type="text" id="district-input" placeholder="e.g., Lucknow, Mumbai, Delhi" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                 </div>
                 
+                <div class="form-group mb-5 text-left">
+                    <label for="pincode-input" id="label-pincode" class="block font-semibold mb-2 text-purple-700">Enter Pincode (Optional):</label>
+                    <input type="text" id="pincode-input" placeholder="e.g., 226001, 400001" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                </div>
+
                 <button id="find-officer-btn" class="cta-button w-full py-3 px-6 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-colors duration-300 text-lg">Find Officer</button>
 
                 <div id="officer-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
