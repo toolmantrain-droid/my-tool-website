@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const questions = [
         {
             question: "What does this road sign indicate?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/India_road_sign_A1.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_A1.svg", // Updated SVG link
             altText: "Triangular road sign with red border and black pedestrian symbol, indicating pedestrian crossing ahead.",
             options: ["Pedestrian crossing ahead", "No pedestrians allowed", "School ahead", "Hospital ahead"],
             answer: "Pedestrian crossing ahead",
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What is the legal drinking age for driving in most Indian states?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/India_road_sign_R1.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_R1.svg", // Updated SVG link
             altText: "Circular road sign with red border and white horizontal bar, indicating no entry.",
             options: ["18 years", "21 years", "25 years", "No age limit"],
             answer: "21 years",
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What does a solid white line on the road indicate?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/India_road_marking_solid_white_line.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_marking_solid_white_line.svg", // Updated SVG link
             altText: "Road marking showing a solid white line.",
             options: ["You can change lanes", "You must not change lanes", "Overtaking is allowed", "Parking is allowed"],
             answer: "You must not change lanes",
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What should you do if your vehicle breaks down on a highway?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/0/07/India_road_sign_W1.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_W1.svg", // Updated SVG link
             altText: "Triangular road sign with red border and black exclamation mark, indicating general warning.",
             options: ["Leave the vehicle and seek help", "Park on the side, turn on hazard lights, and place a warning triangle", "Try to fix it in the middle of the road", "Call a friend to tow you"],
             answer: "Park on the side, turn on hazard lights, and place a warning triangle",
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What is the maximum speed limit for a light motor vehicle (LMV) on a national highway in India (unless otherwise specified)?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/India_road_sign_R2.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_R2.svg", // Updated SVG link
             altText: "Circular road sign with red border and number 50, indicating speed limit.",
             options: ["60 km/h", "80 km/h", "100 km/h", "120 km/h"],
             answer: "100 km/h",
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What does this circular road sign mean?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/India_road_sign_R4.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_R4.svg", // Updated SVG link
             altText: "Circular road sign with red border and black arrow pointing left with a red diagonal line through it, indicating no left turn.",
             options: ["Turn left", "No left turn", "One way left", "Left lane ahead"],
             answer: "No left turn",
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "When approaching a roundabout, what should you do?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/India_road_sign_M1.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_M1.svg", // Updated SVG link
             altText: "Blue circular road sign with white arrows forming a roundabout symbol, indicating mandatory roundabout.",
             options: ["Give way to traffic from the right", "Give way to traffic from the left", "Stop and wait for all traffic to pass", "Enter without stopping"],
             answer: "Give way to traffic from the right",
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             question: "What does this blue circular road sign mean?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/b/b5/India_road_sign_M2.svg", // Direct SVG link
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/India_road_sign_M2.svg", // Updated SVG link
             altText: "Blue circular road sign with a white arrow pointing straight ahead, indicating go straight only.",
             options: ["Go straight only", "One way street", "No entry", "Stop ahead"],
             answer: "Go straight only",
