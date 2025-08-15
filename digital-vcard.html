@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Visiting Card Maker - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (Social media icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2canvas CDN for converting HTML to image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- QRCode.js CDN for QR code generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और डिजिटल विजिटिंग कार्ड मेकर टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 900px; /* Increased max-width for better layout */
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 30px; /* Space between form and preview */
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+            width: 100%; /* Full width for heading */
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            width: 100%; /* Full width for description */
+        }
+        .form-section {
+            flex: 1; /* Take remaining space */
+            min-width: 300px; /* Minimum width for form */
+            text-align: left;
+        }
+        .preview-section {
+            flex: 1; /* Take remaining space */
+            min-width: 300px; /* Minimum width for preview */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            padding-top: 20px; /* Space from top */
+        }
+        .form-group {
+            margin-bottom: 15px; /* Reduced margin */
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced margin */
+            color: #4a148c;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px; /* Reduced padding */
+            font-size: 15px; /* Reduced font size */
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 12px; /* Reduced padding */
+            font-size: 16px; /* Reduced font size */
+            margin-top: 15px; /* Reduced margin */
+        }
+
+        /* Card Preview Styling */
+        #card-preview-container {
+            width: 320px; /* Standard card width */
+            height: 180px; /* Standard card height (16:9 aspect ratio) */
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
+            position: relative; /* For absolute positioning of elements */
+            overflow: hidden; /* Hide overflow content */
+            transition: background-color 0.3s ease; /* Smooth color change */
+        }
+
+        #card-preview-container.template-modern {
+            background: linear-gradient(45deg, #4a148c, #880e4f); /* Purple to Maroon gradient */
+            color: white;
+        }
+        #card-preview-container.template-minimal {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        #card-preview-container.template-corporate {
+            background-color: #2c3e50; /* Dark blue-gray */
+            color: white;
+        }
+
+        #card-profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            margin-bottom: 10px;
+        }
+
+        #card-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+        #card-designation {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+        #card-company {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .card-contact-info {
+            margin-top: 15px;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .card-contact-info div {
+            display: flex;
+            align-items: center;
+        }
+        .card-contact-info i {
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .card-social-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .card-social-links a {
+            color: inherit;
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+        .card-social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        #qrcode {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 70px;
+            height: 70px;
+            background-color: white; /* QR code background */
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #qrcode img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%; /* Ensure message box takes full width */
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Digital Visiting Card Maker</h2>
+                <p id="tool-description">Create stunning, interactive digital visiting cards instantly. Share your professional details with a single link or QR code.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="template-select">Choose Template:</label>
+                        <select id="template-select" class="w-full p-2 border rounded-md">
+                            <option value="modern">Modern (Gradient)</option>
+                            <option value="minimal">Minimal (White)</option>
+                            <option value="corporate">Corporate (Dark)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-pic-upload">Profile Picture (URL):</label>
+                        <input type="text" id="profile-pic-upload" placeholder="Paste image URL (e.g., from Imgur, Google Photos)" class="w-full p-2 border rounded-md">
+                        <p class="text-xs text-gray-500 mt-1">For best results, use a square image URL.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" placeholder="e.g., Jane Doe" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="designation">Designation:</label>
+                        <input type="text" id="designation" placeholder="e.g., Senior Software Engineer" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name:</label>
+                        <input type="text" id="company" placeholder="e.g., ToolMantra Inc." class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" placeholder="e.g., +91-9876543210" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="e.g., jane.doe@example.com" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Website/Portfolio URL:</label>
+                        <input type="url" id="website" placeholder="e.g., https://www.toolmantra.com" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn URL:</label>
+                        <input type="url" id="linkedin" placeholder="e.g., https://linkedin.com/in/janedoe" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="twitter">Twitter URL:</label>
+                        <input type="url" id="twitter" placeholder="e.g., https://twitter.com/janedoe" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address (Optional):</label>
+                        <textarea id="address" rows="2" placeholder="e.g., 123, Digital Street, Cyber City, India" class="w-full p-2 border rounded-md"></textarea>
+                    </div>
+
+                    <button id="generateCardBtn" class="cta-button">Generate Digital Card</button>
+                    <button id="downloadCardBtn" class="cta-button bg-green-500 hover:bg-green-600 hidden mt-4">Download Card (PNG)</button>
+                    <button id="saveContactBtn" class="cta-button bg-blue-500 hover:bg-blue-600 hidden mt-4">Save to Contacts (vCard)</button>
+                    <div id="share-section" class="hidden mt-4 p-4 bg-gray-100 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-2">Share Your Card:</h3>
+                        <input type="text" id="shareableLink" class="w-full p-2 border rounded-md mb-2" readonly>
+                        <button id="copyLinkBtn" class="cta-button bg-purple-500 hover:bg-purple-600 text-sm py-2 px-4 mr-2">Copy Link</button>
+                        <div class="flex justify-center gap-4 mt-4">
+                            <a href="#" id="whatsappShare" target="_blank" class="text-green-500 hover:text-green-600 text-3xl"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" id="linkedinShare" target="_blank" class="text-blue-700 hover:text-blue-800 text-3xl"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" id="twitterShare" target="_blank" class="text-blue-400 hover:text-blue-500 text-3xl"><i class="fab fa-twitter"></i></a>
+                            <!-- Add more social share options as needed -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <div id="card-preview-container" class="template-modern">
+                        <img id="card-profile-pic" src="https://placehold.co/60x60/cccccc/ffffff?text=DP" alt="Profile Picture" class="hidden">
+                        <div>
+                            <h3 id="card-name">Your Name</h3>
+                            <p id="card-designation">Your Designation</p>
+                            <p id="card-company">Your Company</p>
+                        </div>
+                        <div class="card-contact-info">
+                            <div id="card-phone-display" class="hidden"><i class="fas fa-phone"></i> <span id="phone-text"></span></div>
+                            <div id="card-email-display" class="hidden"><i class="fas fa-envelope"></i> <span id="email-text"></span></div>
+                            <div id="card-website-display" class="hidden"><i class="fas fa-globe"></i> <span id="website-text"></span></div>
+                            <div id="card-address-display" class="hidden"><i class="fas fa-map-marker-alt"></i> <span id="address-text"></span></div>
+                        </div>
+                        <div class="card-social-links">
+                            <!-- Social icons will be added here dynamically -->
+                        </div>
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
+
+                <div class="seo-note">
+                    <h3>Important Note: How to Make This Digital Card Tool #1 on Google:</h3>
+                    <p>To truly dominate search results for "Digital Visiting Card Maker" and provide unparalleled value, consider these advanced strategies:</p>
+                    <ul>
+                        <li><strong>1. Real-time, Rich Customization:</strong> Beyond basic templates, allow users to choose from extensive font libraries, custom color palettes (with hex code input), background patterns, and logo uploads.</li>
+                        <li><strong>2. Interactive Card Features:</strong>
+                            <ul>
+                                <li>**Click-to-Call/Email/WhatsApp:** Make contact info directly actionable. (Implemented)</li>
+                                <li>**One-Click Save to Contacts (vCard/CSV):** Essential for seamless contact saving. (Implemented)</li>
+                                <li>**Integrated Map Link:** For physical addresses.</li>
+                                <li>**Direct Social Media Links:** (Implemented)</li>
+                            </ul>
+                        </li>
+                        <li><strong>3. Unique, Shareable & Indexable URLs (Crucial for SEO):</strong>
+                            <ul>
+                                <li>Each generated card should have a unique, permanent, and publicly accessible URL (e.g., `toolmantra.com/card/john-doe-123`).</li>
+                                <li>This requires a **backend database (like Firebase Firestore)** to store card data securely and retrieve it via the URL.</li>
+                                <li>These unique URLs are what Google will crawl and index, allowing individual cards to appear in search results.</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. Schema Markup (JSON-LD):</strong> Automatically embed structured data (e.g., `Person` or `Organization` schema) into the `<head>` of each unique card's shareable page. This tells Google exactly what information is on the card (name, job title, contact, social profiles), boosting search visibility.</li>
+                        <li><strong>5. High-Quality Image/PDF Export:</strong> Provide options to download the card as a high-resolution PNG/JPG (for sharing as an image) and a PDF (for printing or formal sharing). (PNG download implemented)</li>
+                        <li><strong>6. SEO-Optimized Landing Page:</strong> The `digital-vcard.html` page itself needs:
+                            <ul>
+                                <li>Comprehensive, keyword-rich content explaining the benefits of digital cards.</li>
+                                <li>User testimonials, FAQs, and comparison charts.</li>
+                                <li>Fast loading speed and mobile-first design.</li>
+                            </ul>
+                        </li>
+                        <li><strong>7. Strong Backlink Profile:</strong> Acquire high-quality backlinks from relevant business, technology, and networking websites.</li>
+                        <li><strong>8. Social Sharing Integration:</strong> Easy one-click sharing across major platforms (WhatsApp, LinkedIn, Twitter, Facebook). (Implemented)</li>
+                        <li><strong>9. Analytics:</strong> Allow users to track how many times their card link is viewed or clicked (requires backend).</li>
+                        <li><strong>10. Continuous Innovation:</strong> Add new features regularly (e.g., video intros, portfolio integration, custom backgrounds, animated elements).</li>
+                    </ul>
+                    <p>This tool provides the core functionality and lays the groundwork. Implementing a robust backend for unique URLs and deeper SEO integrations would be the next big step towards achieving a #1 ranking.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Digital Visiting Card Maker: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const templateSelect = document.getElementById('template-select');
+            const profilePicUpload = document.getElementById('profile-pic-upload');
+            const fullNameInput = document.getElementById('fullName');
+            const designationInput = document.getElementById('designation');
+            const companyInput = document.getElementById('company');
+            const phoneInput = document.getElementById('phone');
+            const emailInput = document.getElementById('email');
+            const websiteInput = document.getElementById('website');
+            const linkedinInput = document.getElementById('linkedin');
+            const twitterInput = document.getElementById('twitter');
+            const addressInput = document.getElementById('address');
+
+            const generateCardBtn = document.getElementById('generateCardBtn');
+            const downloadCardBtn = document.getElementById('downloadCardBtn');
+            const saveContactBtn = document.getElementById('saveContactBtn');
+            const shareSection = document.getElementById('share-section');
+            const shareableLinkInput = document.getElementById('shareableLink');
+            const copyLinkBtn = document.getElementById('copyLinkBtn');
+            const whatsappShareBtn = document.getElementById('whatsappShare');
+            const linkedinShareBtn = document.getElementById('linkedinShare');
+            const twitterShareBtn = document.getElementById('twitterShare');
+
+            const cardPreviewContainer = document.getElementById('card-preview-container');
+            const cardProfilePic = document.getElementById('card-profile-pic');
+            const cardName = document.getElementById('card-name');
+            const cardDesignation = document.getElementById('card-designation');
+            const cardCompany = document.getElementById('card-company');
+            const cardPhoneDisplay = document.getElementById('card-phone-display');
+            const phoneText = document.getElementById('phone-text');
+            const cardEmailDisplay = document.getElementById('card-email-display');
+            const emailText = document.getElementById('email-text');
+            const cardWebsiteDisplay = document.getElementById('card-website-display');
+            const websiteText = document.getElementById('website-text');
+            const cardAddressDisplay = document.getElementById('card-address-display');
+            const addressText = document.getElementById('address-text');
+            const cardSocialLinksDiv = document.querySelector('.card-social-links');
+            const qrcodeDiv = document.getElementById('qrcode');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Function to update card preview in real-time
+            function updateCardPreview() {
+                cardName.textContent = fullNameInput.value || 'Your Name';
+                cardDesignation.textContent = designationInput.value || 'Your Designation';
+                cardCompany.textContent = companyInput.value || 'Your Company';
+
+                // Profile Picture
+                const profilePicUrl = profilePicUpload.value.trim();
+                if (profilePicUrl) {
+                    cardProfilePic.src = profilePicUrl;
+                    cardProfilePic.classList.remove('hidden');
+                    cardProfilePic.onerror = () => {
+                        cardProfilePic.src = "https://placehold.co/60x60/cccccc/ffffff?text=DP";
+                        cardProfilePic.classList.remove('hidden');
+                        showMessage("Profile picture URL is invalid or failed to load. Using placeholder.", "error");
+                    };
+                } else {
+                    cardProfilePic.classList.add('hidden');
+                }
+
+                // Contact Info
+                const phone = phoneInput.value.trim();
+                if (phone) {
+                    phoneText.textContent = phone;
+                    cardPhoneDisplay.classList.remove('hidden');
+                } else {
+                    cardPhoneDisplay.classList.add('hidden');
+                }
+
+                const email = emailInput.value.trim();
+                if (email) {
+                    emailText.textContent = email;
+                    cardEmailDisplay.classList.remove('hidden');
+                } else {
+                    cardEmailDisplay.classList.add('hidden');
+                }
+
+                const website = websiteInput.value.trim();
+                if (website) {
+                    websiteText.textContent = website.replace(/^(https?:\/\/(www\.)?)/, ''); // Display without http/https/www
+                    cardWebsiteDisplay.classList.remove('hidden');
+                } else {
+                    cardWebsiteDisplay.classList.add('hidden');
+                }
+
+                const address = addressInput.value.trim();
+                if (address) {
+                    addressText.textContent = address;
+                    cardAddressDisplay.classList.remove('hidden');
+                } else {
+                    cardAddressDisplay.classList.add('hidden');
+                }
+
+                // Social Links
+                cardSocialLinksDiv.innerHTML = ''; // Clear previous links
+                const linkedin = linkedinInput.value.trim();
+                const twitter = twitterInput.value.trim();
+
+                if (linkedin) {
+                    const a = document.createElement('a');
+                    a.href = linkedin;
+                    a.target = "_blank";
+                    a.innerHTML = '<i class="fab fa-linkedin"></i>';
+                    cardSocialLinksDiv.appendChild(a);
+                }
+                if (twitter) {
+                    const a = document.createElement('a');
+                    a.href = twitter;
+                    a.target = "_blank";
+                    a.innerHTML = '<i class="fab fa-twitter"></i>';
+                    cardSocialLinksDiv.appendChild(a);
+                }
+                // Add more social links as needed (e.g., Facebook, Instagram, GitHub)
+
+                // QR Code
+                qrcodeDiv.innerHTML = ''; // Clear previous QR code
+                const qrData = `BEGIN:VCARD\nVERSION:3.0\nN:${fullNameInput.value};${fullNameInput.value}\nFN:${fullNameInput.value}\nORG:${companyInput.value}\nTITLE:${designationInput.value}\nTEL:${phoneInput.value}\nEMAIL:${emailInput.value}\nURL:${websiteInput.value}\nADR:${addressInput.value}\nEND:VCARD`;
+                if (fullNameInput.value || phoneInput.value || emailInput.value) { // Only generate QR if basic info exists
+                    new QRCode(qrcodeDiv, {
+                        text: qrData,
+                        width: 70,
+                        height: 70,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                }
+            }
+
+            // Event listener for template selection
+            templateSelect.addEventListener('change', function() {
+                cardPreviewContainer.className = ''; // Clear existing classes
+                cardPreviewContainer.classList.add('template-' + templateSelect.value);
+                cardPreviewContainer.classList.add('w-[320px]', 'h-[180px]', 'rounded-[15px]', 'shadow-xl', 'p-5', 'flex', 'flex-col', 'justify-between', 'items-start', 'text-left', 'relative', 'overflow-hidden', 'transition-colors', 'duration-300');
+            });
+
+            // Add real-time input listeners
+            const inputFields = [
+                fullNameInput, designationInput, companyInput, phoneInput,
+                emailInput, websiteInput, linkedinInput, twitterInput, addressInput, profilePicUpload
+            ];
+            inputFields.forEach(input => {
+                input.addEventListener('input', updateCardPreview);
+            });
+
+            // Initial preview update
+            updateCardPreview();
+
+            // Generate Card Button Click
+            generateCardBtn.addEventListener('click', function() {
+                if (!fullNameInput.value.trim() || !designationInput.value.trim() || !companyInput.value.trim() || !phoneInput.value.trim() || !emailInput.value.trim()) {
+                    showMessage("Please fill in Full Name, Designation, Company, Phone, and Email to generate the card.", "error");
+                    return;
+                }
+                showMessage("Card generated! You can now download or share.", "success");
+                downloadCardBtn.classList.remove('hidden');
+                saveContactBtn.classList.remove('hidden');
+                shareSection.classList.remove('hidden');
+
+                // Simulate shareable link (In a real app, this would be generated by a backend)
+                const uniqueId = Math.random().toString(36).substring(2, 10); // Simple random ID
+                shareableLinkInput.value = `https://toolmantra.com/digital-card/${uniqueId}`; // Example URL
+                whatsappShareBtn.href = `https://wa.me/?text=Check out my digital visiting card: ${encodeURIComponent(shareableLinkInput.value)}`;
+                linkedinShareBtn.href = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareableLinkInput.value)}&title=My%20Digital%20Visiting%20Card&summary=Connect%20with%20me%20professionally!`;
+                twitterShareBtn.href = `https://twitter.com/intent/tweet?text=Check out my digital visiting card: ${encodeURIComponent(shareableLinkInput.value)}`;
+            });
+
+            // Download Card (PNG)
+            downloadCardBtn.addEventListener('click', function() {
+                // Temporarily hide QR code padding for cleaner image capture
+                const qrcodePadding = qrcodeDiv.style.padding;
+                qrcodeDiv.style.padding = '0';
+
+                html2canvas(cardPreviewContainer, {
+                    scale: 3, // Increase scale for higher resolution
+                    useCORS: true, // Important for images loaded from external URLs
+                    allowTaint: true // Allow tainting for cross-origin images (might still cause issues with some hosts)
+                }).then(canvas => {
+                    // Restore QR code padding
+                    qrcodeDiv.style.padding = qrcodePadding;
+
+                    const link = document.createElement('a');
+                    link.download = 'digital_visiting_card.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    showMessage("Card downloaded as PNG!", "success");
+                }).catch(error => {
+                    console.error('Error capturing card:', error);
+                    showMessage("Failed to download card. Ensure profile picture URL is valid and CORS-friendly.", "error");
+                    qrcodeDiv.style.padding = qrcodePadding; // Ensure padding is restored even on error
+                });
+            });
+
+            // Save to Contacts (vCard)
+            saveContactBtn.addEventListener('click', function() {
+                const fullName = fullNameInput.value.trim();
+                const designation = designationInput.value.trim();
+                const company = companyInput.value.trim();
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                const website = websiteInput.value.trim();
+                const address = addressInput.value.trim();
+                const linkedin = linkedinInput.value.trim();
+                const twitter = twitterInput.value.trim();
+
+                let vcard = `BEGIN:VCARD\nVERSION:3.0\n`;
+                if (fullName) vcard += `N:${fullName};;;\nFN:${fullName}\n`;
+                if (company) vcard += `ORG:${company}\n`;
+                if (designation) vcard += `TITLE:${designation}\n`;
+                if (phone) vcard += `TEL;TYPE=WORK,VOICE:${phone}\n`;
+                if (email) vcard += `EMAIL;TYPE=PREF,INTERNET:${email}\n`;
+                if (website) vcard += `URL:${website}\n`;
+                if (address) vcard += `ADR;TYPE=WORK:;;${address}\n`;
+                if (linkedin) vcard += `X-SOCIALPROFILE;type=linkedin:${linkedin}\n`;
+                if (twitter) vcard += `X-SOCIALPROFILE;type=twitter:${twitter}\n`;
+                vcard += `END:VCARD`;
+
+                const blob = new Blob([vcard], { type: 'text/vcard' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${fullName || 'contact'}.vcf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showMessage("Contact saved as vCard!", "success");
+            });
+
+            // Copy Shareable Link
+            copyLinkBtn.addEventListener('click', function() {
+                shareableLinkInput.select();
+                document.execCommand('copy'); // Use execCommand for broader compatibility in iframes
+                showMessage('Shareable link copied to clipboard!', 'success');
+            });
+        });
+    </script>
+</body>
+</html>
