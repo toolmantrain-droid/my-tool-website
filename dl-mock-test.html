@@ -10,30 +10,214 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome आइकन्स के लिए CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Note: CSS Styling ko hata diya gaya hai. Ab styling ke liye mukhy roop se Tailwind CSS ka upyog kiya jayega. -->
+    
+    <!-- CSS स्टाइलिंग यहाँ शुरू होती है -->
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और ड्राइविंग लाइसेंस मॉक टेस्ट टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc; /* हल्का नीला-ग्रे बैकग्राउंड */
+            color: #333; /* गहरा ग्रे टेक्स्ट */
+        }
+        .container {
+            max-width: 1200px; /* अधिकतम चौड़ाई */
+            margin: 0 auto; /* केंद्र में संरेखित करें */
+            padding: 0 20px; /* साइड पैडिंग */
+        }
+        header {
+            background-color: #ffffff; /* सफेद हेडर बैकग्राउंड */
+            padding: 15px 0; /* ऊपर/नीचे पैडिंग */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* हल्का शैडो */
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between; /* लोगो और नेविगेशन को फैलाएं */
+            align-items: center; /* वर्टिकल केंद्र में संरेखित करें */
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* गहरा बैंगनी */
+        }
+        nav ul {
+            list-style: none; /* बुलेट पॉइंट हटाएं */
+            margin: 0;
+            padding: 0;
+            display: flex; /* लिस्ट आइटम्स को क्षैतिज रूप से व्यवस्थित करें */
+        }
+        nav ul li {
+            margin-left: 25px; /* लिस्ट आइटम्स के बीच स्पेस */
+        }
+        nav ul li a {
+            text-decoration: none; /* अंडरलाइन हटाएं */
+            color: #555; /* ग्रे टेक्स्ट */
+            font-weight: 500;
+            transition: color 0.3s ease; /* होवर पर रंग बदलने के लिए ट्रांजिशन */
+        }
+        nav ul li a:hover {
+            color: #4a148c; /* होवर पर बैंगनी */
+        }
+        .cta-button {
+            display: inline-block; /* बटन को ब्लॉक-लेवल व्यवहार दें */
+            background-color: #ff9800; /* नारंगी */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px; /* गोल कोने */
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100; /* गहरा नारंगी */
+        }
+        footer {
+            background-color: #222; /* गहरा ग्रे फुटर बैकग्राउंड */
+            color: #ccc; /* हल्का ग्रे टेक्स्ट */
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap; /* छोटे स्क्रीन पर आइटम्स को रैप करें */
+            gap: 40px; /* आइटम्स के बीच गैप */
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444; /* ऊपर बॉर्डर */
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* टूल-विशिष्ट स्टाइलिंग */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            color: #4a148c; /* बैंगनी */
+        }
+        /* परिणामों और संदेशों के लिए स्टाइलिंग */
+        #quiz-results-section li {
+            background-color: #e8f5e9; /* हल्का हरा */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #1b5e20; /* गहरा हरा टेक्स्ट */
+        }
+        #quiz-results-section li.bg-red-50 {
+            background-color: #fef2f2; /* हल्का लाल */
+            color: #991b1b; /* गहरा लाल टेक्स्ट */
+        }
+        #quiz-results-section li.bg-orange-50 { /* चेतावनी संदेशों के लिए */
+            background-color: #fffaf0; /* हल्का नारंगी */
+            color: #9a6700; /* गहरा नारंगी टेक्स्ट */
+        }
+        #quiz-results-section li.bg-blue-50 {
+            background-color: #eff6ff; /* हल्का नीला */
+            color: #1e40af; /* गहरा नीला टेक्स्ट */
+        }
+        #message-box {
+            /* यह इन-पेज संदेशों के लिए है, जैसे "कृपया एक उत्तर चुनें" */
+            background-color: #fef2f2;
+            border: 1px solid #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+    </style>
+    <!-- CSS स्टाइलिंग यहाँ समाप्त होती है -->
 </head>
 <body>
-    <header class="bg-white py-4 shadow-md">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-purple-700">टूलमंत्रा</div>
+    <header>
+        <div class="container">
+            <div class="logo">टूलमंत्रा</div>
             <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="index.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">होम</a></li>
-                    <li><a href="blog.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">ब्लॉग</a></li>
-                    <li><a href="all-tools.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">सभी उपकरण</a></li>
+                <ul>
+                    <li><a href="index.html">होम</a></li>
+                    <li><a href="blog.html">ब्लॉग</a></li>
+                    <li><a href="all-tools.html">सभी उपकरण</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="tool-container py-16 px-4 bg-gray-50">
-            <div class="tool-content max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-center">
-                <h2 id="tool-heading" class="text-4xl font-semibold text-purple-800 mb-4">ड्राइविंग लाइसेंस मॉक टेस्ट</h2>
-                <p id="tool-description" class="text-lg text-gray-600 mb-8">आरटीओ परीक्षा से पहले यातायात नियमों और संकेतों का अभ्यास करें ताकि आप अच्छी तरह से तैयार हो सकें।</p>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">ड्राइविंग लाइसेंस मॉक टेस्ट</h2>
+                <p id="tool-description">आरटीओ परीक्षा से पहले यातायात नियमों और संकेतों का अभ्यास करें ताकि आप अच्छी तरह से तैयार हो सकें।</p>
 
                 <!-- इन-पेज संदेश बॉक्स के लिए प्लेसहोल्डर -->
-                <div id="message-box" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-left"></div>
+                <div id="message-box" class="hidden"></div>
 
                 <div class="form-group mb-5 text-left">
                     <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">अपना राज्य चुनें (प्रासंगिक आरटीओ लिंक के लिए):</label>
@@ -60,16 +244,16 @@
                             <!-- विकल्प यहाँ गतिशील रूप से लोड किए जाएंगे -->
                         </div>
                     </div>
-                    <button id="next-question-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-lg">अगला प्रश्न</button>
-                    <button id="submit-quiz-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-lg mt-4 hidden">टेस्ट जमा करें</button>
+                    <button id="next-question-btn" class="cta-button w-full py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors duration-300 text-lg">अगला प्रश्न</button>
+                    <button id="submit-quiz-btn" class="cta-button w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors duration-300 text-lg mt-4 hidden">टेस्ट जमा करें</button>
                 </div>
 
                 <div id="quiz-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
                     <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">परीक्षा परिणाम</h3>
                     <p class="text-lg mb-2">आपका स्कोर: <span id="score-display" class="font-bold"></span></p>
                     <p class="text-lg mb-4">आप टेस्ट में <span id="pass-fail-status" class="font-bold"></span>!</p>
-                    <button id="retake-test-btn" class="bg-gray-500 hover:bg-gray-600 text-white rounded-full py-2 px-4 text-base">टेस्ट फिर से दें</button>
-                    <ul id="answers-review-list" class="list-none p-0 mt-4 space-y-3">
+                    <button id="retake-test-btn" class="cta-button py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base">टेस्ट फिर से दें</button>
+                    <ul id="answers-review-list" class="list-none p-0 mt-4">
                         <!-- उत्तरों की समीक्षा यहाँ गतिशील रूप से जोड़ी जाएगी -->
                     </ul>
                 </div>
@@ -77,32 +261,32 @@
         </section>
     </main>
     
-    <footer class="bg-gray-900 text-gray-300 py-16 text-center">
-        <div class="container mx-auto px-4">
-            <div class="footer-content flex flex-wrap justify-between text-left gap-10 mb-10">
-                <div class="footer-brand max-w-md">
-                    <h3 class="text-3xl font-bold text-white mb-3">टूलमंत्रा</h3>
-                    <p class="text-sm leading-relaxed">टूलमंत्रा भारत का पहला मुफ्त टूलबॉक्स है जो आपकी रोजमर्रा की समस्याओं को सरल बनाता है। हमारा लक्ष्य हर भारतीय को मुफ्त में आवश्यक डिजिटल टूल प्रदान करना है।</p>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>टूलमंत्रा</h3>
+                    <p>टूलमंत्रा भारत का पहला मुफ्त टूलबॉक्स है जो आपकी रोजमर्रा की समस्याओं को सरल बनाता है। हमारा लक्ष्य हर भारतीय को मुफ्त में आवश्यक डिजिटल टूल प्रदान करना है।</p>
                 </div>
                 <div class="footer-links">
-                    <h4 class="text-xl font-semibold text-white mb-4">त्वरित लिंक</h4>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">होम</a></li>
-                        <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">ब्लॉग</a></li>
-                        <li><a href="all-tools.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">सभी उपकरण</a></li>
+                    <h4>त्वरित लिंक</h4>
+                    <ul>
+                        <li><a href="index.html">होम</a></li>
+                        <li><a href="blog.html">ब्लॉग</a></li>
+                        <li><a href="#">सभी उपकरण</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4 class="text-xl font-semibold text-white mb-4">कानूनी</h4>
-                    <ul class="space-y-2">
-                        <li><a href="privacy.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">गोपनीयता नीति</a></li>
-                        <li><a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">नियम और शर्तें</a></li>
-                        <li><a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">अस्वीकरण</a></li>
+                    <h4>कानूनी</h4>
+                    <ul>
+                        <li><a href="privacy.html">गोपनीयता नीति</a></li>
+                        <li><a href="terms.html">नियम और शर्तें</a></li>
+                        <li><a href="terms.html">अस्वीकरण</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright border-t border-gray-700 pt-6">
-                <p class="text-sm text-gray-500">&copy; 2024 टूलमंत्रा। सर्वाधिकार सुरक्षित।</p>
+            <div class="copyright">
+                <p>&copy; 2024 टूलमंत्रा। सर्वाधिकार सुरक्षित।</p>
             </div>
         </div>
     </footer>
