@@ -16,17 +16,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const retakeTestBtn = document.getElementById('retake-test-btn');
     const answersReviewList = document.getElementById('answers-review-list');
     
-    // इन-पेज संदेश बॉक्स के लिए तत्व बनाएं
+    // इन-पेज संदेश बॉक्स के लिए HTML से संदर्भ प्राप्त करें
     const messageBox = document.getElementById('message-box');
     if (!messageBox) {
-        console.error("dl-mock-test-tool.js Error: 'message-box' तत्व नहीं मिला।");
-        return; // यदि आवश्यक तत्व नहीं मिलते हैं तो आगे बढ़ने से बचें
+        console.error("dl-mock-test-tool.js Error: 'message-box' तत्व नहीं मिला। स्क्रिप्ट को जारी रखने में समस्या हो सकती है।");
+        // यदि संदेश बॉक्स नहीं मिलता है, तो इसे गतिशील रूप से बनाने का एक फॉलबैक (लेकिन आदर्श नहीं)
+        // const tempMessageBox = document.createElement('div');
+        // tempMessageBox.id = 'message-box';
+        // tempMessageBox.classList.add('bg-red-100', 'border', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative', 'mb-4', 'hidden');
+        // document.querySelector('.tool-content').insertBefore(tempMessageBox, document.querySelector('.form-group'));
+        // messageBox = tempMessageBox;
     }
     // मैसेज बॉक्स के अंदर टेक्स्ट स्पैन को अपडेट करें
-    messageBox.innerHTML = '<strong class="font-bold">चेतावनी!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+    if (messageBox) { // सुनिश्चित करें कि messageBox मौजूद है
+        messageBox.innerHTML = '<strong class="font-bold">चेतावनी!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+    }
 
 
-    // आवश्यक तत्वों की जांच करें
+    // आवश्यक तत्वों की जांच करें (console.error से पहले null की जांच करें)
     if (!stateSelect) console.error("dl-mock-test-tool.js Error: 'state-select' तत्व नहीं मिला।");
     if (!quizContainer) console.error("dl-mock-test-tool.js Error: 'quiz-container' तत्व नहीं मिला।");
     if (!questionDisplay) console.error("dl-mock-test-tool.js Error: 'question-display' तत्व नहीं मिला।");
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             altText: "लाल बॉर्डर और सफेद क्षैतिज पट्टी वाला गोलाकार सड़क चिह्न, प्रवेश नहीं इंगित करता है।",
             options: ["18 वर्ष", "21 वर्ष", "25 वर्ष", "कोई आयु सीमा नहीं"],
             answer: "21 वर्ष",
-            explanation: "भारत के अधिकांश राज्यों में, ड्राइविंग (और शराब का सेवन) के लिए कानूनी शराब पीने की उम्र 21 वर्ष है। मोटर वाहन अधिनियम के तहत शराब के प्रभाव में गाड़ी चलाना कानून द्वारा दंडनीय एक गंभीर अपराध है।"
+            explanation: "यह मोटर वाहन अधिनियम के तहत भारत के अधिकांश राज्यों में ड्राइविंग (और शराब का सेवन) के लिए कानूनी शराब पीने की उम्र 21 वर्ष है।"
         },
         {
             question: "सड़क पर एक ठोस सफेद रेखा क्या इंगित करती है?",
@@ -80,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             altText: "लाल बॉर्डर और संख्या 50 वाला गोलाकार सड़क चिह्न, गति सीमा इंगित करता है।",
             options: ["60 किमी/घंटा", "80 किमी/घंटा", "100 किमी/घंटा", "120 किमी/घंटा"],
             answer: "100 किमी/घंटा",
-            explanation: "हालांकि विशिष्ट सीमाएं राज्य और सड़क के अनुसार भिन्न हो सकती हैं, राष्ट्रीय राजमार्गों पर LMVs के लिए सामान्य अधिकतम गति सीमा 100 किमी/घंटा है। विशिष्ट गति सीमाओं के लिए हमेशा स्थानीय साइनेज की जांच करें।"
+            explanation: "हालांकि विशिष्ट सीमाएं राज्य और सड़क के अनुसार भिन्न हो सकती हैं, राष्ट्रीय राजमार्गों पर LMVs के लिए सामान्य अधिकतम गति सीमा 100 किमी/घंटा है। हमेशा स्थानीय साइनेज की जांच करें।"
         },
         {
             question: "इस गोलाकार सड़क चिह्न का क्या अर्थ है?",
@@ -171,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // इन-पेज संदेश दिखाने का कार्य
     function showMessage(text, type = 'error') {
         const messageBoxText = document.getElementById('message-box-text');
-        if (messageBoxText) {
+        if (messageBox && messageBoxText) { // सुनिश्चित करें कि दोनों तत्व मौजूद हैं
             messageBoxText.textContent = text;
             messageBox.classList.remove('hidden');
             if (type === 'error') {
@@ -194,7 +201,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const q = questions[currentQuestionIndex];
             
             // questionDisplay में पिछली सामग्री साफ़ करें
-            questionDisplay.innerHTML = ''; 
+            if (questionDisplay) {
+                questionDisplay.innerHTML = ''; 
+            } else {
+                console.error("questionDisplay तत्व नहीं मिला। प्रश्न लोड नहीं किया जा सकता है।");
+                return;
+            }
 
             // प्रश्न टेक्स्ट जोड़ें
             const questionP = document.createElement('p');
@@ -217,7 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 questionDisplay.appendChild(questionImg);
             }
 
-            optionsContainer.innerHTML = ''; // पिछले विकल्पों को साफ़ करें
+            if (optionsContainer) {
+                optionsContainer.innerHTML = ''; // पिछले विकल्पों को साफ़ करें
+            } else {
+                console.error("optionsContainer तत्व नहीं मिला। विकल्प लोड नहीं किए जा सकते हैं।");
+                return;
+            }
 
             q.options.forEach((option, index) => {
                 const radioDiv = document.createElement('div');
@@ -240,19 +257,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 optionsContainer.appendChild(radioDiv);
             });
 
-            nextQuestionBtn.classList.remove('hidden');
-            nextQuestionBtn.setAttribute('aria-label', 'अगला प्रश्न'); // एक्सेसिबिलिटी
-            submitQuizBtn.classList.add('hidden');
-            submitQuizBtn.setAttribute('aria-label', 'टेस्ट जमा करें'); // एक्सेसिबिलिटी
-            quizResultsSection.classList.add('hidden'); // टेस्ट के दौरान परिणाम अनुभाग छिपाएं
+            if (nextQuestionBtn) {
+                nextQuestionBtn.classList.remove('hidden');
+                nextQuestionBtn.setAttribute('aria-label', 'अगला प्रश्न'); // एक्सेसिबिलिटी
+            }
+            if (submitQuizBtn) {
+                submitQuizBtn.classList.add('hidden');
+                submitQuizBtn.setAttribute('aria-label', 'टेस्ट जमा करें'); // एक्सेसिबिलिटी
+            }
+            if (quizResultsSection) {
+                quizResultsSection.classList.add('hidden'); // टेस्ट के दौरान परिणाम अनुभाग छिपाएं
+            }
             
             // अंतिम प्रश्न पर सबमिट बटन दिखाएं
             if (currentQuestionIndex === questions.length - 1) {
-                nextQuestionBtn.classList.add('hidden');
-                submitQuizBtn.classList.remove('hidden');
+                if (nextQuestionBtn) nextQuestionBtn.classList.add('hidden');
+                if (submitQuizBtn) submitQuizBtn.classList.remove('hidden');
             }
         } else {
-            // यह मामला आदर्श रूप से नहीं पहुंचना चाहिए यदि सबमिट बटन तर्क सही है
             console.warn("टेस्ट की लंबाई से परे प्रश्न लोड करने का प्रयास किया गया।");
         }
     }
@@ -276,24 +298,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // अंतिम परिणाम प्रदर्शित करने का कार्य
     function displayResults() {
-        quizContainer.classList.add('hidden'); // क्विज़ कंटेनर छिपाएं
-        quizResultsSection.classList.remove('hidden'); // परिणाम अनुभाग दिखाएं
+        if (quizContainer) quizContainer.classList.add('hidden'); // क्विज़ कंटेनर छिपाएं
+        if (quizResultsSection) quizResultsSection.classList.remove('hidden'); // परिणाम अनुभाग दिखाएं
 
-        scoreDisplay.textContent = `${score} / ${questions.length}`;
+        if (scoreDisplay) scoreDisplay.textContent = `${score} / ${questions.length}`;
         const percentage = (score / questions.length) * 100;
 
-        if (percentage >= 60) { // 60% उत्तीर्ण स्कोर मानते हुए
-            passFailStatus.textContent = "उत्तीर्ण";
-            passFailStatus.classList.remove('text-red-600');
-            passFailStatus.classList.add('text-green-600');
-        } else {
-            passFailStatus.textContent = "अनुत्तीर्ण";
-            passFailStatus.classList.remove('text-green-600');
-            passFailStatus.classList.add('text-red-600');
+        if (passFailStatus) {
+            if (percentage >= 60) { // 60% उत्तीर्ण स्कोर मानते हुए
+                passFailStatus.textContent = "उत्तीर्ण";
+                passFailStatus.classList.remove('text-red-600');
+                passFailStatus.classList.add('text-green-600');
+            } else {
+                passFailStatus.textContent = "अनुत्तीर्ण";
+                passFailStatus.classList.remove('text-green-600');
+                passFailStatus.classList.add('text-red-600');
+            }
         }
 
         // उत्तर समीक्षा प्रदर्शित करें
-        answersReviewList.innerHTML = '';
+        if (answersReviewList) answersReviewList.innerHTML = '';
         questions.forEach((q, index) => {
             const li = document.createElement('li');
             li.classList.add('p-3', 'rounded-lg', 'mb-2');
@@ -308,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p class="text-sm text-gray-600">स्पष्टीकरण: ${q.explanation}</p>
             `;
             li.classList.add(isCorrect ? 'bg-green-50' : 'bg-red-50');
-            answersReviewList.appendChild(li);
+            if (answersReviewList) answersReviewList.appendChild(li);
         });
 
         // एसईओ-केंद्रित और आरटीओ लिंक नोट जोड़ें
@@ -353,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </ul>
             यह टूल एक मॉक टेस्ट के कार्यात्मक प्रदर्शन के रूप में कार्य करता है।
         `;
-        answersReviewList.appendChild(seoNote);
+        if (answersReviewList) answersReviewList.appendChild(seoNote);
     }
 
     // इवेंट लिसनर्स
@@ -389,13 +413,18 @@ document.addEventListener('DOMContentLoaded', function() {
             currentQuestionIndex = 0;
             score = 0;
             userAnswers = [];
-            quizResultsSection.classList.add('hidden');
-            quizContainer.classList.remove('hidden');
+            if (quizResultsSection) quizResultsSection.classList.add('hidden');
+            if (quizContainer) quizContainer.classList.remove('hidden');
             loadQuestion();
-            messageBox.classList.add('hidden'); // रीटेक पर संदेश बॉक्स छिपाएं
+            if (messageBox) messageBox.classList.add('hidden'); // रीटेक पर संदेश बॉक्स छिपाएं
         });
     }
 
-    // प्रारंभिक लोड
-    loadQuestion();
+    // प्रारंभिक लोड - सभी तत्वों के मौजूद होने की जांच के बाद
+    if (questionDisplay && optionsContainer && nextQuestionBtn && submitQuizBtn && quizResultsSection && scoreDisplay && passFailStatus && retakeTestBtn && answersReviewList) {
+        loadQuestion();
+    } else {
+        console.error("सभी आवश्यक HTML तत्व JavaScript द्वारा नहीं मिले। टूल को प्रारंभिक नहीं किया जा सकता है।");
+        showMessage("त्रुटि: आवश्यक पेज तत्व लोड नहीं हो सके। कृपया पेज को रीफ्रेश करें।", "error");
+    }
 });
