@@ -199,6 +199,9 @@
             display: flex;
             align-items: center;
             margin-bottom: 8px; /* विकल्पों के बीच थोड़ी जगह */
+            /* सुनिश्चित करें कि विकल्प डिफ़ॉल्ट रूप से छुपे न हों */
+            opacity: 1; /* दृश्यता सुनिश्चित करें */
+            visibility: visible; /* दृश्यता सुनिश्चित करें */
         }
         #options-container input[type="radio"] {
             margin-right: 10px; /* रेडियो बटन और लेबल के बीच जगह */
@@ -213,6 +216,7 @@
             outline: none;
             cursor: pointer;
             transition: background-color 0.2s ease, border-color 0.2s ease;
+            display: inline-block; /* सुनिश्चित करें कि यह डिस्प्ले में है */
         }
         #options-container input[type="radio"]:checked {
             background-color: #4a148c; /* बैंगनी जब चयनित हो */
@@ -231,6 +235,7 @@
             cursor: pointer;
             font-size: 16px;
             color: #333; /* लेबल टेक्स्ट का रंग */
+            display: inline-block; /* सुनिश्चित करें कि यह डिस्प्ले में है */
         }
     </style>
     <!-- CSS स्टाइलिंग यहाँ समाप्त होती है -->
