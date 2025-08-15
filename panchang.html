@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Panchang - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और Panchang टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input[type="date"], .form-group input[type="time"], .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .result-auspicious {
+            color: #28a745; /* Green for auspicious */
+        }
+        .result-inauspicious {
+            color: #dc3545; /* Red for inauspicious */
+        }
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Daily Panchang</h2>
+                <p id="tool-description">Check today's Tithi, Nakshatra, and Auspicious Time based on Vedic Astrology principles.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="panchangDate">Select Date:</label>
+                    <input type="date" id="panchangDate" class="w-full p-2 border rounded-md" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="panchangLocation">Enter City/Location:</label>
+                    <input type="text" id="panchangLocation" placeholder="e.g., Delhi, Mumbai, Bengaluru" class="w-full p-2 border rounded-md" required>
+                </div>
+
+                <button id="getTodayPanchangBtn" class="cta-button">Get Panchang</button>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Panchang Details:</h3>
+                    <div class="result-item">
+                        Date: <span id="displayPanchangDate" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Location: <span id="displayPanchangLocation" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Tithi: <span id="displayPanchangTithi" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Nakshatra: <span id="displayPanchangNakshatra" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Yoga: <span id="displayPanchangYoga" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Karana: <span id="displayPanchangKarana" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Vaar (Day of Week): <span id="displayPanchangVaar" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Sunrise: <span id="displayPanchangSunrise" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Sunset: <span id="displayPanchangSunset" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Rahu Kaal: <span id="displayPanchangRahuKaal" class="result-value result-inauspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Gulika Kaal: <span id="displayPanchangGulikaKaal" class="result-value result-inauspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Yamaganda Kaal: <span id="displayPanchangYamagandaKaal" class="result-value result-inauspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Abhijit Muhurat: <span id="displayPanchangAbhijitMuhurat" class="result-value result-auspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Choghadiya (Day): <span id="displayPanchangChoghadiyaDay" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Choghadiya (Night): <span id="displayPanchangChoghadiyaNight" class="result-value"></span>
+                    </div>
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This Daily Panchang Tool #1 on Google (Unprecedented Features):</h3>
+                        <p>This tool provides a foundational daily Panchang lookup capability based on illustrative data. To truly dominate search results for "Daily Panchang India" or "Today's Panchang" and offer unparalleled value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Hyper-Accurate Astrological Engine (Crucial):</strong>
+                                <ul>
+                                    <li>Integrate a **robust backend astrological calculation engine (via API)** that can precisely compute all Panchang elements (Tithi, Nakshatra, Yoga, Karana, Vaar), Sunrise/Sunset, Rahu Kaal, Gulika Kaal, Yamaganda Kaal, Abhijit Muhurat, and Choghadiya for *any* given date, time, and **exact geographical coordinates (latitude/longitude)**. This is the *most critical* feature for accuracy and authority.</li>
+                                    <li>Account for **Ayanamsha** (Lahiri, KP, etc.) and **time zone differences** automatically.</li>
+                                    <li>Provide **start and end times for each Panchang element** (e.g., Tithi from HH:MM to HH:MM).</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. Personalized Panchang & Muhurat Integration:</strong>
+                                <ul>
+                                    <li>Allow users to input their **birth details (date, time, place)**. The tool should then highlight auspicious/inauspicious periods for *them* specifically, based on their birth chart's planetary positions and dashas. This is a **game-changer**.</li>
+                                    <li>Connect directly to the "Auspicious Time Finder" to show personalized Muhurats for specific events on that day.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. Comprehensive Astrological Details:</strong>
+                                <ul>
+                                    <li>Beyond basic Panchang, include details like **Hora, Lagna (Ascendant) for the day, Moon Sign, Sun Sign, planetary transits for the day, and daily predictions** based on these elements.</li>
+                                    <li>Provide **detailed explanations** for each Panchang element and its significance.</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Interactive Calendar & Visualizations:</strong>
+                                <ul>
+                                    <li>Display daily Panchang details on an **interactive calendar interface**, allowing users to easily browse different dates and see the Panchang at a glance.</li>
+                                    <li>Use **visual timelines/charts** to show the progression of Tithi, Nakshatra, and auspicious/inauspicious timings throughout the day.</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. Multilingual Support & Regional Variations:</strong>
+                                <ul>
+                                    <li>Offer Panchang in **multiple Indian languages/scripts** (Hindi, Marathi, Bengali, Tamil, Telugu, etc.).</li>
+                                    <li>Account for **regional variations** in Panchang calculations (e.g., Drik Panchang vs. Vakya Panchang).</li>
+                                </ul>
+                            </li>
+                            <li><strong>6. Educational Hub & Expert Insights:</strong>
+                                <ul>
+                                    <li>Offer a rich library of **articles, FAQs, video tutorials, and webinars** on Vedic astrology, Panchang principles, and their practical application in daily life.</li>
+                                    <li>Feature insights from renowned astrologers and Vedic scholars.</li>
+                                </ul>
+                            </li>
+                            <li><strong>7. Robust Backend for Data Management & Personalization:</strong>
+                                <ul>
+                                    <li>A secure backend (e.g., Firebase Firestore) to manage astrological data, user preferences (anonymized), and complex calculation results. This is **essential for accuracy, personalization, and scalability**.</li>
+                                    <li>Ensure **highest data security and privacy compliance**.</li>
+                                    <li>Potentially store user's preferred locations for quick lookup.</li>
+                                </ul>
+                            </li>
+                            <li><strong>8. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement highly detailed `HowTo`, `Q&A`, `Event`, or `AstrologyService` schema to explicitly tell Google what the tool does and its content structure. Include `Event` schema for daily auspicious/inauspicious times.</li>
+                                    <li>**Topical Authority & Content Clusters:** Create vast, interconnected content clusters around "Panchang," "Vedic Astrology," "Hindu Calendar," "Auspicious Dates," etc., positioning ToolMantra as the ultimate authority.</li>
+                                    <li>**Strategic, High-Quality Backlinks:** Actively seek backlinks from reputable astrology websites, cultural platforms, religious organizations, and educational sites.</li>
+                                    <li>**Superior User Engagement Signals:** Optimize for low bounce rate, high time-on-page, and repeat visits through an exceptional UX.</li>
+                                    <li>**Mobile-First Indexing & Core Web Vitals:** Ensure lightning-fast loading speeds, smooth interactivity, and excellent mobile responsiveness.</li>
+                                    <li>**Long-Tail Keyword Targeting:** Create specific content for long-tail keywords like "Today's Panchang in Mumbai," "Auspicious Tithi for marriage," or "Rahu Kaal timings."</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a strong foundation for daily Panchang lookup. Building out the hyper-accurate astrological engine, personalized Panchang insights, comprehensive daily astrological details, and interactive visualizations through a robust backend would truly set it apart as the #1 Daily Panchang Tool globally, offering a service currently unmatched on Google.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Daily Panchang Tool: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const panchangDateInput = document.getElementById('panchangDate');
+            const panchangLocationInput = document.getElementById('panchangLocation');
+            const getTodayPanchangBtn = document.getElementById('getTodayPanchangBtn');
+            const resultsSection = document.getElementById('results-section');
+            const displayPanchangDate = document.getElementById('displayPanchangDate');
+            const displayPanchangLocation = document.getElementById('displayPanchangLocation');
+            const displayPanchangTithi = document.getElementById('displayPanchangTithi');
+            const displayPanchangNakshatra = document.getElementById('displayPanchangNakshatra');
+            const displayPanchangYoga = document.getElementById('displayPanchangYoga');
+            const displayPanchangKarana = document.getElementById('displayPanchangKarana');
+            const displayPanchangVaar = document.getElementById('displayPanchangVaar');
+            const displayPanchangSunrise = document.getElementById('displayPanchangSunrise');
+            const displayPanchangSunset = document.getElementById('displayPanchangSunset');
+            const displayPanchangRahuKaal = document.getElementById('displayPanchangRahuKaal');
+            const displayPanchangGulikaKaal = document.getElementById('displayPanchangGulikaKaal');
+            const displayPanchangYamagandaKaal = document.getElementById('displayPanchangYamagandaKaal');
+            const displayPanchangAbhijitMuhurat = document.getElementById('displayPanchangAbhijitMuhurat'); // New
+            const displayPanchangChoghadiyaDay = document.getElementById('displayPanchangChoghadiyaDay'); // New
+            const displayPanchangChoghadiyaNight = document.getElementById('displayPanchangChoghadiyaNight'); // New
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Simplified Mock Panchang Data (Illustrative - NOT real astrological calculations)
+            // In a real advanced tool, this data would come from a backend astrological API
+            // and would be precise for location and date.
+            const panchangData = {
+                "2024-08-15": { // Example date: August 15, 2024
+                    "delhi": {
+                        tithi: "Shukla Paksha Dashami",
+                        nakshatra: "Anuradha",
+                        yoga: "Ayushman",
+                        karana: "Gara",
+                        vaar: "Thursday",
+                        sunrise: "05:50 AM",
+                        sunset: "07:00 PM",
+                        rahuKaal: "01:30 PM - 03:00 PM",
+                        gulikaKaal: "09:00 AM - 10:30 AM",
+                        yamagandaKaal: "06:00 AM - 07:30 AM",
+                        abhijitMuhurat: "11:59 AM - 12:49 PM",
+                        choghadiyaDay: "Shubh: 07:30 AM - 09:00 AM, Labh: 01:30 PM - 03:00 PM",
+                        choghadiyaNight: "Shubh: 07:00 PM - 08:30 PM, Amrit: 08:30 PM - 10:00 PM",
+                        notes: "A generally good day. Avoid Rahu Kaal for auspicious activities."
+                    },
+                    "mumbai": {
+                        tithi: "Shukla Paksha Dashami",
+                        nakshatra: "Anuradha",
+                        yoga: "Ayushman",
+                        karana: "Vanija",
+                        vaar: "Thursday",
+                        sunrise: "06:10 AM",
+                        sunset: "07:15 PM",
+                        rahuKaal: "01:45 PM - 03:15 PM",
+                        gulikaKaal: "09:30 AM - 11:00 AM",
+                        yamagandaKaal: "06:10 AM - 07:40 AM",
+                        abhijitMuhurat: "12:05 PM - 12:55 PM",
+                        choghadiyaDay: "Shubh: 08:00 AM - 09:30 AM, Labh: 02:00 PM - 03:30 PM",
+                        choghadiyaNight: "Shubh: 07:15 PM - 08:45 PM, Amrit: 08:45 PM - 10:15 PM",
+                        notes: "Favorable day for most tasks. Be mindful of Gulika Kaal."
+                    },
+                    "bengaluru": {
+                        tithi: "Shukla Paksha Dashami",
+                        nakshatra: "Anuradha",
+                        yoga: "Ayushman",
+                        karana: "Bava",
+                        vaar: "Thursday",
+                        sunrise: "06:05 AM",
+                        sunset: "06:50 PM",
+                        rahuKaal: "01:00 PM - 02:30 PM",
+                        gulikaKaal: "08:00 AM - 09:30 AM",
+                        yamagandaKaal: "06:05 AM - 07:35 AM",
+                        abhijitMuhurat: "12:00 PM - 12:50 PM",
+                        choghadiyaDay: "Shubh: 07:30 AM - 09:00 AM, Labh: 01:00 PM - 02:30 PM",
+                        choghadiyaNight: "Shubh: 06:50 PM - 08:20 PM, Amrit: 08:20 PM - 09:50 PM",
+                        notes: "Good day overall. Avoid Yamaganda Kaal for important beginnings."
+                    },
+                    "chennai": {
+                        tithi: "Shukla Paksha Dashami",
+                        nakshatra: "Anuradha",
+                        yoga: "Ayushman",
+                        karana: "Balava",
+                        vaar: "Thursday",
+                        sunrise: "06:00 AM",
+                        sunset: "06:40 PM",
+                        rahuKaal: "01:00 PM - 02:30 PM",
+                        gulikaKaal: "08:00 AM - 09:30 AM",
+                        yamagandaKaal: "06:00 AM - 07:30 AM",
+                        abhijitMuhurat: "11:55 AM - 12:45 PM",
+                        choghadiyaDay: "Shubh: 07:30 AM - 09:00 AM, Labh: 01:00 PM - 02:30 PM",
+                        choghadiyaNight: "Shubh: 06:40 PM - 08:10 PM, Amrit: 08:10 PM - 09:40 PM",
+                        notes: "Auspicious day. Rahu Kaal is a period to avoid for new ventures."
+                    }
+                },
+                "2024-08-16": { // Example date: August 16, 2024
+                    "delhi": {
+                        tithi: "Shukla Paksha Ekadashi",
+                        nakshatra: "Jyeshtha",
+                        yoga: "Saubhagya",
+                        karana: "Vishti",
+                        vaar: "Friday",
+                        sunrise: "05:51 AM",
+                        sunset: "06:59 PM",
+                        rahuKaal: "10:30 AM - 12:00 PM",
+                        gulikaKaal: "07:30 AM - 09:00 AM",
+                        yamagandaKaal: "03:00 PM - 04:30 PM",
+                        abhijitMuhurat: "11:59 AM - 12:49 PM",
+                        choghadiyaDay: "Shubh: 09:00 AM - 10:30 AM, Labh: 03:00 PM - 04:30 PM",
+                        choghadiyaNight: "Shubh: 06:59 PM - 08:29 PM, Amrit: 08:29 PM - 09:59 PM",
+                        notes: "Favorable for religious activities. Avoid Rahu Kaal."
+                    },
+                    "mumbai": {
+                        tithi: "Shukla Paksha Ekadashi",
+                        nakshatra: "Jyeshtha",
+                        yoga: "Saubhagya",
+                        karana: "Bava",
+                        vaar: "Friday",
+                        sunrise: "06:11 AM",
+                        sunset: "07:14 PM",
+                        rahuKaal: "10:45 AM - 12:15 PM",
+                        gulikaKaal: "07:45 AM - 09:15 AM",
+                        yamagandaKaal: "03:15 PM - 04:45 PM",
+                        abhijitMuhurat: "12:05 PM - 12:55 PM",
+                        choghadiyaDay: "Shubh: 09:15 AM - 10:45 AM, Labh: 03:15 PM - 04:45 PM",
+                        choghadiyaNight: "Shubh: 07:14 PM - 08:44 PM, Amrit: 08:44 PM - 10:14 PM",
+                        notes: "Good for spiritual pursuits. Gulika Kaal is generally avoided."
+                    }
+                },
+                // Add more dates and locations for richer data
+                "2024-08-17": {
+                    "delhi": {
+                        tithi: "Shukla Paksha Dwadashi",
+                        nakshatra: "Moola",
+                        yoga: "Shobhana",
+                        karana: "Balava",
+                        vaar: "Saturday",
+                        sunrise: "05:52 AM",
+                        sunset: "06:58 PM",
+                        rahuKaal: "09:00 AM - 10:30 AM",
+                        gulikaKaal: "06:00 AM - 07:30 AM",
+                        yamagandaKaal: "01:30 PM - 03:00 PM",
+                        abhijitMuhurat: "11:58 AM - 12:48 PM",
+                        choghadiyaDay: "Shubh: 07:30 AM - 09:00 AM, Labh: 01:30 PM - 03:00 PM",
+                        choghadiyaNight: "Shubh: 06:58 PM - 08:28 PM, Amrit: 08:28 PM - 09:58 PM",
+                        notes: "Mixed day. Avoid Rahu Kaal and Yamaganda Kaal for new initiatives."
+                    }
+                }
+            };
+
+            // Function to find and display Panchang details
+            function getPanchangDetails() {
+                const panchangDate = panchangDateInput.value;
+                const locationCity = panchangLocationInput.value.trim();
+
+                if (!panchangDate || !locationCity) {
+                    showMessage("Please select Date and enter City/Location.", "error");
+                    return;
+                }
+
+                const normalizedCity = locationCity.toLowerCase();
+                let detailsFound = null;
+
+                if (panchangData[panchangDate] && panchangData[panchangDate][normalizedCity]) {
+                    detailsFound = panchangData[panchangDate][normalizedCity];
+                }
+
+                if (detailsFound) {
+                    displayPanchangDate.textContent = new Date(panchangDate).toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    displayPanchangLocation.textContent = locationCity;
+                    displayPanchangTithi.textContent = detailsFound.tithi;
+                    displayPanchangNakshatra.textContent = detailsFound.nakshatra;
+                    displayPanchangYoga.textContent = detailsFound.yoga;
+                    displayPanchangKarana.textContent = detailsFound.karana;
+                    displayPanchangVaar.textContent = detailsFound.vaar;
+                    displayPanchangSunrise.textContent = detailsFound.sunrise;
+                    displayPanchangSunset.textContent = detailsFound.sunset;
+                    displayPanchangRahuKaal.textContent = detailsFound.rahuKaal;
+                    displayGulikaKaal.textContent = detailsFound.gulikaKaal;
+                    displayYamagandaKaal.textContent = detailsFound.yamagandaKaal;
+                    displayPanchangAbhijitMuhurat.textContent = detailsFound.abhijitMuhurat || "N/A";
+                    displayPanchangChoghadiyaDay.textContent = detailsFound.choghadiyaDay || "N/A";
+                    displayPanchangChoghadiyaNight.textContent = detailsFound.choghadiyaNight || "N/A";
+
+                    // Apply red color for inauspicious times
+                    displayPanchangRahuKaal.classList.remove('result-auspicious');
+                    displayPanchangRahuKaal.classList.add('result-inauspicious');
+                    displayGulikaKaal.classList.remove('result-auspicious');
+                    displayGulikaKaal.classList.add('result-inauspicious');
+                    displayYamagandaKaal.classList.remove('result-auspicious');
+                    displayYamagandaKaal.classList.add('result-inauspicious');
+                    
+                    // Apply green color for Abhijit Muhurat if available
+                    if (detailsFound.abhijitMuhurat && detailsFound.abhijitMuhurat !== "N/A") {
+                        displayPanchangAbhijitMuhurat.classList.remove('result-inauspicious');
+                        displayPanchangAbhijitMuhurat.classList.add('result-auspicious');
+                    } else {
+                        displayPanchangAbhijitMuhurat.classList.remove('result-auspicious');
+                        displayPanchangAbhijitMuhurat.classList.add('result-neutral'); // Use neutral for N/A
+                    }
+
+
+                    resultsSection.classList.remove('hidden');
+                    showMessage("Panchang details found successfully!", "success");
+                } else {
+                    displayPanchangDate.textContent = new Date(panchangDate).toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    displayPanchangLocation.textContent = locationCity;
+                    displayPanchangTithi.textContent = "N/A";
+                    displayPanchangNakshatra.textContent = "N/A";
+                    displayPanchangYoga.textContent = "N/A";
+                    displayPanchangKarana.textContent = "N/A";
+                    displayPanchangVaar.textContent = "N/A";
+                    displayPanchangSunrise.textContent = "N/A";
+                    displayPanchangSunset.textContent = "N/A";
+                    displayPanchangRahuKaal.textContent = "N/A";
+                    displayGulikaKaal.textContent = "N/A";
+                    displayYamagandaKaal.textContent = "N/A";
+                    displayPanchangAbhijitMuhurat.textContent = "N/A";
+                    displayPanchangChoghadiyaDay.textContent = "N/A";
+                    displayPanchangChoghadiyaNight.textContent = "N/A";
+                    
+                    resultsSection.classList.remove('hidden');
+                    showMessage("No Panchang details found for the selected date and location. Please try another date/city or consult an astrologer.", "error");
+                }
+            }
+
+            // Event listener for Get Panchang button
+            getTodayPanchangBtn.addEventListener('click', getPanchangDetails);
+
+            // Set default date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            panchangDateInput.value = `${yyyy}-${mm}-${dd}`;
+
+            // Initial state: hide results section
+            resultsSection.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
