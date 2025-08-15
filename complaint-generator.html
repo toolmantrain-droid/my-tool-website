@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome CDN for icons (optional, for future use if icons are added) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF CDN for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         /*
          * Basic CSS styling for a clean and responsive look.
@@ -169,6 +171,7 @@
         <div id="output">
             <!-- The generated complaint will be displayed here -->
         </div>
+        <button id="download-pdf-btn" class="hidden w-full py-3 px-6 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition-colors duration-300 text-lg mt-4">Download as PDF</button>
     </div>
 
     <script>
@@ -185,6 +188,7 @@
             const departmentLabel = document.getElementById('departmentLabel');
             const locationDetailsInput = document.getElementById('locationDetails');
             const locationLabel = document.getElementById('locationLabel');
+            const downloadPdfBtn = document.getElementById('download-pdf-btn'); // Get the new download button
 
             // Initialize message box content
             if (messageBox) {
@@ -231,7 +235,39 @@
                     departmentNameInput.value = ''; // Clear values when hidden
                     locationDetailsInput.value = ''; // Clear values when hidden
                 }
+                outputDiv.textContent = ''; // Clear output when type changes
+                downloadPdfBtn.classList.add('hidden'); // Hide download button
+                const existingImpactNote = outputDiv.querySelector('.seo-note');
+                if (existingImpactNote) {
+                    existingImpactNote.remove(); // Remove old note if exists
+                }
             });
+
+            // Function to download generated letter as PDF
+            function downloadPdf() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                const letterContent = outputDiv.textContent; // Get content from the output div
+                const lines = doc.splitTextToSize(letterContent, 180); // Split text to fit page width
+                
+                let y = 10; // Starting Y position
+                const lineHeight = 7; // Line height
+                const pageHeight = doc.internal.pageSize.height;
+
+                lines.forEach(line => {
+                    if (y + lineHeight > pageHeight - 10) { // Check if new page is needed
+                        doc.addPage();
+                        y = 10; // Reset Y for new page
+                    }
+                    doc.text(line, 10, y);
+                    y += lineHeight;
+                });
+                
+                doc.save('complaint_letter.pdf');
+                showMessage('Complaint letter downloaded as PDF!', 'success');
+                console.log("Complaint letter downloaded as PDF.");
+            }
 
             // Add an event listener for form submission
             form.addEventListener('submit', function(event) {
@@ -343,8 +379,6 @@ I kindly request that you look into this matter at your earliest convenience and
 
 
                 const complaintText = `
-[Your Full Name]
-[Your Address]
 ${fullName}
 ${email}
 
@@ -369,6 +403,7 @@ ${fullName}
                 // Display the formatted complaint in the output div
                 outputDiv.textContent = complaintText;
                 showMessage("Complaint generated successfully! Review the text below.", "success");
+                downloadPdfBtn.classList.remove('hidden'); // Show download button after generation
 
                 // Add the SEO/Impact note
                 addImpactNote();
@@ -406,6 +441,13 @@ ${fullName}
                     <p>Remember, a well-documented and persistently pursued complaint has the highest chance of resolution.</p>
                 `;
                 outputDiv.appendChild(impactNote);
+            }
+
+            // Event listener for the download PDF button
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', downloadPdf);
+            } else {
+                console.error("download-pdf-btn not found.");
             }
         });
     </script>
