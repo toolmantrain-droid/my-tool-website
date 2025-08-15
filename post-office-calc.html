@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Office Scheme Calculator - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF CDN for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और Post Office Scheme Calculator टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .result-positive { color: #28a745; } /* Green for positive results */
+        .result-neutral { color: #007bff; } /* Blue for neutral results */
+
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+        /* Dynamic input field styling */
+        .dynamic-input-group {
+            display: none; /* Hidden by default */
+        }
+        .dynamic-input-group.active {
+            display: block; /* Shown when active */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Post Office Scheme Calculator</h2>
+                <p id="tool-description">Calculate returns on various Post Office Savings Schemes like SCSS, Sukanya, KVP, NSC, PPF, MIS, RD, and TD.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="schemeSelect">Select Scheme:</label>
+                    <select id="schemeSelect" class="w-full p-2 border rounded-md">
+                        <option value="">-- Select a Scheme --</option>
+                        <option value="scss">Senior Citizen's Savings Scheme (SCSS)</option>
+                        <option value="ssy">Sukanya Samriddhi Yojana (SSY)</option>
+                        <option value="kvp">Kisan Vikas Patra (KVP)</option>
+                        <option value="nsc">National Savings Certificate (NSC)</option>
+                        <option value="ppf">Public Provident Fund (PPF)</option>
+                        <option value="pomis">Post Office Monthly Income Scheme (POMIS)</option>
+                        <option value="pord">Post Office Recurring Deposit (RD)</option>
+                        <option value="potd">Post Office Time Deposit (TD)</option>
+                    </select>
+                </div>
+
+                <div class="form-group dynamic-input-group" id="investmentAmountGroup"> <!-- Removed 'active' class from HTML -->
+                    <label for="investmentAmount">Investment Amount (₹):</label>
+                    <input type="number" id="investmentAmount" placeholder="e.g., 100000" min="100">
+                </div>
+
+                <div class="form-group dynamic-input-group" id="scssAgeGroup">
+                    <label for="scssAge">Applicant's Age (for SCSS):</label>
+                    <input type="number" id="scssAge" placeholder="e.g., 65" min="60">
+                </div>
+
+                <div class="form-group dynamic-input-group" id="ssyGirlChildAgeGroup">
+                    <label for="ssyGirlChildAge">Girl Child's Age (for SSY):</label>
+                    <input type="number" id="ssyGirlChildAge" placeholder="e.g., 5" min="0" max="10">
+                </div>
+
+                <div class="form-group dynamic-input-group" id="ppfContributionTypeGroup">
+                    <label for="ppfContributionType">PPF Contribution Type:</label>
+                    <select id="ppfContributionType" class="w-full p-2 border rounded-md">
+                        <option value="lumpsum">Lump Sum (Annual)</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <div class="form-group dynamic-input-group" id="ppfMonthlyAmountGroup">
+                    <label for="ppfMonthlyAmount">Monthly Contribution (₹):</label>
+                    <input type="number" id="ppfMonthlyAmount" placeholder="e.g., 5000" min="500">
+                </div>
+
+                <div class="form-group dynamic-input-group" id="rdMonthlyAmountGroup">
+                    <label for="rdMonthlyAmount">Monthly RD Contribution (₹):</label>
+                    <input type="number" id="rdMonthlyAmount" placeholder="e.g., 1000" min="10">
+                </div>
+
+                <div class="form-group dynamic-input-group" id="tdTenureGroup">
+                    <label for="tdTenure">Time Deposit Tenure (Years):</label>
+                    <select id="tdTenure" class="w-full p-2 border rounded-md">
+                        <option value="">-- Select Tenure --</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="5">5 Years</option>
+                    </select>
+                </div>
+
+                <button id="calculateBtn" class="cta-button">Calculate Returns</button>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Calculation Results</h3>
+                    <div class="result-item">Scheme: <span id="schemeDisplay" class="result-value"></span></div>
+                    <div class="result-item">Investment: <span id="investmentDisplay" class="result-value"></span></div>
+                    <div class="result-item">Tenure: <span id="tenureDisplay" class="result-value"></span></div>
+                    <div class="result-item">Interest Rate: <span id="rateDisplay" class="result-value"></span></div>
+                    <div class="result-item">Total Interest Earned: <span id="interestEarnedDisplay" class="result-value result-positive"></span></div>
+                    <div class="result-item">Maturity Amount: <span id="maturityAmountDisplay" class="result-value result-positive"></span></div>
+                    <div class="result-item dynamic-result-item" id="monthlyPayoutDisplay">Monthly Payout: <span class="result-value result-neutral"></span></div>
+                    <div class="result-item dynamic-result-item" id="kvpDoublingPeriodDisplay">KVP Doubling Period: <span class="result-value result-neutral"></span></div>
+                    <div class="result-item dynamic-result-item" id="taxBenefitDisplay">Tax Benefit: <span class="result-value result-neutral"></span></div>
+
+                    <button id="downloadPdfBtn" class="cta-button bg-blue-600 hover:bg-blue-700 text-white rounded-full text-base mt-4 hidden">Download Results as PDF</button>
+
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This Post Office Calculator #1 on Google (Unprecedented Features):</h3>
+                        <p>This calculator provides accurate estimates for various Post Office schemes. To truly dominate search results for "Post Office Schemes Calculator India" and offer unmatched value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Dynamic & Real-time Interest Rates:</strong>
+                                <ul>
+                                    <li>Instead of hardcoding, **automatically fetch current and historical interest rates** for all schemes directly from official India Post/Finance Ministry APIs (if available) or a dedicated, frequently updated database. This ensures 100% accuracy and freshness.</li>
+                                    <li>Provide a **"Rate History" chart** for each scheme, showing how rates have changed over time.</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. Personalized Scheme Recommendations:</strong>
+                                <ul>
+                                    <li>Integrate a system that, based on user's age, income, financial goals (e.g., retirement, child education, short-term savings), and risk appetite, **suggests the most suitable Post Office schemes** with a rationale.</li>
+                                    <li>This would involve expert-defined rules or a knowledge-based system, moving beyond just calculation to actionable, tailored advice.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. Comprehensive Tax Implications & Comparison:</strong>
+                                <ul>
+                                    <li>For each scheme, provide a detailed breakdown of its **tax treatment** (e.g., 80C benefits, taxability of interest, maturity taxability).</li>
+                                    <li>Allow users to compare the **post-tax returns** of different schemes.</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Scenario Planning & "What-If" Analysis:</strong>
+                                <ul>
+                                    <li>Enable users to easily adjust investment amounts/tenures and see the **real-time impact on maturity and interest earned**.</li>
+                                    <li>Feature a "Goal-Based Investment" planner: "To achieve ₹X by Y date, you need to invest ₹Z in this scheme."</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. Interactive Growth Visualizations:</strong> Use libraries like D3.js or Chart.js to create **interactive charts** showing how the investment grows year-on-year, including interest accumulation.</li>
+                            <li><strong>6. Eligibility & Documentation Guide:</strong> For each scheme, provide a clear, concise guide on **who is eligible, required documents, and application process steps**.</li>
+                            <li><strong>7. Branch Locator Integration (Future):</strong> (If APIs available) Integrate with India Post's branch locator to help users find their nearest Post Office for investment.</li>
+                            <li><strong>8. Educational Hub & Expert Insights:</strong>
+                                <ul>
+                                    <li>Offer a rich library of **articles, FAQs, and video tutorials** on Post Office schemes, financial planning, and safe investing.</li>
+                                    <li>Feature insights from certified financial planners.</li>
+                                </ul>
+                            </li>
+                            <li><strong>9. Robust Backend for Personalization & Data Security:</strong>
+                                <ul>
+                                    <li>A backend (e.g., Firebase Firestore) to securely store user preferences (anonymized) to refine expert rules and provide persistent, personalized planning.</li>
+                                    <li>Ensure **highest data security and privacy compliance (GDPR, Indian IT Act)**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>10. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement detailed `Calculator` or `FinancialService` schema to explicitly tell Google what the tool does.</li>
+                                    <li>**Topical Authority:** Create comprehensive content clusters around "Post Office schemes," "small savings," "government investments," etc.</li>
+                                    <li>**Strategic Backlinks:** From reputable financial institutions, government portals, and educational sites.</li>
+                                    <li>**User Engagement Signals:** Focus on low bounce rate, long session duration, and repeat visits through excellent UX.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a strong foundation. Building out the dynamic rate fetching, personalized recommendations, and comprehensive educational content would truly set it apart as a #1 Post Office Calculator.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Post Office Scheme Calculator: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const schemeSelect = document.getElementById('schemeSelect');
+            const investmentAmountInput = document.getElementById('investmentAmount');
+            const scssAgeInput = document.getElementById('scssAge');
+            const ssyGirlChildAgeInput = document.getElementById('ssyGirlChildAge');
+            const ppfContributionTypeSelect = document.getElementById('ppfContributionType');
+            const ppfMonthlyAmountInput = document.getElementById('ppfMonthlyAmount');
+            const rdMonthlyAmountInput = document.getElementById('rdMonthlyAmount');
+            const tdTenureSelect = document.getElementById('tdTenure');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultsSection = document.getElementById('results-section');
+            const schemeDisplay = document.getElementById('schemeDisplay');
+            const investmentDisplay = document.getElementById('investmentDisplay');
+            const tenureDisplay = document.getElementById('tenureDisplay');
+            const rateDisplay = document.getElementById('rateDisplay');
+            const interestEarnedDisplay = document.getElementById('interestEarnedDisplay');
+            const maturityAmountDisplay = document.getElementById('maturityAmountDisplay');
+            const monthlyPayoutDisplay = document.getElementById('monthlyPayoutDisplay');
+            const kvpDoublingPeriodDisplay = document.getElementById('kvpDoublingPeriodDisplay');
+            const taxBenefitDisplay = document.getElementById('taxBenefitDisplay');
+            const messageBox = document.getElementById('message-box');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn'); // Get the new PDF download button
+
+            // Dynamic input groups
+            const investmentAmountGroup = document.getElementById('investmentAmountGroup');
+            const scssAgeGroup = document.getElementById('scssAgeGroup');
+            const ssyGirlChildAgeGroup = document.getElementById('ssyGirlChildAgeGroup');
+            const ppfContributionTypeGroup = document.getElementById('ppfContributionTypeGroup');
+            const ppfMonthlyAmountGroup = document.getElementById('ppfMonthlyAmountGroup');
+            const rdMonthlyAmountGroup = document.getElementById('rdMonthlyAmountGroup');
+            const tdTenureGroup = document.getElementById('tdTenureGroup');
+            const dynamicResultItems = document.querySelectorAll('.dynamic-result-item');
+
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Simplified current interest rates (Q1 FY24-25, April-June 2024, illustrative)
+            // Note: Real rates change quarterly and should ideally be fetched dynamically.
+            const interestRates = {
+                'scss': 0.082, // 8.2% annually, paid quarterly
+                'ssy': 0.082, // 8.2% annually, compounded annually
+                'kvp': { rate: 0.075, doublingMonths: 115 }, // 7.5% annually, doubles in 115 months (9 years 7 months)
+                'nsc': 0.077, // 7.7% annually, compounded annually, 5 years
+                'ppf': 0.071, // 7.1% annually, compounded annually
+                'pomis': 0.074, // 7.4% annually, paid monthly
+                'pord': 0.067, // 6.7% annually, compounded quarterly, 5 years
+                'potd': { // Annual payout
+                    '1': 0.069, // 1 Year: 6.9%
+                    '2': 0.070, // 2 Years: 7.0%
+                    '3': 0.071, // 3 Years: 7.1%
+                    '5': 0.075  // 5 Years: 7.5%
+                }
+            };
+
+            // Function to hide all dynamic input groups
+            function hideAllDynamicInputs() {
+                // investmentAmountGroup.classList.remove('active'); // Removed this line intentionally
+                scssAgeGroup.classList.remove('active');
+                ssyGirlChildAgeGroup.classList.remove('active');
+                ppfContributionTypeGroup.classList.remove('active');
+                ppfMonthlyAmountGroup.classList.remove('active');
+                rdMonthlyAmountGroup.classList.remove('active');
+                tdTenureGroup.classList.remove('active');
+                
+                // Clear values when hidden
+                investmentAmountInput.value = '';
+                scssAgeInput.value = '';
+                ssyGirlChildAgeInput.value = '';
+                ppfMonthlyAmountInput.value = '';
+                rdMonthlyAmountInput.value = '';
+                tdTenureSelect.value = '';
+
+                // Hide all dynamic result items
+                dynamicResultItems.forEach(item => item.classList.add('hidden'));
+                resultsSection.classList.add('hidden'); // Hide results section too
+                downloadPdfBtn.classList.add('hidden'); // Hide PDF button
+            }
+
+            // Function to download results as PDF
+            function downloadPdf() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Collect results text from the display elements
+                const schemeName = schemeDisplay.textContent;
+                const investmentVal = investmentDisplay.textContent;
+                const tenureVal = tenureDisplay.textContent;
+                const rateVal = rateDisplay.textContent;
+                const interestEarnedVal = interestEarnedDisplay.textContent;
+                const maturityAmountVal = maturityAmountDisplay.textContent;
+                const monthlyPayoutVal = monthlyPayoutDisplay.classList.contains('hidden') ? '' : monthlyPayoutDisplay.textContent;
+                const kvpDoublingPeriodVal = kvpDoublingPeriodDisplay.classList.contains('hidden') ? '' : kvpDoublingPeriodDisplay.textContent;
+                const taxBenefitVal = taxBenefitDisplay.classList.contains('hidden') ? '' : taxBenefitDisplay.textContent;
+
+                const resultsText = `
+Post Office Scheme Calculation Results
+
+Scheme: ${schemeName}
+Investment: ${investmentVal}
+Tenure: ${tenureVal}
+Interest Rate: ${rateVal}
+Total Interest Earned: ${interestEarnedVal}
+Maturity Amount: ${maturityAmountVal}
+${monthlyPayoutVal ? `Monthly Payout: ${monthlyPayoutVal}` : ''}
+${kvpDoublingPeriodVal ? `KVP Doubling Period: ${kvpDoublingPeriodVal}` : ''}
+${taxBenefitVal ? `Tax Benefit: ${taxBenefitVal}` : ''}
+
+Note: These calculations are estimates based on current rates and simplified formulas. For official figures, please consult India Post.
+                `.trim();
+
+                const lines = doc.splitTextToSize(resultsText, 180); // Split text to fit page width
+                
+                let y = 10; // Starting Y position
+                const lineHeight = 7; // Line height
+                const pageHeight = doc.internal.pageSize.height;
+
+                lines.forEach(line => {
+                    if (y + lineHeight > pageHeight - 10) { // Check if new page is needed
+                        doc.addPage();
+                        y = 10; // Reset Y for new page
+                    }
+                    doc.text(line, 10, y);
+                    y += lineHeight;
+                });
+                
+                doc.save('Post_Office_Scheme_Results.pdf');
+                showMessage('Results downloaded as PDF!', 'success');
+            }
+
+
+            // Event listener for scheme selection change
+            schemeSelect.addEventListener('change', function() {
+                hideAllDynamicInputs(); // Hide all inputs first
+                const selectedScheme = schemeSelect.value;
+
+                // Show/hide investment amount based on scheme selection
+                if (selectedScheme && selectedScheme !== 'pord' && (selectedScheme !== 'ppf' || ppfContributionTypeSelect.value === 'lumpsum')) {
+                    investmentAmountGroup.classList.add('active');
+                    investmentAmountInput.required = true;
+                } else if (selectedScheme === '') { // If "Select a Scheme" is chosen
+                    investmentAmountGroup.classList.remove('active');
+                    investmentAmountInput.required = false;
+                } else { // For RD or monthly PPF, investmentAmountGroup is hidden
+                    investmentAmountGroup.classList.remove('active');
+                    investmentAmountInput.required = false;
+                }
+
+
+                switch (selectedScheme) {
+                    case 'scss':
+                        scssAgeGroup.classList.add('active');
+                        scssAgeInput.required = true;
+                        break;
+                    case 'ssy':
+                        ssyGirlChildAgeGroup.classList.add('active');
+                        ssyGirlChildAgeInput.required = true;
+                        break;
+                    case 'ppf':
+                        ppfContributionTypeGroup.classList.add('active');
+                        // Set default for PPF contribution type
+                        if (ppfContributionTypeSelect.value === 'monthly') {
+                            ppfMonthlyAmountGroup.classList.add('active');
+                            ppfMonthlyAmountInput.required = true;
+                            investmentAmountGroup.classList.remove('active'); // Hide lumpsum if monthly
+                            investmentAmountInput.required = false;
+                        } else { // lumpsum is default or selected
+                            ppfMonthlyAmountGroup.classList.remove('active');
+                            ppfMonthlyAmountInput.required = false;
+                            investmentAmountGroup.classList.add('active'); // Show lumpsum for lumpsum
+                            investmentAmountInput.required = true;
+                        }
+                        break;
+                    case 'pord':
+                        rdMonthlyAmountGroup.classList.add('active');
+                        rdMonthlyAmountInput.required = true;
+                        // For RD, investmentAmountGroup should always be hidden as it's monthly
+                        investmentAmountGroup.classList.remove('active');
+                        investmentAmountInput.required = false;
+                        break;
+                    case 'potd':
+                        tdTenureGroup.classList.add('active');
+                        tdTenureSelect.required = true;
+                        break;
+                    // KVP, NSC, POMIS only need investment amount (already handled by initial 'if (selectedScheme)' block)
+                    case 'kvp':
+                    case 'nsc':
+                    case 'pomis':
+                        break;
+                    default: // No scheme selected
+                        // All dynamic inputs are already hidden by hideAllDynamicInputs()
+                        break;
+                }
+            });
+
+            // Handle PPF contribution type change specifically
+            ppfContributionTypeSelect.addEventListener('change', function() {
+                const selectedScheme = schemeSelect.value;
+                if (selectedScheme === 'ppf') {
+                    if (ppfContributionTypeSelect.value === 'monthly') {
+                        ppfMonthlyAmountGroup.classList.add('active');
+                        ppfMonthlyAmountInput.required = true;
+                        investmentAmountGroup.classList.remove('active'); // Hide lumpsum if monthly
+                        investmentAmountInput.required = false;
+                    } else {
+                        ppfMonthlyAmountGroup.classList.remove('active');
+                        ppfMonthlyAmountInput.required = false;
+                        investmentAmountGroup.classList.add('active'); // Show lumpsum if lumpsum
+                        investmentAmountInput.required = true;
+                    }
+                }
+            });
+
+
+            // Function to calculate returns for selected scheme
+            function calculateReturns() {
+                const selectedScheme = schemeSelect.value;
+                let investment = parseFloat(investmentAmountInput.value || 0); // This will be lumpsum for most
+                let age = parseInt(scssAgeInput.value || 0);
+                let girlChildAge = parseInt(ssyGirlChildAgeInput.value || 0);
+                let ppfMonthlyAmount = parseFloat(ppfMonthlyAmountInput.value || 0);
+                let rdMonthlyAmount = parseFloat(rdMonthlyAmountInput.value || 0);
+                let tdTenure = parseInt(tdTenureSelect.value || 0);
+
+                // Validation
+                if (!selectedScheme) {
+                    showMessage("Please select a scheme.", "error");
+                    return;
+                }
+
+                // Scheme-specific input validation
+                if (selectedScheme === 'pord') {
+                    if (isNaN(rdMonthlyAmount) || rdMonthlyAmount < 10) {
+                        showMessage("Please enter a valid Monthly RD Contribution (min ₹10).", "error");
+                        return;
+                    }
+                    // For calculation, use rdMonthlyAmount
+                } else if (selectedScheme === 'ppf') {
+                    if (ppfContributionTypeSelect.value === 'monthly') {
+                        if (isNaN(ppfMonthlyAmount) || ppfMonthlyAmount < 500) {
+                            showMessage("Please enter a valid Monthly PPF Contribution (min ₹500).", "error");
+                            return;
+                        }
+                        // For calculation, use ppfMonthlyAmount
+                    } else { // PPF lumpsum (annual)
+                        if (isNaN(investment) || investment < 500) { // PPF min annual is 500
+                            showMessage("Please enter a valid Annual PPF Investment Amount (min ₹500).", "error");
+                            return;
+                        }
+                        // For calculation, use investment
+                    }
+                } else { // Other schemes that use investmentAmount
+                    if (isNaN(investment) || investment < 100) {
+                        showMessage("Please enter a valid Investment Amount (min ₹100).", "error");
+                        return;
+                    }
+                }
+
+                if (selectedScheme === 'scss' && (isNaN(age) || age < 60)) {
+                    showMessage("For SCSS, applicant's age must be 60 or above.", "error");
+                    return;
+                }
+                if (selectedScheme === 'ssy' && (isNaN(girlChildAge) || girlChildAge < 0 || girlChildAge > 10)) {
+                    showMessage("For SSY, girl child's age must be between 0 and 10 years.", "error");
+                    return;
+                }
+                if (selectedScheme === 'potd' && !tdTenure) {
+                    showMessage("Please select a Time Deposit Tenure.", "error");
+                    return;
+                }
+
+
+                let totalInvestmentCalculated = 0; // This will store the final 'Total Investment' for display
+                let totalInterest = 0;
+                let maturityAmount = 0;
+                let tenureYears = 0;
+                let annualRate = 0;
+                let monthlyPayout = 0;
+                let taxBenefit = "As per IT Act";
+                let doublingPeriod = "N/A";
+
+                // Hide all dynamic result items initially
+                dynamicResultItems.forEach(item => item.classList.add('hidden'));
+
+                switch (selectedScheme) {
+                    case 'scss':
+                        tenureYears = 5; // SCSS fixed tenure
+                        annualRate = interestRates.scss;
+                        totalInvestmentCalculated = investment; // Lumpsum investment
+                        
+                        // Interest paid quarterly
+                        let quarterlyInterest = (totalInvestmentCalculated * annualRate) / 4;
+                        totalInterest = quarterlyInterest * (tenureYears * 4);
+                        maturityAmount = totalInvestmentCalculated; // Principal returned at maturity
+                        monthlyPayout = quarterlyInterest / 3; // Approx monthly payout
+
+                        monthlyPayoutDisplay.classList.remove('hidden');
+                        monthlyPayoutDisplay.querySelector('span').textContent = `₹ ${monthlyPayout.toLocaleString('en-IN', { maximumFractionDigits: 2 })} (Quarterly payout: ₹ ${quarterlyInterest.toLocaleString('en-IN', { maximumFractionDigits: 2 })})`;
+                        taxBenefit = "Interest taxable, eligible for 80C (investment)";
+                        break;
+
+                    case 'ssy':
+                        tenureYears = 21; // SSY fixed tenure
+                        annualRate = interestRates.ssy;
+                        const annualContributionSSY = investment; // Annual contribution for SSY
+                        
+                        let ssyCurrentMaturityValue = 0;
+                        let ssyTotalDeposits = 0;
+                        for (let i = 0; i < 15; i++) { // Max 15 years of contribution
+                            ssyCurrentMaturityValue += annualContributionSSY; // Add annual contribution
+                            ssyTotalDeposits += annualContributionSSY;
+                            ssyCurrentMaturityValue *= (1 + annualRate); // Compound annually
+                        }
+                        for (let i = 0; i < 6; i++) { // Interest accrues for 6 more years without contribution
+                            ssyCurrentMaturityValue *= (1 + annualRate);
+                        }
+                        maturityAmount = ssyCurrentMaturityValue;
+                        totalInterest = maturityAmount - ssyTotalDeposits;
+                        totalInvestmentCalculated = ssyTotalDeposits; // Total investment over 15 years
+                        taxBenefit = "E-E-E (Exempt at investment, accumulation, and withdrawal)";
+                        break;
+
+                    case 'kvp':
+                        annualRate = interestRates.kvp.rate;
+                        tenureYears = interestRates.kvp.doublingMonths / 12; // Approx years
+                        totalInvestmentCalculated = investment; // Lumpsum investment
+                        
+                        // KVP doubles in fixed period
+                        const doublingFactor = 2;
+                        maturityAmount = totalInvestmentCalculated * doublingFactor;
+                        totalInterest = maturityAmount - totalInvestmentCalculated;
+                        doublingPeriod = `${interestRates.kvp.doublingMonths} Months (${(tenureYears).toFixed(1)} Years)`;
+                        kvpDoublingPeriodDisplay.classList.remove('hidden');
+                        kvpDoublingPeriodDisplay.querySelector('span').textContent = doublingPeriod;
+                        taxBenefit = "Interest taxable, eligible for 80C (investment)";
+                        break;
+
+                    case 'nsc':
+                        tenureYears = 5; // NSC fixed tenure
+                        annualRate = interestRates.nsc;
+                        totalInvestmentCalculated = investment; // Lumpsum investment
+                        
+                        // Compounded annually
+                        maturityAmount = totalInvestmentCalculated * Math.pow((1 + annualRate), tenureYears);
+                        totalInterest = maturityAmount - totalInvestmentCalculated;
+                        taxBenefit = "Interest taxable, eligible for 80C (investment)";
+                        break;
+
+                    case 'ppf':
+                        tenureYears = 15; // PPF fixed tenure
+                        annualRate = interestRates.ppf;
+                        
+                        if (ppfContributionTypeSelect.value === 'lumpsum') {
+                            totalInvestmentCalculated = investment; // Annual lump sum
+                            maturityAmount = totalInvestmentCalculated * Math.pow((1 + annualRate), tenureYears);
+                        } else { // Monthly contribution
+                            const monthlyPPFContribution = ppfMonthlyAmount;
+                            totalInvestmentCalculated = monthlyPPFContribution * 12 * tenureYears; // Total deposits
+                            let currentMaturity = 0;
+                            // PPF interest is calculated on lowest balance between 5th and end of month.
+                            // Simplified annual compounding for monthly contributions for approximation.
+                            for (let year = 0; year < tenureYears; year++) {
+                                currentMaturity += (monthlyPPFContribution * 12); // Add annual contribution
+                                currentMaturity *= (1 + annualRate); // Compound annually
+                            }
+                            maturityAmount = currentMaturity;
+                        }
+                        totalInterest = maturityAmount - totalInvestmentCalculated;
+                        taxBenefit = "E-E-E (Exempt at investment, accumulation, and withdrawal)";
+                        break;
+
+                    case 'pomis':
+                        tenureYears = 5; // POMIS fixed tenure
+                        annualRate = interestRates.pomis;
+                        totalInvestmentCalculated = investment; // Lumpsum investment
+                        
+                        monthlyPayout = (totalInvestmentCalculated * annualRate) / 12;
+                        totalInterest = monthlyPayout * 12 * tenureYears;
+                        maturityAmount = totalInvestmentCalculated; // Principal returned at maturity
+                        
+                        monthlyPayoutDisplay.classList.remove('hidden');
+                        monthlyPayoutDisplay.querySelector('span').textContent = `₹ ${monthlyPayout.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+                        taxBenefit = "Interest taxable";
+                        break;
+
+                    case 'pord':
+                        tenureYears = 5; // PO RD fixed tenure
+                        annualRate = interestRates.pord;
+                        const monthlyRDContribution = rdMonthlyAmount;
+                        totalInvestmentCalculated = monthlyRDContribution * 12 * tenureYears; // Total deposits
+                        
+                        // RD calculation (compounded quarterly, monthly investment) - Approximation
+                        let rdMaturity = 0;
+                        let r_quarterly = annualRate / 4; // Quarterly rate
+                        
+                        // This is a simplified loop for monthly contributions compounded quarterly
+                        for (let year = 0; year < tenureYears; year++) {
+                            for (let month = 0; month < 12; month++) {
+                                rdMaturity += monthlyRDContribution;
+                                if ((month + 1) % 3 === 0) { // Compound every 3 months
+                                    rdMaturity *= (1 + r_quarterly);
+                                }
+                            }
+                        }
+                        maturityAmount = rdMaturity;
+                        totalInterest = maturityAmount - totalInvestmentCalculated;
+                        taxBenefit = "Interest taxable";
+                        break;
+
+                    case 'potd':
+                        annualRate = interestRates.potd[tdTenure.toString()];
+                        tenureYears = tdTenure;
+                        totalInvestmentCalculated = investment; // Lumpsum investment
+                        
+                        // Interest paid annually
+                        maturityAmount = totalInvestmentCalculated * Math.pow((1 + annualRate), tenureYears);
+                        totalInterest = maturityAmount - totalInvestmentCalculated;
+                        taxBenefit = "Interest taxable, eligible for 80C (5-year TD)";
+                        break;
+
+                    default:
+                        showMessage("Please select a valid scheme.", "error");
+                        return;
+                }
+
+                // Display results
+                schemeDisplay.textContent = schemeSelect.options[schemeSelect.selectedIndex].text;
+                investmentDisplay.textContent = `₹ ${totalInvestmentCalculated.toLocaleString('en-IN')}`;
+                tenureDisplay.textContent = `${tenureYears} Years`;
+                rateDisplay.textContent = `${(annualRate * 100).toFixed(2)}% Annually`;
+                interestEarnedDisplay.textContent = `₹ ${totalInterest.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+                maturityAmountDisplay.textContent = `₹ ${maturityAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+                taxBenefitDisplay.classList.remove('hidden');
+                taxBenefitDisplay.querySelector('span').textContent = taxBenefit;
+
+                resultsSection.classList.remove('hidden');
+                downloadPdfBtn.classList.remove('hidden'); // Show PDF download button after calculation
+                showMessage("Returns calculated successfully!", "success");
+            }
+
+            // Event Listeners
+            schemeSelect.addEventListener('change', function() {
+                // Clear previous results when scheme changes
+                resultsSection.classList.add('hidden');
+                showMessage("", "info"); // Clear any messages
+                hideAllDynamicInputs(); // Ensure all inputs are reset
+            });
+
+            ppfContributionTypeSelect.addEventListener('change', function() {
+                // Adjust input visibility based on PPF contribution type
+                if (ppfContributionTypeSelect.value === 'monthly') {
+                    ppfMonthlyAmountGroup.classList.add('active');
+                    ppfMonthlyAmountInput.required = true;
+                    investmentAmountGroup.classList.remove('active'); // Hide lumpsum if monthly
+                    investmentAmountInput.required = false;
+                } else {
+                    ppfMonthlyAmountGroup.classList.remove('active');
+                    ppfMonthlyAmountInput.required = false;
+                    investmentAmountGroup.classList.add('active'); // Show lumpsum if lumpsum
+                    investmentAmountInput.required = true;
+                }
+            });
+
+            calculateBtn.addEventListener('click', calculateReturns);
+            downloadPdfBtn.addEventListener('click', downloadPdf); // Attach PDF download event listener
+
+            // Initial state: hide all dynamic inputs, then show investment amount group
+            hideAllDynamicInputs();
+            investmentAmountGroup.classList.add('active'); // Show investment amount by default
+            investmentAmountInput.required = true;
+        });
+    </script>
+</body>
+</html>
