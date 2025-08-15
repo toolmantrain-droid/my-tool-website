@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kundli Matching - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और Kundli Matching टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-section {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .person-details {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e7eb;
+            text-align: left;
+        }
+        .person-details h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4a148c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 30px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .guna-score-display {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 700;
+            color: #28a745; /* Green for good score */
+            margin-top: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .guna-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+        }
+        .guna-item {
+            font-size: 1rem;
+            color: #1b5e20;
+            font-weight: 500;
+        }
+        .guna-item strong {
+            color: #064e3b;
+        }
+        .compatibility-notes {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #fff3e0;
+            border-radius: 8px;
+            border: 1px solid #ffe0b2;
+            color: #e65100;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .dosha-status {
+            font-weight: 600;
+            color: #dc3545; /* Red for Dosha */
+        }
+        .dosha-status.no-dosha {
+            color: #28a745; /* Green for no Dosha */
+        }
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%; /* Ensure it takes full width */
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Kundli Matching</h2>
+                <p id="tool-description">Perform Guna Milan and basic compatibility analysis for marriage based on Vedic Astrology principles. (Illustrative Data)</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-section">
+                    <div class="person-details">
+                        <h3>Boy's Details</h3>
+                        <div class="form-group">
+                            <label for="boyName">Name:</label>
+                            <input type="text" id="boyName" placeholder="e.g., Rahul" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="boyDate">Date of Birth:</label>
+                            <input type="date" id="boyDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="boyTime">Time of Birth:</label>
+                            <input type="time" id="boyTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="boyPlace">Place of Birth (City):</label>
+                            <input type="text" id="boyPlace" placeholder="e.g., Delhi" required>
+                        </div>
+                    </div>
+
+                    <div class="person-details">
+                        <h3>Girl's Details</h3>
+                        <div class="form-group">
+                            <label for="girlName">Name:</label>
+                            <input type="text" id="girlName" placeholder="e.g., Priya" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="girlDate">Date of Birth:</label>
+                            <input type="date" id="girlDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="girlTime">Time of Birth:</label>
+                            <input type="time" id="girlTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="girlPlace">Place of Birth (City):</label>
+                            <input type="text" id="girlPlace" placeholder="e.g., Mumbai" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="matchKundliBtn" class="cta-button">Match Kundli</button>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Kundli Matching Results:</h3>
+                    <div class="result-item">
+                        Boy's Name: <span id="displayBoyName" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Girl's Name: <span id="displayGirlName" class="result-value"></span>
+                    </div>
+                    <div class="guna-score-display">
+                        Total Guna Milan: <span id="gunaScore"></span> / 36
+                    </div>
+                    <div class="guna-details">
+                        <!-- Guna details will be dynamically added here -->
+                        <div class="guna-item"><strong>Varna:</strong> <span id="gunaVarna"></span></div>
+                        <div class="guna-item"><strong>Vashya:</strong> <span id="gunaVashya"></span></div>
+                        <div class="guna-item"><strong>Tara:</strong> <span id="gunaTara"></span></div>
+                        <div class="guna-item"><strong>Yoni:</strong> <span id="gunaYoni"></span></div>
+                        <div class="guna-item"><strong>Graha Maitri:</strong> <span id="gunaGrahaMaitri"></span></div>
+                        <div class="guna-item"><strong>Gana:</strong> <span id="gunaGana"></span></div>
+                        <div class="guna-item"><strong>Bhakoot:</strong> <span id="gunaBhakoot"></span></div>
+                        <div class="guna-item"><strong>Nadi:</strong> <span id="gunaNadi"></span></div>
+                    </div>
+                    <div class="result-item mt-4">
+                        <strong>Mangal Dosha Status:</strong> <span id="mangalDoshaStatus" class="dosha-status"></span>
+                    </div>
+                    <div class="compatibility-notes">
+                        <h4>Compatibility Notes:</h4>
+                        <p id="compatibilityText"></p>
+                    </div>
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This Kundli Matching Tool #1 on Google (Unprecedented Features):</h3>
+                        <p>This tool provides a foundational Kundli Matching (Guna Milan) capability based on illustrative data. To truly dominate search results for "Kundli Matching India" and offer unparalleled value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Hyper-Accurate Astrological Engine (Crucial):</strong>
+                                <ul>
+                                    <li>Integrate a **robust backend astrological calculation engine (via API)** that can precisely compute birth charts (Kundli) for both individuals, including:
+                                        <ul>
+                                            <li>Planetary positions (Graha Spashta)</li>
+                                            <li>Lagna (Ascendant)</li>
+                                            <li>Nakshatra, Tithi, Yoga, Karana</li>
+                                            <li>Dashas (Vimshottari, Yogini, etc.)</li>
+                                            <li>Divisional Charts (Navamsha, Dashamsha, etc.)</li>
+                                        </ul>
+                                        based on exact birth date, time, and **precise geographical coordinates (latitude/longitude)**. This is the *most critical* feature for accuracy and authority.</li>
+                                    <li>Account for **Ayanamsha** (Lahiri, KP, etc.) and **time zone differences** automatically.</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. Comprehensive 36 Guna Milan with Detailed Explanations:</strong>
+                                <ul>
+                                    <li>Accurately calculate all 36 Gunas (Varna, Vashya, Tara, Yoni, Graha Maitri, Gana, Bhakoot, Nadi) with their **individual scores and detailed interpretations** for each match/mismatch.</li>
+                                    <li>Provide **remedies or mitigation techniques** for low-scoring Gunas.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. Advanced Dosha Analysis & Remedies:</strong>
+                                <ul>
+                                    <li>Precisely identify **Mangal Dosha, Shani Dosha, Pitra Dosha, Kaal Sarpa Dosha**, etc., in both Kundlis.</li>
+                                    <li>Offer **detailed explanations of the Doshas** and **personalized astrological remedies** (e.g., specific pujas, mantras, gemstones, charitable acts). This is a **game-changer**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Planetary Compatibility & Dasha Analysis:</strong>
+                                <ul>
+                                    <li>Beyond Gunas, analyze the **compatibility of key planets** (e.g., Moon, Venus, Jupiter) in both charts.</li>
+                                    <li>Provide a **brief Dasha (planetary period) analysis** for both individuals, highlighting major periods and their potential impact on marital life.</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. Interactive Kundli Visualization:</strong>
+                                <ul>
+                                    <li>Display **interactive birth charts (Kundli)** for both individuals, and a combined chart showing planetary overlays.</li>
+                                    <li>Allow users to click on planets/houses for basic interpretations.</li>
+                                </ul>
+                            </li>
+                            <li><strong>6. Relationship Compatibility Insights (Beyond Marriage):</strong>
+                                <ul>
+                                    <li>Expand to offer compatibility for business partners, friendships, and family relationships, using relevant astrological principles.</li>
+                                </ul>
+                            </li>
+                            <li><strong>7. Expert Astrologer Integration (Optional):</strong>
+                                <ul>
+                                    <li>Offer a feature to connect with certified astrologers for personalized consultations, detailed reports, or specific remedies, potentially via integrated chat or video calls.</li>
+                                </ul>
+                            </li>
+                            <li><strong>8. Robust Backend for Data Management & Personalization:</strong>
+                                <ul>
+                                    <li>A secure backend (e.g., Firebase Firestore) to manage astrological data, user profiles (anonymized), calculation results, and personalized reports. This is **essential for accuracy, personalization, and scalability**.</li>
+                                    <li>Ensure **highest data security and privacy compliance**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>9. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement highly detailed `HowTo`, `Q&A`, `AstrologyService`, or `MatchmakingService` schema to explicitly tell Google what the tool does and its content structure.</li>
+                                    <li>**Topical Authority & Content Clusters:** Create vast, interconnected content clusters around "Kundli Matching," "Guna Milan," "Marriage Astrology," "Mangal Dosha," "Astrological Remedies," etc., positioning ToolMantra as the ultimate authority.</li>
+                                    <li>**Strategic, High-Quality Backlinks:** Actively seek backlinks from reputable astrology websites, matrimonial portals, cultural platforms, and educational sites.</li>
+                                    <li>**Superior User Engagement Signals:** Optimize for low bounce rate, high time-on-page, and repeat visits through an exceptional UX.</li>
+                                    <li>**Mobile-First Indexing & Core Web Vitals:** Ensure lightning-fast loading speeds, smooth interactivity, and excellent mobile responsiveness.</li>
+                                    <li>**Long-Tail Keyword Targeting:** Create specific content for long-tail keywords like "Kundli matching for love marriage," "Mangal Dosha cancellation remedies," or "Guna Milan score interpretation."</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a strong foundation for Kundli Matching. Building out the hyper-accurate astrological engine, personalized Kundli analysis, comprehensive Dosha/Remedy insights, and interactive visualizations through a robust backend would truly set it apart as the #1 Kundli Matching Tool globally, offering a service currently unmatched on Google.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Kundli Matching Tool: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const boyNameInput = document.getElementById('boyName');
+            const boyDateInput = document.getElementById('boyDate');
+            const boyTimeInput = document.getElementById('boyTime');
+            const boyPlaceInput = document.getElementById('boyPlace');
+            const girlNameInput = document.getElementById('girlName');
+            const girlDateInput = document.getElementById('girlDate');
+            const girlTimeInput = document.getElementById('girlTime');
+            const girlPlaceInput = document.getElementById('girlPlace');
+            const matchKundliBtn = document.getElementById('matchKundliBtn');
+            const resultsSection = document.getElementById('results-section');
+            const displayBoyName = document.getElementById('displayBoyName');
+            const displayGirlName = document.getElementById('displayGirlName');
+            const gunaScoreDisplay = document.getElementById('gunaScore');
+            const gunaVarna = document.getElementById('gunaVarna');
+            const gunaVashya = document.getElementById('gunaVashya');
+            const gunaTara = document.getElementById('gunaTara');
+            const gunaYoni = document.getElementById('gunaYoni');
+            const gunaGrahaMaitri = document.getElementById('gunaGrahaMaitri');
+            const gunaGana = document.getElementById('gunaGana');
+            const gunaBhakoot = document.getElementById('gunaBhakoot');
+            const gunaNadi = document.getElementById('gunaNadi');
+            const mangalDoshaStatus = document.getElementById('mangalDoshaStatus'); // New element
+            const compatibilityText = document.getElementById('compatibilityText');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Simplified Mock Astrological Data (Illustrative - NOT real calculations)
+            // In a real advanced tool, this data would come from a backend astrological API.
+            // Added more sample data for different combinations.
+            const mockKundliData = {
+                "Rahul-1990-01-15-delhi": {
+                    nakshatra: "Ashwini", gana: "Deva", rashi: "Aries", varna: "Brahmin", yoni: "Ashwa", nadi: "Aadi", mangalDosha: false
+                },
+                "Priya-1992-03-20-mumbai": {
+                    nakshatra: "Bharani", gana: "Manushya", rashi: "Aries", varna: "Kshatriya", yoni: "Gaja", nadi: "Madhya", mangalDosha: true
+                },
+                "Amit-1988-07-22-bengaluru": {
+                    nakshatra: "Magha", gana: "Rakshasa", rashi: "Leo", varna: "Vaishya", yoni: "Mooshak", nadi: "Antya", mangalDosha: false
+                },
+                "Sneha-1991-11-05-chennai": {
+                    nakshatra: "Purva Phalguni", gana: "Manushya", rashi: "Leo", varna: "Shudra", yoni: "Mooshak", nadi: "Madhya", mangalDosha: false
+                },
+                "Rohan-1989-05-10-hyderabad": {
+                    nakshatra: "Rohini", gana: "Manushya", rashi: "Taurus", varna: "Vaishya", yoni: "Sarpa", nadi: "Madhya", mangalDosha: true
+                },
+                "Anjali-1993-09-01-kolkata": {
+                    nakshatra: "Mrigashira", gana: "Deva", rashi: "Gemini", varna: "Brahmin", yoni: "Sarpa", nadi: "Aadi", mangalDosha: false
+                },
+                // Additional sample data for more diverse matching scenarios
+                "Vikram-1987-02-10-pune": {
+                    nakshatra: "Pushya", gana: "Deva", rashi: "Cancer", varna: "Brahmin", yoni: "Mesha", nadi: "Aadi", mangalDosha: false
+                },
+                "Nisha-1990-06-25-pune": {
+                    nakshatra: "Ashlesha", gana: "Rakshasa", rashi: "Cancer", varna: "Shudra", yoni: "Mesha", nadi: "Antya", mangalDosha: true
+                },
+                "Suresh-1985-04-01-jaipur": {
+                    nakshatra: "Chitra", gana: "Rakshasa", rashi: "Virgo", varna: "Kshatriya", yoni: "Vyaghra", nadi: "Madhya", mangalDosha: false
+                },
+                "Pooja-1987-08-12-jaipur": {
+                    nakshatra: "Swati", gana: "Deva", rashi: "Libra", varna: "Brahmin", yoni: "Mahisha", nadi: "Aadi", mangalDosha: false
+                },
+                "Kunal-1995-12-03-lucknow": {
+                    nakshatra: "Dhanishta", gana: "Rakshasa", rashi: "Capricorn", varna: "Vaishya", yoni: "Simha", nadi: "Madhya", mangalDosha: true
+                },
+                "Ritu-1996-02-14-lucknow": {
+                    nakshatra: "Shatabhisha", gana: "Manushya", rashi: "Aquarius", varna: "Kshatriya", yoni: "Ashwa", nadi: "Antya", mangalDosha: false
+                },
+                "Deepak-1980-09-05-ahmedabad": {
+                    nakshatra: "Uttara Bhadrapada", gana: "Manushya", rashi: "Pisces", varna: "Shudra", yoni: "Gaja", nadi: "Aadi", mangalDosha: false
+                },
+                "Meena-1983-01-25-ahmedabad": {
+                    nakshatra: "Revati", gana: "Deva", rashi: "Pisces", varna: "Brahmin", yoni: "Gaja", nadi: "Madhya", mangalDosha: true
+                }
+            };
+
+            // Simplified Guna Matching Logic (Illustrative - NOT real astrological rules)
+            // In a real tool, this would be a complex calculation based on specific astrological rules.
+            function calculateGunas(boyKundli, girlKundli) {
+                let gunaScore = 0;
+                let gunaDetails = {};
+                let compatibilityNotes = [];
+                let mangalDoshaMatch = "Not Checked"; // Default status
+
+                // Varna (1 point)
+                if (boyKundli.varna === girlKundli.varna) {
+                    gunaScore += 1;
+                    gunaDetails.varna = "Match (1/1)";
+                } else {
+                    gunaDetails.varna = "Mismatch (0/1)";
+                    compatibilityNotes.push("Varna mismatch: May indicate differences in ego and spiritual levels.");
+                }
+
+                // Vashya (2 points) - Simplified: Same Rashi = Match
+                if (boyKundli.rashi === girlKundli.rashi) {
+                    gunaScore += 2;
+                    gunaDetails.vashya = "Match (2/2)";
+                } else {
+                    gunaDetails.vashya = "Mismatch (0/2)";
+                    compatibilityNotes.push("Vashya mismatch: Could lead to issues in mutual attraction and control.");
+                }
+
+                // Tara (3 points) - Simplified: Same Nakshatra = Match
+                if (boyKundli.nakshatra === girlKundli.nakshatra) {
+                    gunaScore += 3;
+                    gunaDetails.tara = "Match (3/3)";
+                } else {
+                    gunaDetails.tara = "Mismatch (0/3)";
+                    compatibilityNotes.push("Tara mismatch: May affect destiny and luck.");
+                }
+
+                // Yoni (4 points) - Simplified: Same Yoni = Match
+                if (boyKundli.yoni === girlKundli.yoni) {
+                    gunaScore += 4;
+                    gunaDetails.yoni = "Match (4/4)";
+                } else {
+                    gunaDetails.yoni = "Mismatch (0/4)";
+                    compatibilityNotes.push("Yoni mismatch: Can impact sexual compatibility and mutual affection.");
+                }
+
+                // Graha Maitri (5 points) - Simplified: Same Rashi = Match
+                if (boyKundli.rashi === girlKundli.rashi) {
+                    gunaScore += 5;
+                    gunaDetails.grahaMaitri = "Match (5/5)";
+                } else {
+                    gunaDetails.grahaMaitri = "Mismatch (0/5)";
+                    compatibilityNotes.push("Graha Maitri mismatch: May lead to differences in intellectual and mental compatibility.");
+                }
+
+                // Gana (6 points) - Simplified: Same Gana = Match
+                if (boyKundli.gana === girlKundli.gana) {
+                    gunaScore += 6;
+                    gunaDetails.gana = "Match (6/6)";
+                } else {
+                    gunaDetails.gana = "Mismatch (0/6)";
+                    compatibilityNotes.push("Gana mismatch: Can cause differences in temperament and daily habits.");
+                }
+
+                // Bhakoot (7 points) - Simplified: Same Rashi = Match
+                if (boyKundli.rashi === girlKundli.rashi) {
+                    gunaScore += 7;
+                    gunaDetails.bhakoot = "Match (7/7)";
+                } else {
+                    gunaDetails.bhakoot = "Mismatch (0/7)";
+                    compatibilityNotes.push("Bhakoot mismatch: May affect financial prosperity and family happiness.");
+                }
+
+                // Nadi (8 points) - Simplified: Same Nadi = Mismatch (most crucial)
+                if (boyKundli.nadi === girlKundli.nadi) {
+                    gunaDetails.nadi = "Mismatch (0/8)";
+                    compatibilityNotes.push("Nadi Dosha: This is a serious dosha, potentially affecting health and progeny. Consult an expert.");
+                } else {
+                    gunaScore += 8;
+                    gunaDetails.nadi = "Match (8/8)";
+                }
+
+                // Mangal Dosha Check (Simplified)
+                if (boyKundli.mangalDosha && girlKundli.mangalDosha) {
+                    mangalDoshaMatch = "Both have Mangal Dosha (Compatible)";
+                    compatibilityNotes.push("Both individuals have Mangal Dosha. This can be a positive for marriage if both have it, as it cancels the dosha.");
+                } else if (boyKundli.mangalDosha && !girlKundli.mangalDosha) {
+                    mangalDoshaMatch = "Boy has Mangal Dosha, Girl does not (Mismatch)";
+                    compatibilityNotes.push("Boy has Mangal Dosha, girl does not. This is a significant mismatch and needs expert consultation for remedies.");
+                } else if (!boyKundli.mangalDosha && girlKundli.mangalDosha) {
+                    mangalDoshaMatch = "Girl has Mangal Dosha, Boy does not (Mismatch)";
+                    compatibilityNotes.push("Girl has Mangal Dosha, boy does not. This is a significant mismatch and needs expert consultation for remedies.");
+                } else {
+                    mangalDoshaMatch = "Neither has Mangal Dosha (Compatible)";
+                    compatibilityNotes.push("Neither individual has Mangal Dosha, which is a good sign for compatibility.");
+                }
+
+
+                return { totalScore: gunaScore, details: gunaDetails, notes: compatibilityNotes, mangalDoshaStatus: mangalDoshaMatch };
+            }
+
+            // Event listener for Match Kundli button
+            matchKundliBtn.addEventListener('click', function() {
+                const boyName = boyNameInput.value.trim();
+                const boyDate = boyDateInput.value;
+                const boyTime = boyTimeInput.value;
+                const boyPlace = boyPlaceInput.value.trim();
+                const girlName = girlNameInput.value.trim();
+                const girlDate = girlDateInput.value;
+                const girlTime = girlTimeInput.value;
+                const girlPlace = girlPlaceInput.value.trim();
+
+                if (!boyName || !boyDate || !boyTime || !boyPlace || !girlName || !girlDate || !girlTime || !girlPlace) {
+                    showMessage("Please fill in all details for both individuals.", "error");
+                    return;
+                }
+
+                // Create unique keys for mock data lookup
+                const boyKey = `${boyName}-${boyDate}-${boyPlace.toLowerCase()}`;
+                const girlKey = `${girlName}-${girlDate}-${girlPlace.toLowerCase()}`;
+
+                const boyKundli = mockKundliData[boyKey];
+                const girlKundli = mockKundliData[girlKey];
+
+                if (!boyKundli || !girlKundli) {
+                    showMessage("Mock data not found for one or both individuals. Please use sample data (e.g., Rahul-1990-01-15-Delhi & Priya-1992-03-20-Mumbai) or consult a real astrologer.", "error");
+                    resultsSection.classList.add('hidden');
+                    return;
+                }
+
+                const matchingResults = calculateGunas(boyKundli, girlKundli);
+
+                displayBoyName.textContent = boyName;
+                displayGirlName.textContent = girlName;
+                gunaScoreDisplay.textContent = matchingResults.totalScore;
+
+                gunaVarna.textContent = matchingResults.details.varna;
+                gunaVashya.textContent = matchingResults.details.vashya;
+                gunaTara.textContent = matchingResults.details.tara;
+                gunaYoni.textContent = matchingResults.details.yoni;
+                gunaGrahaMaitri.textContent = matchingResults.details.grahaMaitri;
+                gunaGana.textContent = matchingResults.details.gana;
+                gunaBhakoot.textContent = matchingResults.details.bhakoot;
+                gunaNadi.textContent = matchingResults.details.nadi;
+
+                // Display Mangal Dosha Status
+                mangalDoshaStatus.textContent = matchingResults.mangalDoshaStatus;
+                if (matchingResults.mangalDoshaStatus.includes("Compatible")) {
+                    mangalDoshaStatus.classList.remove('dosha-status');
+                    mangalDoshaStatus.classList.add('no-dosha');
+                } else {
+                    mangalDoshaStatus.classList.remove('no-dosha');
+                    mangalDoshaStatus.classList.add('dosha-status');
+                }
+
+
+                compatibilityText.innerHTML = matchingResults.notes.length > 0 ? matchingResults.notes.join("<br>") : "Basic compatibility seems good based on Guna Milan. For deeper insights, consult an astrologer.";
+
+                // Change color of total score based on threshold
+                if (matchingResults.totalScore >= 18) {
+                    gunaScoreDisplay.classList.remove('text-red-600');
+                    gunaScoreDisplay.classList.add('text-green-600');
+                } else {
+                    gunaScoreDisplay.classList.remove('text-green-600');
+                    gunaScoreDisplay.classList.add('text-red-600');
+                }
+
+                resultsSection.classList.remove('hidden');
+                showMessage("Kundli Matching results generated!", "success");
+            });
+
+            // Set default dates to sample data for convenience
+            boyDateInput.value = "1990-01-15"; // Sample date
+            boyTimeInput.value = "10:30"; // Sample time
+            boyPlaceInput.value = "Delhi"; // Sample place
+
+            girlDateInput.value = "1992-03-20"; // Sample date
+            girlTimeInput.value = "09:00"; // Sample time
+            girlPlaceInput.value = "Mumbai"; // Sample place
+
+            resultsSection.classList.add('hidden'); // Hide results section initially
+        });
+    </script>
+</body>
+</html>
