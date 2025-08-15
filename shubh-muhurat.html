@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auspicious Time Finder - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और Auspicious Time Finder टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input[type="date"], .form-group input[type="time"], .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .result-auspicious {
+            color: #28a745; /* Green for auspicious */
+        }
+        .result-inauspicious {
+            color: #dc3545; /* Red for inauspicious */
+        }
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Auspicious Time Finder</h2>
+                <p id="tool-description">Find an auspicious time (Shubh Muhurat) for new work, buying a vehicle, or housewarming based on Vedic Astrology principles.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="eventDate">Select Date:</label>
+                    <input type="date" id="eventDate" class="w-full p-2 border rounded-md" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventTime">Select Time (Optional, for more precision):</label>
+                    <input type="time" id="eventTime" class="w-full p-2 border rounded-md">
+                </div>
+
+                <div class="form-group">
+                    <label for="locationCity">Enter City/Location:</label>
+                    <input type="text" id="locationCity" placeholder="e.g., Delhi, Mumbai, Bengaluru" class="w-full p-2 border rounded-md" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="purposeSelect">Select Purpose:</label>
+                    <select id="purposeSelect" class="w-full p-2 border rounded-md" required>
+                        <option value="">-- Select Purpose --</option>
+                        <option value="new-venture">Starting New Business/Venture</option>
+                        <option value="vehicle-purchase">Vehicle Purchase</option>
+                        <option value="housewarming">Housewarming (Griha Pravesh)</option>
+                        <option value="marriage">Marriage Ceremony</option>
+                        <option value="travel">Starting Travel/Journey</option>
+                        <option value="education">Starting Education/Learning</option>
+                        <option value="medical-treatment">Starting Medical Treatment</option>
+                        <option value="general">General Auspicious Time</option>
+                    </select>
+                </div>
+
+                <button id="findMuhuratBtn" class="cta-button">Find Muhurat</button>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Auspicious Time Details:</h3>
+                    <div class="result-item">
+                        Date: <span id="displayDate" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Purpose: <span id="displayPurpose" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Location: <span id="displayLocation" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Recommended Muhurat: <span id="displayMuhurat" class="result-value result-auspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Notes: <span id="displayNotes" class="result-description"></span>
+                    </div>
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This Auspicious Time Finder #1 on Google (Unprecedented Features):</h3>
+                        <p>This tool provides a foundational understanding of auspicious times. To truly dominate search results for "Shubh Muhurat Finder India" and offer unparalleled value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Hyper-Accurate Astrological Engine (Crucial):</strong>
+                                <ul>
+                                    <li>Integrate a **robust backend astrological calculation engine (via API)** that can precisely compute Panchang elements (Tithi, Nakshatra, Yoga, Karana, Vaar), Sunrise/Sunset, Rahu Kaal, Gulika Kaal, Yamaganda Kaal, and Choghadiya for *any* given date, time, and **exact geographical coordinates (latitude/longitude)**. This is the *most critical* feature for accuracy and authority.</li>
+                                    <li>Account for **Ayanamsha** (Lahiri, KP, etc.) and **time zone differences** automatically.</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. Personalized Muhurat Calculation:</strong>
+                                <ul>
+                                    <li>Allow users to input their **birth details (date, time, place)** to calculate a personalized Muhurat that is auspicious not just generally, but also specifically favorable for *their* individual birth chart (Kundli). This is a **game-changer**.</li>
+                                    <li>Factor in **Tara Bala, Chandra Bala, Lagna Shuddhi**, and **Dosha Nivaran** (e.g., avoiding Bhadra, Panchaka, etc.) for deeper personalization.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. Comprehensive Event-Specific Muhurat Database:</strong>
+                                <ul>
+                                    <li>Build an **extensive, curated database of Muhurat rules** for hundreds of specific events (e.g., buying specific types of property, starting different businesses, medical procedures, travel directions, naming ceremonies, ear piercing, thread ceremony, etc.).</li>
+                                    <li>Provide **detailed explanations** for *why* a particular time is auspicious or inauspicious for a specific event.</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Interactive Calendar & Visualizations:</strong>
+                                <ul>
+                                    <li>Display auspicious times on an **interactive calendar interface**, allowing users to easily browse different dates and see available Muhurats.</li>
+                                    <li>Use **visual timelines** to show overlapping auspicious periods, Rahu Kaal, etc., for a chosen day.</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. "What-If" Scenario Planning:</strong>
+                                <ul>
+                                    <li>Allow users to compare Muhurats for different dates or purposes and see the astrological implications side-by-side.</li>
+                                </ul>
+                            </li>
+                            <li><strong>6. Educational Hub & Expert Insights:</strong>
+                                <ul>
+                                    <li>Offer a rich library of **articles, FAQs, video tutorials, and webinars** on Vedic astrology, Muhurat principles, Panchang, and their significance.</li>
+                                    <li>Feature insights from renowned astrologers and Vedic scholars.</li>
+                                </ul>
+                            </li>
+                            <li><strong>7. Robust Backend for Data Management & Personalization:</strong>
+                                <ul>
+                                    <li>A secure backend (e.g., Firebase Firestore) to manage astrological data, user preferences (anonymized), and complex calculation results. This is **essential for accuracy and personalization**.</li>
+                                    <li>Ensure **highest data security and privacy compliance**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>8. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement highly detailed `HowTo`, `Q&A`, `Event`, or `AstrologyService` schema to explicitly tell Google what the tool does and its content structure.</li>
+                                    <li>**Topical Authority & Content Clusters:** Create vast, interconnected content clusters around "Shubh Muhurat," "Auspicious Dates," "Vedic Panchang," "Astrology for Events," etc., positioning ToolMantra as the ultimate authority.</li>
+                                    <li>**Strategic, High-Quality Backlinks:** Actively seek backlinks from reputable astrology websites, cultural platforms, religious organizations, and educational sites.</li>
+                                    <li>**Superior User Engagement Signals:** Optimize for low bounce rate, high time-on-page, and repeat visits through an exceptional UX.</li>
+                                    <li>**Mobile-First Indexing & Core Web Vitals:** Ensure lightning-fast loading speeds, smooth interactivity, and excellent mobile responsiveness.</li>
+                                    <li>**Long-Tail Keyword Targeting:** Create specific content for long-tail keywords like "Shubh Muhurat for marriage in Delhi 2025" or "Auspicious time to start business in Mumbai."</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a strong foundation for finding auspicious times. Building out the hyper-accurate astrological engine, personalized Muhurat calculation based on birth charts, and a comprehensive event-specific database would truly set it apart as the #1 Auspicious Time Finder globally, offering a service currently unmatched on Google.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Auspicious Time Finder: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const eventDateInput = document.getElementById('eventDate');
+            const eventTimeInput = document.getElementById('eventTime');
+            const locationCityInput = document.getElementById('locationCity');
+            const purposeSelect = document.getElementById('purposeSelect');
+            const findMuhuratBtn = document.getElementById('findMuhuratBtn');
+            const resultsSection = document.getElementById('results-section');
+            const displayDate = document.getElementById('displayDate');
+            const displayPurpose = document.getElementById('displayPurpose');
+            const displayLocation = document.getElementById('displayLocation');
+            const displayMuhurat = document.getElementById('displayMuhurat');
+            const displayNotes = document.getElementById('displayNotes');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Simplified Muhurat Data (Illustrative - Real astrological calculations are complex and require a backend)
+            // This data does NOT perform actual astrological calculations. It's for demonstration.
+            const muhuratData = {
+                "2024-08-15": { // Example date: August 15, 2024
+                    "Delhi": {
+                        "new-venture": { time: "10:30 AM - 12:00 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal (1:30 PM - 3:00 PM)." },
+                        "vehicle-purchase": { time: "09:00 AM - 10:30 AM", notes: "Good for new beginnings. Avoid Bhadra." },
+                        "housewarming": { time: "07:00 AM - 08:30 AM", notes: "Shubh Lagna. Consult a priest for detailed Griha Pravesh." },
+                        "marriage": { time: "08:00 PM - 09:30 PM", notes: "Godhuli Lagna. Match Kundli for personalized Muhurat." },
+                        "travel": { time: "06:00 AM - 07:30 AM", notes: "Good for East direction. Check Vaar Shuddhi." },
+                        "education": { time: "11:00 AM - 12:30 PM", notes: "Good for learning. Avoid Ashtami Tithi." },
+                        "medical-treatment": { time: "02:00 PM - 03:30 PM", notes: "Avoid Tuesdays and Saturdays for starting treatment." },
+                        "general": { time: "10:00 AM - 12:00 PM", notes: "General auspicious period. Avoid Amavasya." }
+                    },
+                    "Mumbai": {
+                        "new-venture": { time: "11:00 AM - 12:30 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal (1:45 PM - 3:15 PM)." },
+                        "vehicle-purchase": { time: "09:30 AM - 11:00 AM", notes: "Good for new beginnings. Avoid Bhadra." },
+                        "housewarming": { time: "07:30 AM - 09:00 AM", notes: "Shubh Lagna. Consult a priest for detailed Griha Pravesh." },
+                        "marriage": { time: "08:30 PM - 10:00 PM", notes: "Godhuli Lagna. Match Kundli for personalized Muhurat." },
+                        "travel": { time: "06:30 AM - 08:00 AM", notes: "Good for West direction. Check Vaar Shuddhi." },
+                        "education": { time: "11:30 AM - 01:00 PM", notes: "Good for learning. Avoid Ashtami Tithi." },
+                        "medical-treatment": { time: "02:30 PM - 04:00 PM", notes: "Avoid Tuesdays and Saturdays for starting treatment." },
+                        "general": { time: "10:30 AM - 12:30 PM", notes: "General auspicious period. Avoid Amavasya." }
+                    }
+                },
+                "2024-08-16": { // Example date: August 16, 2024
+                    "Delhi": {
+                        "new-venture": { time: "12:00 PM - 01:30 PM", notes: "Good for new ventures. Avoid Yamaganda Kaal." },
+                        "vehicle-purchase": { time: "10:00 AM - 11:30 AM", notes: "Favorable for vehicle purchase." },
+                        "housewarming": { time: "09:00 AM - 10:30 AM", notes: "Good for new home." },
+                        "marriage": { time: "07:00 PM - 08:30 PM", notes: "Evening Muhurat." },
+                        "travel": { time: "08:00 AM - 09:30 AM", notes: "Good for travel." },
+                        "education": { time: "09:30 AM - 11:00 AM", notes: "Favorable for studies." },
+                        "medical-treatment": { time: "03:00 PM - 04:30 PM", notes: "Good for health." },
+                        "general": { time: "11:00 AM - 01:00 PM", notes: "General good time." }
+                    },
+                    "Mumbai": {
+                        "new-venture": { time: "12:30 PM - 02:00 PM", notes: "Good for new ventures. Avoid Yamaganda Kaal." },
+                        "vehicle-purchase": { time: "10:30 AM - 12:00 PM", notes: "Favorable for vehicle purchase." },
+                        "housewarming": { time: "09:30 AM - 11:00 AM", notes: "Good for new home." },
+                        "marriage": { time: "07:30 PM - 09:00 PM", notes: "Evening Muhurat." },
+                        "travel": { time: "08:30 AM - 10:00 AM", notes: "Good for travel." },
+                        "education": { time: "10:00 AM - 11:30 AM", notes: "Favorable for studies." },
+                        "medical-treatment": { time: "03:30 PM - 05:00 PM", notes: "Good for health." },
+                        "general": { time: "11:30 AM - 01:30 PM", notes: "General good time." }
+                    }
+                },
+                // Add more dates and locations for richer data
+                "2024-08-17": {
+                    "Delhi": {
+                        "new-venture": { time: "09:00 AM - 10:30 AM", notes: "Good for new ventures." },
+                        "housewarming": { time: "07:00 AM - 08:30 AM", notes: "Excellent for Griha Pravesh." }
+                    },
+                    "Bengaluru": {
+                        "new-venture": { time: "09:30 AM - 11:00 AM", notes: "Favorable for new projects." },
+                        "vehicle-purchase": { time: "11:00 AM - 12:30 PM", notes: "Good for vehicle purchase." }
+                    }
+                },
+                "2024-08-18": {
+                    "Delhi": {
+                        "marriage": { time: "06:00 PM - 07:30 PM", notes: "Auspicious for marriage." }
+                    },
+                    "Chennai": {
+                        "travel": { time: "05:00 AM - 06:30 AM", notes: "Good for long distance travel." }
+                    }
+                },
+                "2024-08-19": {
+                    "Delhi": {
+                        "education": { time: "10:00 AM - 11:30 AM", notes: "Ideal for starting new courses." }
+                    },
+                    "Hyderabad": {
+                        "medical-treatment": { time: "04:00 PM - 05:30 PM", notes: "Favorable for health treatments." }
+                    }
+                }
+            };
+
+            // Function to find and display Muhurat
+            function findMuhurat() {
+                const eventDate = eventDateInput.value;
+                const eventTime = eventTimeInput.value; // Optional
+                const locationCity = locationCityInput.value.trim();
+                const purpose = purposeSelect.value;
+
+                if (!eventDate || !locationCity || !purpose) {
+                    showMessage("Please select Date, enter City/Location, and select Purpose.", "error");
+                    return;
+                }
+
+                // Format date to YYYY-MM-DD for lookup
+                const formattedDate = eventDate; 
+                const normalizedCity = locationCity.toLowerCase();
+
+                let muhuratFound = null;
+
+                if (muhuratData[formattedDate] && muhuratData[formattedDate][normalizedCity] && muhuratData[formattedDate][normalizedCity][purpose]) {
+                    muhuratFound = muhuratData[formattedDate][normalizedCity][purpose];
+                } else {
+                    // Fallback to general if specific purpose not found
+                    if (muhuratData[formattedDate] && muhuratData[formattedDate][normalizedCity] && muhuratData[formattedDate][normalizedCity]['general']) {
+                        muhuratFound = muhuratData[formattedDate][normalizedCity]['general'];
+                        showMessage("Specific Muhurat not found for this purpose. Showing general auspicious time.", "info");
+                    }
+                }
+
+                if (muhuratFound) {
+                    displayDate.textContent = new Date(eventDate).toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    displayPurpose.textContent = purposeSelect.options[purposeSelect.selectedIndex].text;
+                    displayLocation.textContent = locationCity;
+                    displayMuhurat.textContent = muhuratFound.time;
+                    displayNotes.textContent = muhuratFound.notes;
+                    displayMuhurat.classList.remove('result-inauspicious');
+                    displayMuhurat.classList.add('result-auspicious');
+                    resultsSection.classList.remove('hidden');
+                    showMessage("Muhurat found successfully!", "success");
+                } else {
+                    displayDate.textContent = new Date(eventDate).toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    displayPurpose.textContent = purposeSelect.options[purposeSelect.selectedIndex].text;
+                    displayLocation.textContent = locationCity;
+                    displayMuhurat.textContent = "No specific auspicious time found.";
+                    displayNotes.textContent = "It is highly recommended to consult a professional astrologer for this date and purpose.";
+                    displayMuhurat.classList.remove('result-auspicious');
+                    displayMuhurat.classList.add('result-inauspicious');
+                    resultsSection.classList.remove('hidden');
+                    showMessage("No specific Muhurat found. Please consult an expert.", "error");
+                }
+            }
+
+            // Event listener for Find Muhurat button
+            findMuhuratBtn.addEventListener('click', findMuhurat);
+
+            // Set default date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            eventDateInput.value = `${yyyy}-${mm}-${dd}`;
+
+            // Initial state: hide results section
+            resultsSection.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
