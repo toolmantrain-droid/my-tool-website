@@ -1,8 +1,8 @@
-// DOMContentLoaded इवेंट के लिए इंतजार करें ताकि सुनिश्चित हो सके कि HTML पूरी तरह से लोड हो गया है।
+// Wait for the DOM content to be fully loaded before executing the script.
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("dl-mock-test-tool.js: DOM सामग्री लोड हो गई। ड्राइविंग लाइसेंस मॉक टेस्ट स्क्रिप्ट शुरू हो रही है।");
+    console.log("dl-mock-test-tool.js: DOM content loaded. Initializing Driving License Mock Test script.");
 
-    // HTML तत्वों के संदर्भ प्राप्त करें
+    // Get references to HTML elements by their IDs.
     const stateSelect = document.getElementById('state-select');
     const quizContainer = document.getElementById('quiz-container');
     const questionDisplay = document.getElementById('question-display');
@@ -16,122 +16,116 @@ document.addEventListener('DOMContentLoaded', function() {
     const retakeTestBtn = document.getElementById('retake-test-btn');
     const answersReviewList = document.getElementById('answers-review-list');
     
-    // इन-पेज संदेश बॉक्स के लिए HTML से संदर्भ प्राप्त करें
+    // Get reference to the in-page message box.
     const messageBox = document.getElementById('message-box');
+    // Check if the messageBox element exists. If not, log an error.
     if (!messageBox) {
-        console.error("dl-mock-test-tool.js Error: 'message-box' तत्व नहीं मिला। स्क्रिप्ट को जारी रखने में समस्या हो सकती है।");
-        // यदि संदेश बॉक्स नहीं मिलता है, तो इसे गतिशील रूप से बनाने का एक फॉलबैक (लेकिन आदर्श नहीं)
-        // const tempMessageBox = document.createElement('div');
-        // tempMessageBox.id = 'message-box';
-        // tempMessageBox.classList.add('bg-red-100', 'border', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative', 'mb-4', 'hidden');
-        // document.querySelector('.tool-content').insertBefore(tempMessageBox, document.querySelector('.form-group'));
-        // messageBox = tempMessageBox;
+        console.error("dl-mock-test-tool.js Error: 'message-box' element not found. Script may have issues continuing.");
     }
-    // मैसेज बॉक्स के अंदर टेक्स्ट स्पैन को अपडेट करें
-    if (messageBox) { // सुनिश्चित करें कि messageBox मौजूद है
-        messageBox.innerHTML = '<strong class="font-bold">चेतावनी!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+    // Update the inner HTML of the message box to include a text span.
+    if (messageBox) { // Ensure messageBox exists before trying to modify its innerHTML
+        messageBox.innerHTML = '<strong class="font-bold">Warning!</strong> <span class="block sm:inline" id="message-box-text"></span>';
     }
 
+    // Perform null checks for essential HTML elements and log errors if not found.
+    if (!stateSelect) console.error("dl-mock-test-tool.js Error: 'state-select' element not found.");
+    if (!quizContainer) console.error("dl-mock-test-tool.js Error: 'quiz-container' element not found.");
+    if (!questionDisplay) console.error("dl-mock-test-tool.js Error: 'question-display' element not found.");
+    if (!questionText) console.error("dl-mock-test-tool.js Error: 'question-text' element not found.");
+    if (!optionsContainer) console.error("dl-mock-test-tool.js Error: 'options-container' element not found.");
+    if (!nextQuestionBtn) console.error("dl-mock-test-tool.js Error: 'next-question-btn' element not found.");
+    if (!submitQuizBtn) console.error("dl-mock-test-tool.js Error: 'submit-quiz-btn' element not found.");
+    if (!quizResultsSection) console.error("dl-mock-test-tool.js Error: 'quiz-results-section' not found. This is crucial for displaying results.");
+    if (!scoreDisplay) console.error("dl-mock-test-tool.js Error: 'score-display' not found.");
+    if (!passFailStatus) console.error("dl-mock-test-tool.js Error: 'pass-fail-status' not found.");
+    if (!retakeTestBtn) console.error("dl-mock-test-tool.js Error: 'retake-test-btn' not found.");
+    if (!answersReviewList) console.error("dl-mock-test-tool.js Error: 'answers-review-list' not found.");
 
-    // आवश्यक तत्वों की जांच करें (console.error से पहले null की जांच करें)
-    if (!stateSelect) console.error("dl-mock-test-tool.js Error: 'state-select' तत्व नहीं मिला।");
-    if (!quizContainer) console.error("dl-mock-test-tool.js Error: 'quiz-container' तत्व नहीं मिला।");
-    if (!questionDisplay) console.error("dl-mock-test-tool.js Error: 'question-display' तत्व नहीं मिला।");
-    if (!questionText) console.error("dl-mock-test-tool.js Error: 'question-text' तत्व नहीं मिला।");
-    if (!optionsContainer) console.error("dl-mock-test-tool.js Error: 'options-container' तत्व नहीं मिला।");
-    if (!nextQuestionBtn) console.error("dl-mock-test-tool.js Error: 'next-question-btn' तत्व नहीं मिला।");
-    if (!submitQuizBtn) console.error("dl-mock-test-tool.js Error: 'submit-quiz-btn' तत्व नहीं मिला।");
-    if (!quizResultsSection) console.error("dl-mock-test-tool.js Error: 'quiz-results-section' नहीं मिला। यह परिणाम प्रदर्शित करने के लिए महत्वपूर्ण है।");
-    if (!scoreDisplay) console.error("dl-mock-test-tool.js Error: 'score-display' नहीं मिला।");
-    if (!passFailStatus) console.error("dl-mock-test-tool.js Error: 'pass-fail-status' नहीं मिला।");
-    if (!retakeTestBtn) console.error("dl-mock-test-tool.js Error: 'retake-test-btn' नहीं मिला।");
-    if (!answersReviewList) console.error("dl-mock-test-tool.js Error: 'answers-review-list' नहीं मिला।");
-
-    // मॉक टेस्ट प्रश्न और उत्तर
+    // Array of mock test questions with details in English.
     const questions = [
         {
-            question: "यह सड़क चिह्न क्या इंगित करता है?",
+            question: "What does this road sign indicate?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/India_road_sign_A1.svg/100px-India_road_sign_A1.svg.png", // Pedestrian Crossing
-            altText: "लाल बॉर्डर और काले पैदल यात्री प्रतीक वाला त्रिकोणीय सड़क चिह्न, पैदल यात्री क्रॉसिंग आगे इंगित करता है।",
-            options: ["पैदल यात्री क्रॉसिंग आगे", "पैदल यात्रियों को अनुमति नहीं", "स्कूल आगे", "अस्पताल आगे"],
-            answer: "पैदल यात्री क्रॉसिंग आगे",
-            explanation: "यह चिह्न एक चेतावनी चिह्न है जो इंगित करता है कि आगे एक निर्दिष्ट पैदल यात्री क्रॉसिंग ज़ोन है। ड्राइवरों को धीमा होना चाहिए और रुकने के लिए तैयार रहना चाहिए।"
+            altText: "Triangular road sign with red border and black pedestrian symbol, indicating pedestrian crossing ahead.",
+            options: ["Pedestrian crossing ahead", "No pedestrians allowed", "School ahead", "Hospital ahead"],
+            answer: "Pedestrian crossing ahead",
+            explanation: "This sign is a warning sign indicating that there is a designated pedestrian crossing zone ahead. Drivers should slow down and be prepared to stop."
         },
         {
-            question: "भारत के अधिकांश राज्यों में ड्राइविंग के लिए कानूनी शराब पीने की उम्र क्या है?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/India_road_sign_R1.svg/100px-India_road_sign_R1.svg.png", // No Entry (mandatory sign का उदाहरण)
-            altText: "लाल बॉर्डर और सफेद क्षैतिज पट्टी वाला गोलाकार सड़क चिह्न, प्रवेश नहीं इंगित करता है।",
-            options: ["18 वर्ष", "21 वर्ष", "25 वर्ष", "कोई आयु सीमा नहीं"],
-            answer: "21 वर्ष",
-            explanation: "यह मोटर वाहन अधिनियम के तहत भारत के अधिकांश राज्यों में ड्राइविंग (और शराब का सेवन) के लिए कानूनी शराब पीने की उम्र 21 वर्ष है।"
+            question: "What is the legal drinking age for driving in most Indian states?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/India_road_sign_R1.svg/100px-India_road_sign_R1.svg.png", // No Entry (example of a mandatory sign)
+            altText: "Circular road sign with red border and white horizontal bar, indicating no entry.",
+            options: ["18 years", "21 years", "25 years", "No age limit"],
+            answer: "21 years",
+            explanation: "In most Indian states, the legal drinking age for driving (and consuming alcohol) is 21 years. Driving under the influence of alcohol is a serious offense punishable by law under the Motor Vehicles Act."
         },
         {
-            question: "सड़क पर एक ठोस सफेद रेखा क्या इंगित करती है?",
+            question: "What does a solid white line on the road indicate?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/India_road_marking_solid_white_line.svg/100px-India_road_marking_solid_white_line.svg.png", // Solid White Line
-            altText: "एक ठोस सफेद रेखा दिखा रहा सड़क चिह्न।",
-            options: ["आप लेन बदल सकते हैं", "आपको लेन नहीं बदलनी चाहिए", "ओवरटेकिंग की अनुमति है", "पार्किंग की अनुमति है"],
-            answer: "आपको लेन नहीं बदलनी चाहिए",
-            explanation: "एक ठोस सफेद रेखा इंगित करती है कि लेन बदलना, ओवरटेक करना या रेखा को पार करना मना है। आपको अपनी वर्तमान लेन में रहना चाहिए।"
+            altText: "Road marking showing a solid white line.",
+            options: ["You can change lanes", "You must not change lanes", "Overtaking is allowed", "Parking is allowed"],
+            answer: "You must not change lanes",
+            explanation: "A solid white line indicates that changing lanes, overtaking, or crossing the line is prohibited. You must stay in your current lane."
         },
         {
-            question: "यदि आपका वाहन राजमार्ग पर खराब हो जाता है तो आपको क्या करना चाहिए?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/India_road_sign_W1.svg/100px-India_road_sign_W1.svg.png", // Warning Triangle (उदाहरण)
-            altText: "लाल बॉर्डर और काले विस्मयादिबोधक चिह्न वाला त्रिकोणीय सड़क चिह्न, सामान्य चेतावनी इंगित करता है।",
-            options: ["वाहन छोड़कर मदद मांगना", "किनारे पर पार्क करना, हैजार्ड लाइट जलाना और चेतावनी त्रिभुज लगाना", "सड़क के बीच में इसे ठीक करने की कोशिश करना", "एक दोस्त को बुलाना जो आपको टो कर सके"],
-            answer: "किनारे पर पार्क करना, हैजार्ड लाइट जलाना और चेतावनी त्रिभुज लगाना",
-            explanation: "राजमार्ग पर खराब होने की स्थिति में, अपने वाहन को अत्यधिक बाईं ओर ले जाएं, हैजार्ड लाइट जलाएं, और अन्य ड्राइवरों को सतर्क करने और दुर्घटनाओं को रोकने के लिए अपने वाहन से 50-100 मीटर पीछे एक चेतावनी त्रिभुज लगाएं।"
+            question: "What should you do if your vehicle breaks down on a highway?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/India_road_sign_W1.svg/100px-India_road_sign_W1.svg.png", // Warning Triangle (example)
+            altText: "Triangular road sign with red border and black exclamation mark, indicating general warning.",
+            options: ["Leave the vehicle and seek help", "Park on the side, turn on hazard lights, and place a warning triangle", "Try to fix it in the middle of the road", "Call a friend to tow you"],
+            answer: "Park on the side, turn on hazard lights, and place a warning triangle",
+            explanation: "In case of a breakdown on a highway, move your vehicle to the extreme left, turn on hazard lights, and place a warning triangle 50-100 meters behind your vehicle to alert other drivers and prevent accidents."
         },
         {
-            question: "भारत में राष्ट्रीय राजमार्ग पर हल्के मोटर वाहन (LMV) के लिए अधिकतम गति सीमा क्या है (जब तक कि अन्यथा निर्दिष्ट न हो)?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/India_road_sign_R2.svg/100px-India_road_sign_R2.svg.png", // Speed Limit (उदाहरण)
-            altText: "लाल बॉर्डर और संख्या 50 वाला गोलाकार सड़क चिह्न, गति सीमा इंगित करता है।",
-            options: ["60 किमी/घंटा", "80 किमी/घंटा", "100 किमी/घंटा", "120 किमी/घंटा"],
-            answer: "100 किमी/घंटा",
-            explanation: "हालांकि विशिष्ट सीमाएं राज्य और सड़क के अनुसार भिन्न हो सकती हैं, राष्ट्रीय राजमार्गों पर LMVs के लिए सामान्य अधिकतम गति सीमा 100 किमी/घंटा है। हमेशा स्थानीय साइनेज की जांच करें।"
+            question: "What is the maximum speed limit for a light motor vehicle (LMV) on a national highway in India (unless otherwise specified)?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/India_road_sign_R2.svg/100px-India_road_sign_R2.svg.png", // Speed Limit (example)
+            altText: "Circular road sign with red border and number 50, indicating speed limit.",
+            options: ["60 km/h", "80 km/h", "100 km/h", "120 km/h"],
+            answer: "100 km/h",
+            explanation: "While specific limits can vary by state and road, the general maximum speed limit for LMVs on National Highways is 100 km/h. Always check local signage for specific speed limits."
         },
         {
-            question: "इस गोलाकार सड़क चिह्न का क्या अर्थ है?",
+            question: "What does this circular road sign mean?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/India_road_sign_R4.svg/100px-India_road_sign_R4.svg.png", // No Left Turn
-            altText: "लाल बॉर्डर और लाल विकर्ण रेखा के साथ बाएं ओर इशारा करने वाले काले तीर वाला गोलाकार सड़क चिह्न, बाएं मुड़ने की अनुमति नहीं इंगित करता है।",
-            options: ["बाएं मुड़ें", "बाएं मुड़ना मना है", "एक तरफा बाईं ओर", "बाईं लेन आगे"],
-            answer: "बाएं मुड़ना मना है",
-            explanation: "यह अनिवार्य चिह्न इंगित करता है कि उस चौराहे या सड़क खंड पर बाएं मुड़ना मना है।"
+            altText: "Circular road sign with red border and black arrow pointing left with a red diagonal line through it, indicating no left turn.",
+            options: ["Turn left", "No left turn", "One way left", "Left lane ahead"],
+            answer: "No left turn",
+            explanation: "This mandatory sign indicates that taking a left turn is prohibited at that intersection or road section."
         },
         {
-            question: "एक गोलचक्कर के पास पहुंचते समय आपको क्या करना चाहिए?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/India_road_sign_M1.svg/100px-India_road_sign_M1.svg.png", // Roundabout (mandatory sign का उदाहरण)
-            altText: "सफेद तीरों के साथ एक गोलचक्कर प्रतीक वाला नीला गोलाकार सड़क चिह्न, अनिवार्य गोलचक्कर इंगित करता है।",
-            options: ["दाईं ओर से आने वाले यातायात को रास्ता दें", "बाईं ओर से आने वाले यातायात को रास्ता दें", "रुकें और सभी यातायात के गुजरने का इंतजार करें", "बिना रुके प्रवेश करें"],
-            answer: "दाईं ओर से आने वाले यातायात को रास्ता दें",
-            explanation: "भारत में, गोलचक्कर में यातायात दक्षिणावर्त चलता है। आपको अपने दाईं ओर से आ रहे गोलचक्कर में पहले से मौजूद यातायात को रास्ता देना चाहिए। यह गोलचक्करों से सुरक्षित नेविगेशन के लिए एक मौलिक नियम है।"
+            question: "When approaching a roundabout, what should you do?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/India_road_sign_M1.svg/100px-India_road_sign_M1.svg.png", // Roundabout (example of mandatory sign)
+            altText: "Blue circular road sign with white arrows forming a roundabout symbol, indicating mandatory roundabout.",
+            options: ["Give way to traffic from the right", "Give way to traffic from the left", "Stop and wait for all traffic to pass", "Enter without stopping"],
+            answer: "Give way to traffic from the right",
+            explanation: "In India, traffic in a roundabout moves clockwise. You must give way to traffic already in the roundabout coming from your right. This is a fundamental rule for safe navigation through roundabouts."
         },
         {
-            question: "भारत में वैध ड्राइविंग लाइसेंस के बिना गाड़ी चलाने पर क्या दंड है?",
-            options: ["छोटा जुर्माना", "कारावास या भारी जुर्माना", "केवल चेतावनी", "कोई दंड नहीं"],
-            answer: "कारावास या भारी जुर्माना",
-            explanation: "वैध लाइसेंस के बिना गाड़ी चलाना मोटर वाहन अधिनियम के तहत एक गंभीर अपराध है, जिसमें महत्वपूर्ण जुर्माना (पहले अपराध के लिए ₹5,000 तक) और/या कारावास लगता है। यह अवैध और असुरक्षित है।"
+            question: "What is the penalty for driving without a valid driving license in India?",
+            options: ["Small fine", "Imprisonment or heavy fine", "Warning only", "No penalty"],
+            answer: "Imprisonment or heavy fine",
+            explanation: "Driving without a valid license is a serious offense under the Motor Vehicles Act, attracting significant fines (up to ₹5,000 for first offense) and/or imprisonment. It is illegal and unsafe."
         },
         {
-            question: "यह नीला गोलाकार सड़क चिह्न क्या दर्शाता है?",
+            question: "What does this blue circular road sign mean?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/India_road_sign_M2.svg/100px-India_road_sign_M2.svg.png", // Go Straight Only
-            altText: "सीधे आगे की ओर इशारा करने वाले सफेद तीर वाला नीला गोलाकार सड़क चिह्न, केवल सीधे जाने का संकेत देता है।",
-            options: ["केवल सीधे जाएं", "एक तरफा सड़क", "प्रवेश नहीं", "आगे रुकें"],
-            answer: "केवल सीधे जाएं",
-            explanation: "यह अनिवार्य चिह्न इंगित करता है कि वाहन केवल सीधे आगे बढ़ सकते हैं और उन्हें बाएं या दाएं मुड़ने की अनुमति नहीं है।"
+            altText: "Blue circular road sign with a white arrow pointing straight ahead, indicating go straight only.",
+            options: ["Go straight only", "One way street", "No entry", "Stop ahead"],
+            answer: "Go straight only",
+            explanation: "This mandatory sign indicates that vehicles must proceed straight ahead only and are not permitted to turn left or right."
         },
         {
-            question: "गियर वाले दोपहिया वाहन (गियर वाली मोटरसाइकिल) के लिए लर्नर्स लाइसेंस प्राप्त करने की न्यूनतम आयु क्या है?",
-            options: ["16 वर्ष", "18 वर्ष", "20 वर्ष", "21 वर्ष"],
-            answer: "18 वर्ष",
-            explanation: "गियर वाले दोपहिया वाहन के लिए लर्नर्स लाइसेंस की न्यूनतम आयु 18 वर्ष है। मोटर वाहन अधिनियम के अनुसार, बिना गियर वाले दोपहिया वाहन (जैसे स्कूटर) के लिए, माता-पिता की सहमति से यह 16 वर्ष है।"
+            question: "What is the minimum age to obtain a learner's license for a geared two-wheeler (motorcycle with gear)?",
+            options: ["16 years", "18 years", "20 years", "21 years"],
+            answer: "18 years",
+            explanation: "The minimum age for a learner's license for a geared two-wheeler is 18 years. For a non-geared two-wheeler (like a scooter) without gear, it's 16 years with parental consent, as per the Motor Vehicles Act."
         }
     ];
 
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let userAnswers = []; // उपयोगकर्ता द्वारा चयनित उत्तरों को संग्रहीत करने के लिए
+    let currentQuestionIndex = 0; // Tracks the current question being displayed
+    let score = 0; // Stores the user's correct answers count
+    let userAnswers = []; // To store user's selected answers for review
 
-    // राज्य के अनुसार आरटीओ/ट्रैफिक पुलिस पोर्टल लिंक (उदाहरणात्मक)
+    // RTO/Traffic Police Portal Links by State (Illustrative data)
     const rtoLinks = {
         'uttar-pradesh': {
             rto_portal: 'https://parivahan.gov.in/parivahan//en/content/uttar-pradesh',
@@ -147,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'bihar': {
             rto_portal: 'https://transport.bih.nic.in/',
-            traffic_police_portal: 'https://biharpolice.bih.nic.in/traffic-police/'
+            traffic_police_portal: 'https://biharpolice.bih.nic.in/'
         },
         'west-bengal': {
             rto_portal: 'https://transport.wb.gov.in/',
@@ -175,80 +169,89 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // इन-पेज संदेश दिखाने का कार्य
+    /**
+     * Displays an in-page message to the user.
+     * @param {string} text - The message to display.
+     * @param {string} type - The type of message ('error' for red, 'success' for green).
+     */
     function showMessage(text, type = 'error') {
         const messageBoxText = document.getElementById('message-box-text');
-        if (messageBox && messageBoxText) { // सुनिश्चित करें कि दोनों तत्व मौजूद हैं
+        if (messageBox && messageBoxText) { 
             messageBoxText.textContent = text;
-            messageBox.classList.remove('hidden');
+            messageBox.classList.remove('hidden'); // Make the message box visible
+            // Adjust background and text color based on message type
             if (type === 'error') {
                 messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
                 messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
-            } else { // सफलता या जानकारी के लिए
+            } else { // For success or info messages
                 messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
                 messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
             }
-            // कुछ समय बाद संदेश छिपाएं
+            // Hide the message after 5 seconds
             setTimeout(() => {
                 messageBox.classList.add('hidden');
             }, 5000);
         }
     }
 
-    // प्रश्न लोड करने का कार्य
+    /**
+     * Loads and displays the current question and its options.
+     */
     function loadQuestion() {
         if (currentQuestionIndex < questions.length) {
             const q = questions[currentQuestionIndex];
             
-            // questionDisplay में पिछली सामग्री साफ़ करें
+            // Clear previous content in the question display area.
             if (questionDisplay) {
                 questionDisplay.innerHTML = ''; 
             } else {
-                console.error("questionDisplay तत्व नहीं मिला। प्रश्न लोड नहीं किया जा सकता है।");
-                return;
+                console.error("questionDisplay element not found. Cannot load question.");
+                return; // Exit if essential element is missing
             }
 
-            // प्रश्न टेक्स्ट जोड़ें
+            // Create and append the question text.
             const questionP = document.createElement('p');
             questionP.classList.add('text-lg', 'font-semibold');
-            questionP.textContent = `प्र०${currentQuestionIndex + 1}: ${q.question}`;
+            questionP.textContent = `Q${currentQuestionIndex + 1}: ${q.question}`;
             questionDisplay.appendChild(questionP);
 
-            // यदि उपलब्ध हो तो छवि जोड़ें
+            // Add question image if available.
             if (q.image) {
                 const questionImg = document.createElement('img');
                 questionImg.src = q.image;
-                questionImg.alt = q.altText || `सड़क चिह्न: ${q.question}`; // एक्सेसिबिलिटी और एसईओ के लिए Alt टेक्स्ट
-                questionImg.classList.add('mt-4', 'mb-4', 'max-w-xs', 'h-auto', 'rounded-lg', 'shadow-md'); // छवि स्टाइलिंग के लिए Tailwind क्लासेस
-                // टूटी हुई छवियों के लिए फॉलबैक
+                questionImg.alt = q.altText || `Road sign for: ${q.question}`; 
+                questionImg.classList.add('mt-4', 'mb-4', 'max-w-xs', 'h-auto', 'rounded-lg', 'shadow-md'); 
+                // Fallback for broken images.
                 questionImg.onerror = function() {
-                    this.onerror=null; // यदि फॉलबैक भी विफल हो जाता है तो अनंत लूप को रोकता है
-                    this.src='https://placehold.co/100x100/CCCCCC/000000?text=छवि+नहीं+मिली'; // जेनेरिक फॉलबैक
-                    this.alt='छवि नहीं मिली';
+                    this.onerror=null; // Prevents infinite loop
+                    this.src='https://placehold.co/100x100/CCCCCC/000000?text=Image+Not+Found'; // Generic fallback image
+                    this.alt='Image not found';
                 };
                 questionDisplay.appendChild(questionImg);
             }
 
+            // Clear previous options before loading new ones.
             if (optionsContainer) {
-                optionsContainer.innerHTML = ''; // पिछले विकल्पों को साफ़ करें
+                optionsContainer.innerHTML = ''; 
             } else {
-                console.error("optionsContainer तत्व नहीं मिला। विकल्प लोड नहीं किए जा सकते हैं।");
-                return;
+                console.error("optionsContainer element not found. Cannot load options.");
+                return; // Exit if essential element is missing
             }
 
+            // Create and append radio buttons for each option.
             q.options.forEach((option, index) => {
                 const radioDiv = document.createElement('div');
-                radioDiv.classList.add('flex', 'items-center', 'mb-2'); // अलाइनमेंट के लिए Tailwind क्लासेस
+                radioDiv.classList.add('flex', 'items-center', 'mb-2'); // Tailwind classes for alignment and spacing
                 const radioInput = document.createElement('input');
                 radioInput.type = 'radio';
-                radioInput.name = 'answer';
+                radioInput.name = 'answer'; // All options for one question share the same 'name'
                 radioInput.value = option;
-                radioInput.id = `option${index}`;
-                radioInput.classList.add('mr-2', 'form-radio', 'h-4', 'w-4', 'text-purple-600'); // रेडियो स्टाइलिंग के लिए Tailwind
-                radioInput.setAttribute('aria-label', `विकल्प ${index + 1}: ${option}`); // एक्सेसिबिलिटी
+                radioInput.id = `option${index}`; // Unique ID for each radio button
+                radioInput.classList.add('mr-2', 'form-radio', 'h-4', 'w-4', 'text-purple-600'); // Tailwind classes for styling
+                radioInput.setAttribute('aria-label', `Option ${index + 1}: ${option}`); // Accessibility attribute
 
                 const radioLabel = document.createElement('label');
-                radioLabel.htmlFor = `option${index}`;
+                radioLabel.htmlFor = `option${index}`; // Link label to radio button by ID
                 radioLabel.textContent = option;
                 radioLabel.classList.add('text-gray-700');
 
@@ -257,67 +260,76 @@ document.addEventListener('DOMContentLoaded', function() {
                 optionsContainer.appendChild(radioDiv);
             });
 
+            // Manage visibility of 'Next Question' and 'Submit Test' buttons.
             if (nextQuestionBtn) {
                 nextQuestionBtn.classList.remove('hidden');
-                nextQuestionBtn.setAttribute('aria-label', 'अगला प्रश्न'); // एक्सेसिबिलिटी
+                nextQuestionBtn.setAttribute('aria-label', 'Next Question');
             }
             if (submitQuizBtn) {
                 submitQuizBtn.classList.add('hidden');
-                submitQuizBtn.setAttribute('aria-label', 'टेस्ट जमा करें'); // एक्सेसिबिलिटी
+                submitQuizBtn.setAttribute('aria-label', 'Submit Test');
             }
             if (quizResultsSection) {
-                quizResultsSection.classList.add('hidden'); // टेस्ट के दौरान परिणाम अनुभाग छिपाएं
+                quizResultsSection.classList.add('hidden'); // Ensure results section is hidden during the test
             }
             
-            // अंतिम प्रश्न पर सबमिट बटन दिखाएं
+            // If it's the last question, show the submit button instead of next.
             if (currentQuestionIndex === questions.length - 1) {
                 if (nextQuestionBtn) nextQuestionBtn.classList.add('hidden');
                 if (submitQuizBtn) submitQuizBtn.classList.remove('hidden');
             }
         } else {
-            console.warn("टेस्ट की लंबाई से परे प्रश्न लोड करने का प्रयास किया गया।");
+            console.warn("Attempted to load question beyond test length, or no questions defined.");
         }
     }
 
-    // चयनित उत्तर प्राप्त करने का कार्य
+    /**
+     * Gets the value of the currently selected radio button.
+     * @returns {string|null} The value of the selected option, or null if none is selected.
+     */
     function getSelectedAnswer() {
         const selectedOption = document.querySelector('input[name="answer"]:checked');
         return selectedOption ? selectedOption.value : null;
     }
 
-    // उत्तर की जांच करने और स्कोर अपडेट करने का कार्य
+    /**
+     * Checks the user's selected answer against the correct answer and updates the score.
+     */
     function checkAnswer() {
         const selectedAnswer = getSelectedAnswer();
         const correctAnswer = questions[currentQuestionIndex].answer;
-        userAnswers[currentQuestionIndex] = selectedAnswer; // उपयोगकर्ता का उत्तर संग्रहीत करें
+        userAnswers[currentQuestionIndex] = selectedAnswer; // Store the user's selected answer
 
         if (selectedAnswer === correctAnswer) {
-            score++;
+            score++; // Increment score if correct
         }
     }
 
-    // अंतिम परिणाम प्रदर्शित करने का कार्य
+    /**
+     * Displays the final test results, score, pass/fail status, and a review of answers.
+     */
     function displayResults() {
-        if (quizContainer) quizContainer.classList.add('hidden'); // क्विज़ कंटेनर छिपाएं
-        if (quizResultsSection) quizResultsSection.classList.remove('hidden'); // परिणाम अनुभाग दिखाएं
+        if (quizContainer) quizContainer.classList.add('hidden'); // Hide the quiz interface
+        if (quizResultsSection) quizResultsSection.classList.remove('hidden'); // Show the results section
 
-        if (scoreDisplay) scoreDisplay.textContent = `${score} / ${questions.length}`;
+        if (scoreDisplay) scoreDisplay.textContent = `${score} / ${questions.length}`; // Display score
         const percentage = (score / questions.length) * 100;
 
+        // Determine and display pass/fail status based on a 60% passing score.
         if (passFailStatus) {
-            if (percentage >= 60) { // 60% उत्तीर्ण स्कोर मानते हुए
-                passFailStatus.textContent = "उत्तीर्ण";
+            if (percentage >= 60) {
+                passFailStatus.textContent = "PASSED";
                 passFailStatus.classList.remove('text-red-600');
                 passFailStatus.classList.add('text-green-600');
             } else {
-                passFailStatus.textContent = "अनुत्तीर्ण";
+                passFailStatus.textContent = "FAILED";
                 passFailStatus.classList.remove('text-green-600');
                 passFailStatus.classList.add('text-red-600');
             }
         }
 
-        // उत्तर समीक्षा प्रदर्शित करें
-        if (answersReviewList) answersReviewList.innerHTML = '';
+        // Display a detailed review of all questions and answers.
+        if (answersReviewList) answersReviewList.innerHTML = ''; // Clear previous review list
         questions.forEach((q, index) => {
             const li = document.createElement('li');
             li.classList.add('p-3', 'rounded-lg', 'mb-2');
@@ -326,25 +338,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
             li.innerHTML = `
                 <p class="font-semibold">${index + 1}. ${q.question}</p>
-                ${q.image ? `<img src="${q.image}" alt="${q.altText || 'सड़क चिह्न'}" class="my-2 max-w-[80px] h-auto rounded-md">` : ''}
-                <p>आपका उत्तर: <span class="${isCorrect ? 'text-green-700' : 'text-red-700'}">${userAnswer || 'उत्तर नहीं दिया गया'}</span></p>
-                <p>सही उत्तर: <span class="text-green-700">${q.answer}</span></p>
-                <p class="text-sm text-gray-600">स्पष्टीकरण: ${q.explanation}</p>
+                ${q.image ? `<img src="${q.image}" alt="${q.altText || 'Road sign'}" class="my-2 max-w-[80px] h-auto rounded-md">` : ''}
+                <p>Your Answer: <span class="${isCorrect ? 'text-green-700' : 'text-red-700'}">${userAnswer || 'Not Answered'}</span></p>
+                <p>Correct Answer: <span class="text-green-700">${q.answer}</span></p>
+                <p class="text-sm text-gray-600">Explanation: ${q.explanation}</p>
             `;
+            // Apply background color based on correctness
             li.classList.add(isCorrect ? 'bg-green-50' : 'bg-red-50');
             if (answersReviewList) answersReviewList.appendChild(li);
         });
 
-        // एसईओ-केंद्रित और आरटीओ लिंक नोट जोड़ें
+        // Add the SEO-focused note and RTO portal links.
         addSEONoteAndRTOLinks();
     }
 
-    // एसईओ नोट और आरटीओ लिंक जोड़ने का कार्य
+    /**
+     * Adds a note about SEO and provides official RTO/Traffic Police portal links.
+     */
     function addSEONoteAndRTOLinks() {
         const selectedState = stateSelect.value;
         let rtoPortal = '';
         let trafficPolicePortal = '';
 
+        // Get relevant portal links based on the selected state.
         if (selectedState && rtoLinks[selectedState]) {
             rtoPortal = rtoLinks[selectedState].rto_portal;
             trafficPolicePortal = rtoLinks[selectedState].traffic_police_portal;
@@ -353,78 +369,83 @@ document.addEventListener('DOMContentLoaded', function() {
         const seoNote = document.createElement('li');
         seoNote.classList.add('bg-blue-50', 'p-4', 'rounded-lg', 'mt-4', 'text-sm', 'leading-relaxed', 'text-blue-800');
         seoNote.innerHTML = `
-            **एसईओ और वास्तविक दुनिया की तैयारी के लिए महत्वपूर्ण नोट:**
+            **Important Note for SEO & Real-World Preparation:**
             <br>
-            यह मॉक टेस्ट अभ्यास के लिए है। आधिकारिक नियमों, संकेतों और वास्तविक ड्राइविंग लाइसेंस आवेदन प्रक्रिया के लिए, हमेशा आधिकारिक सरकारी पोर्टलों का संदर्भ लें।
+            This mock test is for practice. For official rules, signs, and the actual driving license application process, always refer to the official government portals.
             <br><br>
-            **${selectedState ? stateSelect.options[stateSelect.selectedIndex].textContent : 'आपके राज्य'} के लिए आधिकारिक पोर्टल:**
+            **Official Portals for ${selectedState ? stateSelect.options[stateSelect.selectedIndex].textContent : 'Your State'}:**
             <ul>
-                ${rtoPortal ? `<li><a href="${rtoPortal}" target="_blank" class="text-blue-700 hover:underline">राज्य आरटीओ/परिवहन विभाग पोर्टल</a></li>` : ''}
-                ${trafficPolicePortal ? `<li><a href="${trafficPolicePortal}" target="_blank" class="text-blue-700 hover:underline">राज्य ट्रैफिक पुलिस विभाग</a></li>` : ''}
-                <li>विशिष्ट क्षेत्रीय आरटीओ विवरण या स्थानीय यातायात नियमों के लिए, कृपया अपने जिले की आधिकारिक आरटीओ वेबसाइट या यातायात पुलिस वेबसाइट खोजें।</li>
+                ${rtoPortal ? `<li><a href="${rtoPortal}" target="_blank" class="text-blue-700 hover:underline">State RTO/Transport Department Portal</a></li>` : ''}
+                ${trafficPolicePortal ? `<li><a href="${trafficPolicePortal}" target="_blank" class="text-blue-700 hover:underline">State Traffic Police Department</a></li>` : ''}
+                <li>For specific regional RTO details or local traffic rules, please search for your district's official RTO website or traffic police website.</li>
             </ul>
             <br>
-            Google पर "हलचल मचाने" और सबसे मूल्यवान संसाधन प्रदान करने के लिए, इस तरह के टूल को आवश्यकता होगी:
+            To truly "create a stir" on Google and provide the most valuable resource, a tool like this would need:
             <ul>
-                <li>**व्यापक, नियमित रूप से अद्यतन प्रश्न बैंक** जिसमें हर राज्य के सभी संभावित आरटीओ प्रश्न शामिल हों।</li>
-                <li>आधिकारिक आरटीओ डेटाबेस (यदि एपीआई उपलब्ध हैं) के साथ **वास्तविक समय एकीकरण**।</li>
-                <li>मोटर वाहन अधिनियम के प्रासंगिक अनुभागों सहित प्रत्येक उत्तर के लिए **व्यापक स्पष्टीकरण**।</li>
-                <li>उपयोगकर्ता के प्रदर्शन के आधार पर **व्यक्तिगत शिक्षण पथ**।</li>
-                <li>शैक्षिक या सरकारी-संबंधित साइटों से **मजबूत आधिकारिक बैकलिंक प्रोफ़ाइल**।</li>
-                <li>आपके कंटेंट को बेहतर ढंग से समझने में Google की मदद करने के लिए परीक्षण प्रश्नों और उत्तरों के लिए **संरचित डेटा (Schema.org) का कार्यान्वयन**।</li>
-                <li>समान सामग्री वाले पृष्ठों पर **कैननिकल टैग का उचित उपयोग** (उदाहरण के लिए, यदि आपके पास राज्य-विशिष्ट परीक्षण संस्करण हैं) डुप्लिकेट सामग्री समस्याओं से बचने के लिए।</li>
-                <li>आरटीओ नियमों और प्रश्नों में परिवर्तनों को दर्शाने के लिए **निरंतर सामग्री अपडेट**।</li>
+                <li>**Extensive, regularly updated question bank** covering all possible RTO questions for every state.</li>
+                <li>**Real-time integration** with official RTO databases (if APIs are available).</li>
+                <li>**Comprehensive explanations** for every answer, including relevant sections of the Motor Vehicles Act.</li>
+                <li>**Personalized learning paths** based on user performance.</li>
+                <li>**Strong authoritative backlinks** from educational or government-related sites.</li>
+                <li>**Implementation of Structured Data (Schema.org)** for test questions and answers to help Google understand your content better.</li>
+                <li>**Proper use of Canonical Tags** on pages with similar content (e.g., if you have state-specific test versions) to avoid duplicate content issues.</li>
+                <li>**Continuous content updates** to reflect changes in RTO rules and questions.</li>
             </ul>
-            यह टूल एक मॉक टेस्ट के कार्यात्मक प्रदर्शन के रूप में कार्य करता है।
+            This tool serves as a functional demonstration of a mock test.
         `;
         if (answersReviewList) answersReviewList.appendChild(seoNote);
     }
 
-    // इवेंट लिसनर्स
+    // Event Listeners for user interactions.
     if (nextQuestionBtn) {
         nextQuestionBtn.addEventListener('click', function() {
+            // Check if an answer is selected before moving to the next question.
             if (getSelectedAnswer() === null) {
-                showMessage("कृपया आगे बढ़ने से पहले एक उत्तर चुनें।");
+                showMessage("Please select an answer before proceeding.");
                 return;
             }
-            checkAnswer();
-            currentQuestionIndex++;
+            checkAnswer(); // Check the current question's answer
+            currentQuestionIndex++; // Move to the next question
             if (currentQuestionIndex < questions.length) {
-                loadQuestion();
+                loadQuestion(); // Load the next question
             } else {
-                displayResults();
+                displayResults(); // If no more questions, display results
             }
         });
     }
 
     if (submitQuizBtn) {
         submitQuizBtn.addEventListener('click', function() {
+            // Check if an answer is selected for the last question before submitting.
             if (getSelectedAnswer() === null && currentQuestionIndex === questions.length - 1) {
-                showMessage("कृपया सबमिट करने से पहले एक उत्तर चुनें।");
+                showMessage("Please select an answer before submitting.");
                 return;
             }
-            checkAnswer(); // अंतिम उत्तर की जांच करें
-            displayResults();
+            checkAnswer(); // Check the last question's answer
+            displayResults(); // Display final results
         });
     }
 
     if (retakeTestBtn) {
         retakeTestBtn.addEventListener('click', function() {
+            // Reset quiz state for a new attempt.
             currentQuestionIndex = 0;
             score = 0;
             userAnswers = [];
+            // Hide results and show quiz container.
             if (quizResultsSection) quizResultsSection.classList.add('hidden');
             if (quizContainer) quizContainer.classList.remove('hidden');
-            loadQuestion();
-            if (messageBox) messageBox.classList.add('hidden'); // रीटेक पर संदेश बॉक्स छिपाएं
+            loadQuestion(); // Load the first question again
+            if (messageBox) messageBox.classList.add('hidden'); // Hide any previous messages
         });
     }
 
-    // प्रारंभिक लोड - सभी तत्वों के मौजूद होने की जांच के बाद
+    // Initial load of the first question, after ensuring all necessary HTML elements are present.
+    // This helps prevent errors if elements aren't fully loaded yet.
     if (questionDisplay && optionsContainer && nextQuestionBtn && submitQuizBtn && quizResultsSection && scoreDisplay && passFailStatus && retakeTestBtn && answersReviewList) {
         loadQuestion();
     } else {
-        console.error("सभी आवश्यक HTML तत्व JavaScript द्वारा नहीं मिले। टूल को प्रारंभिक नहीं किया जा सकता है।");
-        showMessage("त्रुटि: आवश्यक पेज तत्व लोड नहीं हो सके। कृपया पेज को रीफ्रेश करें।", "error");
+        console.error("All required HTML elements were not found by JavaScript. Tool cannot be initialized.");
+        showMessage("Error: Required page elements could not be loaded. Please refresh the page.", "error");
     }
 });
