@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTI Application Helper - ToolMantra</title>
+    <!-- Tailwind CSS CDN लोड करें -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins फॉन्ट फैमिली के लिए Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome आइकन्स के लिए CDN (वैकल्पिक, यदि भविष्य में आइकन्स जोड़े जाते हैं) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF CDN for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /*
+         * यह CSS स्टाइलिंग पूरी वेबसाइट के सामान्य लेआउट और RTI Application Helper टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #rti-output-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        #generated-rti-display {
+            background-color: #e9ecef; /* Light gray background for output */
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            white-space: pre-wrap; /* Preserves newlines and spacing from generated text */
+            font-family: monospace; /* Monospace font for generated text */
+            font-size: 0.875rem; /* Tailwind's text-sm equivalent */
+            color: #333;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">RTI Application Helper</h2>
+                <p id="tool-description">Create a format for an RTI application to get information from government departments.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="applicantName">Applicant's Full Name:</label>
+                    <input type="text" id="applicantName" placeholder="e.g., John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantAddress">Applicant's Address:</label>
+                    <textarea id="applicantAddress" rows="3" placeholder="e.g., 123, Main Street, City, State, Pincode" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pioDesignation">Public Information Officer (PIO) Designation:</label>
+                    <input type="text" id="pioDesignation" placeholder="e.g., The Public Information Officer, Department of Land Records" required>
+                </div>
+                <div class="form-group">
+                    <label for="departmentAddress">Department Address:</label>
+                    <textarea id="departmentAddress" rows="3" placeholder="e.g., Office of the District Collector, Collectorate Building, City, State, Pincode" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject of Information Request:</label>
+                    <input type="text" id="subject" placeholder="e.g., Information regarding road construction in Sector 10" required>
+                </div>
+                <div class="form-group">
+                    <label for="informationDetails">Detailed Information Required (in bullet points if possible):</label>
+                    <textarea id="informationDetails" rows="6" placeholder="e.g.,
+1. Copy of the tender document for road construction.
+2. Details of funds allocated and utilized.
+3. Timeline for project completion.
+4. Names of officials responsible for supervision." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method (RTI Fee ₹10):</label>
+                    <select id="paymentMethod" required>
+                        <option value="">-- Select Payment Method --</option>
+                        <option value="cash">Cash (to be paid at PIO office)</option>
+                        <option value="demand-draft">Demand Draft/Banker's Cheque</option>
+                        <option value="indian-postal-order">Indian Postal Order (IPO)</option>
+                        <option value="online">Online (if department supports)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDetails">Payment Details (DD/IPO No. or Transaction ID):</label>
+                    <input type="text" id="paymentDetails" placeholder="e.g., DD No. 123456, IPO No. 789012, Online Txn ID: ABCDEF">
+                </div>
+
+                <button id="generateRTIBtn" class="cta-button">Generate RTI Application</button>
+
+                <div id="rti-output-section" class="hidden">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Generated RTI Application</h3>
+                    <div id="generated-rti-display">
+                        <!-- Generated RTI application will appear here -->
+                    </div>
+                    <button id="copyRTIBtn" class="cta-button py-2 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-base mt-4 mr-2">Copy to Clipboard</button>
+                    <button id="downloadPdfBtn" class="cta-button py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-base mt-4">Download as PDF</button>
+                    <div class="seo-note mt-4">
+                        <h3>Important Note for RTI Applications (Making it Effective & Highly Visible on Google):</h3>
+                        <p>Generating the application is just the first step. To ensure your RTI is effective and yields results, and to make a tool like this rank #1 on Google, consider these strategies:</p>
+                        <ul>
+                            <li><strong>1. Specificity is Key:</strong> Be very precise about the information you need. Vague requests can be rejected. This also helps with SEO as specific queries match specific content.</li>
+                            <li><strong>2. Attach Proof of Fee:</strong> Always attach the proof of payment (cash receipt, DD/IPO copy, online transaction receipt) with your application.</li>
+                            <li><strong>3. Keep a Copy:</strong> Always keep a copy of your application, payment proof, and any correspondence. Get an acknowledgement stamp if submitting physically.</li>
+                            <li><strong>4. Time Limit:</strong> The PIO must provide the information within 30 days (or 48 hours for life/liberty matters).</li>
+                            <li><strong>5. First Appeal:</strong> If you don't receive information or are dissatisfied, file a First Appeal with the First Appellate Authority (FAA) within 30 days of the PIO's decision or the expiry of the 30-day period.</li>
+                            <li><strong>6. Second Appeal:</strong> If the FAA doesn't respond or you're still dissatisfied, file a Second Appeal with the Central/State Information Commission within 90 days.</li>
+                            <li><strong>7. Language:</strong> Applications can be in English, Hindi, or the official language of the area.</li>
+                            <li><strong>8. Seek Expert Help:</strong> For complex matters, consult an RTI activist or legal expert.</li>
+                            <li><strong>9. Online Portals:</strong> Many states now have online RTI portals (e.g., rtionline.gov.in for Central Govt.). Use them for convenience and tracking.</li>
+                            <li><strong>10. Comprehensive & Up-to-date Content (for SEO):</strong> To rank #1, a real-world tool would need:
+                                <ul>
+                                    <li>**Extensive, state-specific templates:** Covering all types of RTI requests for every state and central department, with dynamic fields.</li>
+                                    <li>**AI-powered assistance:** To help users phrase complex requests clearly and concisely.</li>
+                                    <li>**Integration with official databases:** (If APIs available) to auto-fill PIO details, department addresses based on user input.</li>
+                                    <li>**Legal accuracy:** Templates verified by legal experts to ensure compliance with the RTI Act and state rules.</li>
+                                    <li>**User-friendly interface:** Intuitive design, real-time preview, and easy download options (PDF/DOCX).</li>
+                                    <li>**Structured Data (Schema.org):** Implementing schema markup for "HowTo" or "Q&A" to help Google understand the tool's purpose and content structure.</li>
+                                    <li>**Strong authoritative backlinks:** From government, legal, and educational websites.</li>
+                                    <li>**Continuous content updates:** To reflect changes in RTI rules, fees, and departmental structures.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool helps you format the application. The effectiveness depends on your follow-up and adherence to RTI Act rules.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("RTI Application Helper: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const applicantNameInput = document.getElementById('applicantName');
+            const applicantAddressInput = document.getElementById('applicantAddress');
+            const pioDesignationInput = document.getElementById('pioDesignation');
+            const departmentAddressInput = document.getElementById('departmentAddress');
+            const subjectInput = document.getElementById('subject');
+            const informationDetailsInput = document.getElementById('informationDetails');
+            const paymentMethodSelect = document.getElementById('paymentMethod');
+            const paymentDetailsInput = document.getElementById('paymentDetails');
+            const generateRTIBtn = document.getElementById('generateRTIBtn');
+            const rtiOutputSection = document.getElementById('rti-output-section');
+            const generatedRtiDisplay = document.getElementById('generated-rti-display');
+            const copyRTIBtn = document.getElementById('copyRTIBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Function to generate the RTI application
+            function generateRTIApplication() {
+                const applicantName = applicantNameInput.value.trim();
+                const applicantAddress = applicantAddressInput.value.trim();
+                const pioDesignation = pioDesignationInput.value.trim();
+                const departmentAddress = departmentAddressInput.value.trim();
+                const subject = subjectInput.value.trim();
+                const informationDetails = informationDetailsInput.value.trim();
+                const paymentMethod = paymentMethodSelect.value;
+                const paymentDetails = paymentDetailsInput.value.trim();
+                const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                // Basic validation
+                if (!applicantName || !applicantAddress || !pioDesignation || !departmentAddress || !subject || !informationDetails || !paymentMethod) {
+                    showMessage("Please fill in all required fields.", "error");
+                    return;
+                }
+
+                if (paymentMethod !== 'cash' && !paymentDetails) {
+                    showMessage("Please provide payment details for the selected method.", "error");
+                    return;
+                }
+
+                const rtiContent = `
+To,
+The Public Information Officer,
+${pioDesignation}
+${departmentAddress}
+
+Date: ${currentDate}
+
+Subject: Request for information under the Right to Information Act, 2005.
+
+Dear Sir/Madam,
+
+I, ${applicantName}, residing at ${applicantAddress}, wish to seek the following information under the Right to Information Act, 2005:
+
+${informationDetails.split('\n').map(line => `- ${line.trim()}`).join('\n')}
+
+I have deposited the application fee of ₹10/- (Rupees Ten Only) by ${paymentMethod} ${paymentDetails ? `(Details: ${paymentDetails})` : ''}.
+
+I declare that I am a citizen of India and I am seeking this information in my capacity as a citizen. I assure that I shall not allow any third person to use the information being obtained.
+
+Kindly provide the information at your earliest convenience, within the stipulated time frame of thirty days as per the RTI Act, 2005.
+
+Sincerely,
+${applicantName}
+`;
+
+                generatedRtiDisplay.textContent = rtiContent;
+                rtiOutputSection.classList.remove('hidden');
+                showMessage("RTI Application generated successfully!", "success");
+            }
+
+            // Function to copy generated RTI to clipboard
+            function copyRTIToClipboard() {
+                const textarea = document.createElement('textarea');
+                textarea.value = generatedRtiDisplay.textContent;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessage('RTI Application copied to clipboard!', 'success');
+                } catch (err) {
+                    console.error('Failed to copy RTI: ', err);
+                    showMessage('Failed to copy RTI. Please copy manually.', 'error');
+                }
+                document.body.removeChild(textarea);
+            }
+
+            // Function to download generated RTI as PDF
+            function downloadPdf() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                const rtiContent = generatedRtiDisplay.textContent;
+                const lines = doc.splitTextToSize(rtiContent, 180); // Split text to fit page width
+                
+                let y = 10; // Starting Y position
+                const lineHeight = 7; // Line height
+                const pageHeight = doc.internal.pageSize.height;
+
+                lines.forEach(line => {
+                    if (y + lineHeight > pageHeight - 10) { // Check if new page is needed
+                        doc.addPage();
+                        y = 10; // Reset Y for new page
+                    }
+                    doc.text(line, 10, y);
+                    y += lineHeight;
+                });
+                
+                doc.save('RTI_Application.pdf');
+                showMessage('RTI Application downloaded as PDF!', 'success');
+            }
+
+            // Event Listeners
+            if (generateRTIBtn) {
+                generateRTIBtn.addEventListener('click', generateRTIApplication);
+            }
+            if (copyRTIBtn) {
+                copyRTIBtn.addEventListener('click', copyRTIToClipboard);
+            }
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', downloadPdf);
+            }
+        });
+    </script>
+</body>
+</html>
