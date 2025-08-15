@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Generator - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional, for future use if icons are added) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * Basic CSS styling for a clean and responsive look.
+         * This styling centers the page, styles input fields, buttons,
+         * and ensures the generated complaint is displayed nicely.
+         * Uses Poppins font.
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.25rem; /* Tailwind's text-4xl equivalent */
+            font-weight: 700; /* Tailwind's font-bold equivalent */
+            margin-bottom: 1.5rem; /* Tailwind's mb-6 equivalent */
+        }
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600; /* Tailwind's font-semibold equivalent */
+            color: #4a148c; /* Purple color for labels */
+        }
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            font-size: 1rem; /* Tailwind's text-base equivalent */
+        }
+        form textarea {
+            resize: vertical; /* Allows vertical resizing */
+            min-height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #007bff; /* Blue button */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.125rem; /* Tailwind's text-lg equivalent */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef; /* Light gray background for output */
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            white-space: pre-wrap; /* Preserves newlines and spacing from generated text */
+            font-family: monospace; /* Monospace font for generated text */
+            font-size: 0.875rem; /* Tailwind's text-sm equivalent */
+            color: #333;
+        }
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>शिकायत जेनरेटर</h1>
+        <!-- In-page message box placeholder -->
+        <div id="message-box" class="hidden"></div>
+        
+        <form id="complaintForm">
+            <label for="fullName">पूरा नाम</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="email">ईमेल</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="complaintType">शिकायत का प्रकार</label>
+            <select id="complaintType" name="complaintType">
+                <option value="">-- प्रकार चुनें --</option>
+                <option value="public-infrastructure">Public Infrastructure Issue (e.g., bad roads, streetlights)</option>
+                <option value="public-service">Public Service Deficiency (e.g., water supply, sanitation)</option>
+                <option value="officer-misconduct">Officer Misconduct / Corruption</option>
+                <option value="environmental-nuisance">Environmental Nuisance (e.g., pollution, waste dumping)</option>
+                <option value="law-and-order">Law and Order Issue (e.g., local crime, noise pollution)</option>
+                <option value="consumer-issue">Consumer Issue (Product/Service)</option>
+                <option value="other-public-problem">Other Public Problem</option>
+            </select>
+
+            <label for="departmentName" id="departmentLabel" class="hidden">Department/Officer Name (Optional)</label>
+            <input type="text" id="departmentName" name="departmentName" placeholder="e.g., Nagar Nigam, Police Station, Officer's Name" class="hidden">
+
+            <label for="locationDetails" id="locationLabel" class="hidden">Location/Address of Issue (Specific)</label>
+            <textarea id="locationDetails" name="locationDetails" rows="2" placeholder="e.g., Near XYZ Park, Main Road, Sector 12, House No. 45" class="hidden"></textarea>
+
+            <label for="subject">विषय</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="message">विस्तृत शिकायत</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">शिकायत जनरेट करें</button>
+        </form>
+
+        <div id="output">
+            <!-- The generated complaint will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Wait until the entire HTML document is loaded and parsed
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Complaint Generator: Script loaded and DOM content fully loaded.');
+
+            // Get references to the form, output div, and message box
+            const form = document.getElementById('complaintForm');
+            const outputDiv = document.getElementById('output');
+            const messageBox = document.getElementById('message-box');
+            const complaintTypeSelect = document.getElementById('complaintType');
+            const departmentNameInput = document.getElementById('departmentName');
+            const departmentLabel = document.getElementById('departmentLabel');
+            const locationDetailsInput = document.getElementById('locationDetails');
+            const locationLabel = document.getElementById('locationLabel');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Event listener for complaint type change to show/hide extra fields
+            complaintTypeSelect.addEventListener('change', function() {
+                const selectedType = complaintTypeSelect.value;
+                if (selectedType === 'officer-misconduct' || selectedType === 'public-service' || selectedType === 'public-infrastructure' || selectedType === 'environmental-nuisance' || selectedType === 'law-and-order' || selectedType === 'other-public-problem') {
+                    departmentLabel.classList.remove('hidden');
+                    departmentNameInput.classList.remove('hidden');
+                    locationLabel.classList.remove('hidden');
+                    locationDetailsInput.classList.remove('hidden');
+                    departmentNameInput.required = true; // Make required for relevant types
+                    locationDetailsInput.required = true; // Make required for relevant types
+                } else {
+                    departmentLabel.classList.add('hidden');
+                    departmentNameInput.classList.add('hidden');
+                    locationLabel.classList.add('hidden');
+                    locationDetailsInput.classList.add('hidden');
+                    departmentNameInput.required = false;
+                    locationDetailsInput.required = false;
+                    departmentNameInput.value = ''; // Clear values when hidden
+                    locationDetailsInput.value = ''; // Clear values when hidden
+                }
+            });
+
+            // Add an event listener for form submission
+            form.addEventListener('submit', function(event) {
+                // Prevent the default form submission behavior (reloading the page)
+                event.preventDefault();
+
+                // Get values from all form fields
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const complaintType = complaintTypeSelect.value;
+                const departmentName = departmentNameInput.value.trim();
+                const locationDetails = locationDetailsInput.value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+                const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                // Basic validation
+                if (!fullName || !email || !complaintType || !subject || !message) {
+                    showMessage("Please fill in all general required fields.", "error");
+                    return;
+                }
+
+                // Specific validation for public problems/officer misconduct
+                if ((complaintType === 'officer-misconduct' || complaintType === 'public-service' || complaintType === 'public-infrastructure' || complaintType === 'environmental-nuisance' || complaintType === 'law-and-order' || complaintType === 'other-public-problem') && (!departmentName || !locationDetails)) {
+                    showMessage("For this complaint type, 'Department/Officer Name' and 'Location/Address of Issue' are required.", "error");
+                    return;
+                }
+
+                let complaintBody = ``;
+                let salutation = `Dear Sir/Madam,`;
+                let closing = `Sincerely,`;
+
+                // Customize complaint body based on type
+                switch (complaintType) {
+                    case 'public-infrastructure':
+                        salutation = `To the Concerned Authority,`;
+                        complaintBody = `I am writing to bring to your urgent attention a significant public infrastructure issue in our area.
+Issue: ${subject}
+Location: ${locationDetails}
+Details: ${message}
+
+This issue is causing considerable inconvenience and potential danger to the public. I kindly request your immediate intervention to resolve this matter.`;
+                        break;
+                    case 'public-service':
+                        salutation = `To the Concerned Authority,`;
+                        complaintBody = `I wish to formally complain about a deficiency in public service provided by your department.
+Service/Issue: ${subject}
+Department/Officer (if applicable): ${departmentName}
+Location/Affected Area: ${locationDetails}
+Details: ${message}
+
+The lack of proper service is affecting many citizens. I urge you to investigate and take corrective measures.`;
+                        break;
+                    case 'officer-misconduct':
+                        salutation = `To the Higher Authority,`;
+                        complaintBody = `I am writing to formally report an incident of misconduct/negligence by an officer under your jurisdiction.
+Officer/Department: ${departmentName}
+Subject of Misconduct: ${subject}
+Location of Incident: ${locationDetails}
+Details of Incident: ${message}
+
+I request a thorough investigation into this matter and appropriate action against the concerned individual(s) to ensure justice and accountability.`;
+                        break;
+                    case 'environmental-nuisance':
+                        salutation = `To the Environmental Department,`;
+                        complaintBody = `I am writing to report a serious environmental nuisance that is negatively impacting our community.
+Issue: ${subject}
+Location: ${locationDetails}
+Details: ${message}
+
+This problem poses health risks and degrades our living environment. I request immediate action to mitigate and resolve this environmental concern.`;
+                        break;
+                    case 'law-and-order':
+                        salutation = `To the Police Department,`;
+                        complaintBody = `I wish to report a persistent law and order issue in my locality that requires urgent attention.
+Issue: ${subject}
+Location: ${locationDetails}
+Details: ${message}
+
+The current situation is causing distress and insecurity among residents. I request prompt action to restore peace and order.`;
+                        break;
+                    case 'consumer-issue':
+                        salutation = `Dear Sir/Madam,`;
+                        complaintBody = `I am writing to formally register a complaint regarding a recent consumer issue I have experienced.
+Subject: ${subject}
+Details: ${message}
+
+I kindly request that you look into this matter at your earliest convenience and provide a resolution.`;
+                        break;
+                    case 'other-public-problem':
+                        salutation = `To the Concerned Authority,`;
+                        complaintBody = `I am writing to bring to your attention a public problem in our area.
+Issue: ${subject}
+Department/Officer (if applicable): ${departmentName}
+Location: ${locationDetails}
+Details: ${message}
+
+I request your kind intervention to address this issue.`;
+                        break;
+                    default: // General complaint
+                        salutation = `Dear Sir/Madam,`;
+                        complaintBody = `I am writing to formally register a complaint regarding a recent issue I have experienced.
+Subject: ${subject}
+Details: ${message}
+
+I kindly request that you look into this matter at your earliest convenience and provide a resolution.`;
+                        break;
+                }
+
+
+                const complaintText = `
+[Your Full Name]
+[Your Address]
+${fullName}
+${email}
+
+${currentDate}
+
+To,
+The Concerned Authority
+${departmentName ? departmentName : ' (Please specify Department/Officer if known)'}
+${locationDetails ? locationDetails : ' (Please specify relevant address)'}
+
+Subject: ${subject}
+
+${salutation}
+
+${complaintBody}
+
+Thanking You,
+${closing}
+${fullName}
+                `.trim();
+
+                // Display the formatted complaint in the output div
+                outputDiv.textContent = complaintText;
+                showMessage("Complaint generated successfully! Review the text below.", "success");
+
+                // Add the "Make it Bawal" SEO/Impact note
+                addBawalNote();
+            });
+
+            // Function to add the "Make it Bawal" note
+            function addBawalNote() {
+                const existingBawalNote = outputDiv.querySelector('.seo-note');
+                if (existingBawalNote) {
+                    existingBawalNote.remove(); // Remove old note if exists
+                }
+
+                const bawalNote = document.createElement('div');
+                bawalNote.classList.add('seo-note');
+                bawalNote.innerHTML = `
+                    <h3>How to Make Your Complaint "Bawal" (Effective & Visible) on Google & Beyond:</h3>
+                    <p>Generating the complaint is the first step. To make it truly impactful and ensure it gets attention, consider these strategies:</p>
+                    <ul>
+                        <li><strong>1. Be Specific & Factual:</strong> Provide exact dates, times, locations, and names. Avoid emotional language. The more precise, the stronger your case.</li>
+                        <li><strong>2. Gather Evidence:</strong> Attach photos, videos, screenshots, receipts, communication logs, or witness statements. Digital evidence is powerful.</li>
+                        <li><strong>3. Choose the Right Channel:</strong>
+                            <ul>
+                                <li><strong>Official Portals:</strong> Many government departments have online grievance redressal portals (e.g., CPGRAMS, Jan Sunwai, specific municipal/police portals). Use them! They often provide a tracking ID.</li>
+                                <li><strong>Physical Submission:</strong> Submit a hard copy with an acknowledgement receipt.</li>
+                                <li><strong>Registered Post/Email:</strong> For a record of delivery.</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. Follow Up Relentlessly:</strong> Don't just file and forget. Follow up using your tracking ID or by visiting the office. Persistent follow-up often yields results.</li>
+                        <li><strong>5. Leverage Social Media (Strategically):</strong> If official channels are unresponsive, a polite, factual post on platforms like Twitter, tagging the relevant department/minister, can sometimes get attention. Use relevant hashtags.</li>
+                        <li><strong>6. Inform Local Media/Activists:</strong> For significant public issues, local newspapers, news channels, or NGOs might pick up the story, amplifying its reach.</li>
+                        <li><strong>7. Legal Recourse:</strong> If all else fails, consult a legal expert for further steps (e.g., RTI, consumer forum, court).</li>
+                        <li><strong>8. SEO for Online Visibility (If applicable):</strong> If submitting to a public online forum or blog, use relevant keywords in your complaint's subject and body. For example, "Complaint against [Department Name] for [Issue] in [City/Area]". This helps others facing similar issues find your complaint and potentially join forces.</li>
+                        <li><strong>9. Structured Data (Future ToolMantra Feature):</strong> For a tool to truly "bawal" on Google, it would need to integrate with official APIs (if available) and generate complaints in a structured format (e.g., JSON-LD schema for 'Problem' or 'Grievance') that search engines can easily understand and rank.</li>
+                    </ul>
+                    <p>Remember, a well-documented and persistently pursued complaint has the highest chance of resolution.</p>
+                `;
+                outputDiv.appendChild(bawalNote);
+            }
+        });
+    </script>
+
+</body>
+</html>
