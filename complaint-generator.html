@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaint Generator - ToolMantra</title>
-    <!-- Tailwind CSS CDN load karein -->
+    <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Poppins font family ke liye Google Fonts -->
+    <!-- Google Fonts for Poppins font family -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome icons ke liye CDN (optional, for future use if icons are added) -->
+    <!-- Font Awesome CDN for icons (optional, for future use if icons are added) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /*
@@ -128,20 +128,20 @@
 <body>
 
     <div class="container">
-        <h1>शिकायत जेनरेटर</h1>
+        <h1>Complaint Generator</h1>
         <!-- In-page message box placeholder -->
         <div id="message-box" class="hidden"></div>
         
         <form id="complaintForm">
-            <label for="fullName">पूरा नाम</label>
+            <label for="fullName">Full Name</label>
             <input type="text" id="fullName" name="fullName" required>
 
-            <label for="email">ईमेल</label>
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="complaintType">शिकायत का प्रकार</label>
+            <label for="complaintType">Complaint Type</label>
             <select id="complaintType" name="complaintType">
-                <option value="">-- प्रकार चुनें --</option>
+                <option value="">-- Select Type --</option>
                 <option value="public-infrastructure">Public Infrastructure Issue (e.g., bad roads, streetlights)</option>
                 <option value="public-service">Public Service Deficiency (e.g., water supply, sanitation)</option>
                 <option value="officer-misconduct">Officer Misconduct / Corruption</option>
@@ -157,13 +157,13 @@
             <label for="locationDetails" id="locationLabel" class="hidden">Location/Address of Issue (Specific)</label>
             <textarea id="locationDetails" name="locationDetails" rows="2" placeholder="e.g., Near XYZ Park, Main Road, Sector 12, House No. 45" class="hidden"></textarea>
 
-            <label for="subject">विषय</label>
+            <label for="subject">Subject</label>
             <input type="text" id="subject" name="subject" required>
 
-            <label for="message">विस्तृत शिकायत</label>
+            <label for="message">Detailed Complaint</label>
             <textarea id="message" name="message" required></textarea>
 
-            <button type="submit">शिकायत जनरेट करें</button>
+            <button type="submit">Generate Complaint</button>
         </form>
 
         <div id="output">
@@ -370,22 +370,22 @@ ${fullName}
                 outputDiv.textContent = complaintText;
                 showMessage("Complaint generated successfully! Review the text below.", "success");
 
-                // Add the "Make it Bawal" SEO/Impact note
-                addBawalNote();
+                // Add the SEO/Impact note
+                addImpactNote();
             });
 
-            // Function to add the "Make it Bawal" note
-            function addBawalNote() {
-                const existingBawalNote = outputDiv.querySelector('.seo-note');
-                if (existingBawalNote) {
-                    existingBawalNote.remove(); // Remove old note if exists
+            // Function to add the SEO/Impact note
+            function addImpactNote() {
+                const existingImpactNote = outputDiv.querySelector('.seo-note');
+                if (existingImpactNote) {
+                    existingImpactNote.remove(); // Remove old note if exists
                 }
 
-                const bawalNote = document.createElement('div');
-                bawalNote.classList.add('seo-note');
-                bawalNote.innerHTML = `
-                    <h3>How to Make Your Complaint "Bawal" (Effective & Visible) on Google & Beyond:</h3>
-                    <p>Generating the complaint is the first step. To make it truly impactful and ensure it gets attention, consider these strategies:</p>
+                const impactNote = document.createElement('div');
+                impactNote.classList.add('seo-note');
+                impactNote.innerHTML = `
+                    <h3>How to Make Your Complaint Impactful & Visible (for SEO & Real-World Results):</h3>
+                    <p>Generating the complaint is the first step. To make it truly effective and ensure it gets attention, consider these strategies:</p>
                     <ul>
                         <li><strong>1. Be Specific & Factual:</strong> Provide exact dates, times, locations, and names. Avoid emotional language. The more precise, the stronger your case.</li>
                         <li><strong>2. Gather Evidence:</strong> Attach photos, videos, screenshots, receipts, communication logs, or witness statements. Digital evidence is powerful.</li>
@@ -401,11 +401,11 @@ ${fullName}
                         <li><strong>6. Inform Local Media/Activists:</strong> For significant public issues, local newspapers, news channels, or NGOs might pick up the story, amplifying its reach.</li>
                         <li><strong>7. Legal Recourse:</strong> If all else fails, consult a legal expert for further steps (e.g., RTI, consumer forum, court).</li>
                         <li><strong>8. SEO for Online Visibility (If applicable):</strong> If submitting to a public online forum or blog, use relevant keywords in your complaint's subject and body. For example, "Complaint against [Department Name] for [Issue] in [City/Area]". This helps others facing similar issues find your complaint and potentially join forces.</li>
-                        <li><strong>9. Structured Data (Future ToolMantra Feature):</strong> For a tool to truly "bawal" on Google, it would need to integrate with official APIs (if available) and generate complaints in a structured format (e.g., JSON-LD schema for 'Problem' or 'Grievance') that search engines can easily understand and rank.</li>
+                        <li><strong>9. Structured Data (Future ToolMantra Feature):</strong> For a tool to truly make an impact on Google, it would need to integrate with official APIs (if available) and generate complaints in a structured format (e.g., JSON-LD schema for 'Problem' or 'Grievance') that search engines can easily understand and rank.</li>
                     </ul>
                     <p>Remember, a well-documented and persistently pursued complaint has the highest chance of resolution.</p>
                 `;
-                outputDiv.appendChild(bawalNote);
+                outputDiv.appendChild(impactNote);
             }
         });
     </script>
