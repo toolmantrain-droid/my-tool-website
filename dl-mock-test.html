@@ -3,83 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ड्राइविंग लाइसेंस मॉक टेस्ट - टूलमंत्रा</title>
-    <!-- Tailwind CSS CDN लोड करें -->
+    <title>Driving License Mock Test - ToolMantra</title>
+    <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Poppins फॉन्ट फैमिली के लिए Google Fonts -->
+    <!-- Google Fonts for Poppins font family -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome आइकन्स के लिए CDN -->
+    <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- CSS स्टाइलिंग यहाँ शुरू होती है -->
+    <!-- CSS Styling starts here -->
     <style>
         /*
-         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और ड्राइविंग लाइसेंस मॉक टेस्ट टूल के लिए है।
-         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
-         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         * This CSS styling is for the general layout of the entire website and the Driving License Mock Test tool.
+         * It includes styles for font, header, footer, buttons, and form elements.
+         * 'Poppins' font is used, and colors are chosen to match ToolMantra's branding.
          */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #f7f9fc; /* हल्का नीला-ग्रे बैकग्राउंड */
-            color: #333; /* गहरा ग्रे टेक्स्ट */
+            background-color: #f7f9fc; /* Light blue-gray background */
+            color: #333; /* Dark gray text */
         }
         .container {
-            max-width: 1200px; /* अधिकतम चौड़ाई */
-            margin: 0 auto; /* केंद्र में संरेखित करें */
-            padding: 0 20px; /* साइड पैडिंग */
+            max-width: 1200px; /* Maximum width */
+            margin: 0 auto; /* Center align */
+            padding: 0 20px; /* Side padding */
         }
         header {
-            background-color: #ffffff; /* सफेद हेडर बैकग्राउंड */
-            padding: 15px 0; /* ऊपर/नीचे पैडिंग */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* हल्का शैडो */
+            background-color: #ffffff; /* White header background */
+            padding: 15px 0; /* Top/bottom padding */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
         header .container {
             display: flex;
-            justify-content: space-between; /* लोगो और नेविगेशन को फैलाएं */
-            align-items: center; /* वर्टिकल केंद्र में संरेखित करें */
+            justify-content: space-between; /* Spread logo and navigation */
+            align-items: center; /* Vertically center align */
         }
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: #4a148c; /* गहरा बैंगनी */
+            color: #4a148c; /* Deep Purple */
         }
         nav ul {
-            list-style: none; /* बुलेट पॉइंट हटाएं */
+            list-style: none; /* Remove bullet points */
             margin: 0;
             padding: 0;
-            display: flex; /* लिस्ट आइटम्स को क्षैतिज रूप से व्यवस्थित करें */
+            display: flex; /* Arrange list items horizontally */
         }
         nav ul li {
-            margin-left: 25px; /* लिस्ट आइटम्स के बीच स्पेस */
+            margin-left: 25px; /* Space between list items */
         }
         nav ul li a {
-            text-decoration: none; /* अंडरलाइन हटाएं */
-            color: #555; /* ग्रे टेक्स्ट */
+            text-decoration: none; /* Remove underline */
+            color: #555; /* Gray text */
             font-weight: 500;
-            transition: color 0.3s ease; /* होवर पर रंग बदलने के लिए ट्रांजिशन */
+            transition: color 0.3s ease; /* Transition for color change on hover */
         }
         nav ul li a:hover {
-            color: #4a148c; /* होवर पर बैंगनी */
+            color: #4a148c; /* Purple on hover */
         }
         .cta-button {
-            display: inline-block; /* बटन को ब्लॉक-लेवल व्यवहार दें */
-            background-color: #ff9800; /* नारंगी */
+            display: inline-block; /* Give button block-level behavior */
+            background-color: #ff9800; /* Orange */
             color: white;
             text-decoration: none;
             padding: 15px 30px;
-            border-radius: 50px; /* गोल कोने */
+            border-radius: 50px; /* Rounded corners */
             font-weight: 600;
             transition: background-color 0.3s ease;
         }
         .cta-button:hover {
-            background-color: #e65100; /* गहरा नारंगी */
+            background-color: #e65100; /* Darker orange */
         }
         footer {
-            background-color: #222; /* गहरा ग्रे फुटर बैकग्राउंड */
-            color: #ccc; /* हल्का ग्रे टेक्स्ट */
+            background-color: #222; /* Dark gray footer background */
+            color: #ccc; /* Light gray text */
             padding: 60px 0;
             text-align: center;
         }
@@ -87,8 +87,8 @@
             display: flex;
             justify-content: space-between;
             text-align: left;
-            flex-wrap: wrap; /* छोटे स्क्रीन पर आइटम्स को रैप करें */
-            gap: 40px; /* आइटम्स के बीच गैप */
+            flex-wrap: wrap; /* Wrap items on smaller screens */
+            gap: 40px; /* Gap between items */
             margin-bottom: 40px;
         }
         .footer-brand {
@@ -127,14 +127,14 @@
             color: #fff;
         }
         .copyright {
-            border-top: 1px solid #444; /* ऊपर बॉर्डर */
+            border-top: 1px solid #444; /* Top border */
             padding-top: 20px;
         }
         .copyright p {
             font-size: 14px;
             color: #888;
         }
-        /* टूल-विशिष्ट स्टाइलिंग */
+        /* Tool-specific styling */
         .tool-container {
             padding: 60px 20px;
             background-color: #f7f9fc;
@@ -159,32 +159,32 @@
             margin-bottom: 30px;
         }
         .form-group label {
-            color: #4a148c; /* बैंगनी */
+            color: #4a148c; /* Purple */
         }
-        /* परिणामों और संदेशों के लिए स्टाइलिंग */
+        /* Styling for results and messages */
         #quiz-results-section li {
-            background-color: #e8f5e9; /* हल्का हरा */
+            background-color: #e8f5e9; /* Light green */
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
             font-size: 16px;
             line-height: 1.5;
-            color: #1b5e20; /* गहरा हरा टेक्स्ट */
+            color: #1b5e20; /* Dark green text */
         }
         #quiz-results-section li.bg-red-50 {
-            background-color: #fef2f2; /* हल्का लाल */
-            color: #991b1b; /* गहरा लाल टेक्स्ट */
+            background-color: #fef2f2; /* Light red */
+            color: #991b1b; /* Dark red text */
         }
-        #quiz-results-section li.bg-orange-50 { /* चेतावनी संदेशों के लिए */
-            background-color: #fffaf0; /* हल्का नारंगी */
-            color: #9a6700; /* गहरा नारंगी टेक्स्ट */
+        #quiz-results-section li.bg-orange-50 { /* For warning messages */
+            background-color: #fffaf0; /* Light orange */
+            color: #9a6700; /* Dark orange text */
         }
         #quiz-results-section li.bg-blue-50 {
-            background-color: #eff6ff; /* हल्का नीला */
-            color: #1e40af; /* गहरा नीला टेक्स्ट */
+            background-color: #eff6ff; /* Light blue */
+            color: #1e40af; /* Dark blue text */
         }
         #message-box {
-            /* यह इन-पेज संदेशों के लिए है, जैसे "कृपया एक उत्तर चुनें" */
+            /* This is for in-page messages, like "Please select an answer" */
             background-color: #fef2f2;
             border: 1px solid #fee2e2;
             color: #dc2626;
@@ -194,61 +194,61 @@
             text-align: left;
         }
 
-        /* विकल्पों को ठीक से दिखाने के लिए अतिरिक्त स्टाइल */
+        /* Additional styles to correctly display options */
         #options-container .flex {
             display: flex;
             align-items: center;
-            margin-bottom: 8px; /* विकल्पों के बीच थोड़ी जगह */
-            /* सुनिश्चित करें कि विकल्प डिफ़ॉल्ट रूप से छुपे न हों */
-            opacity: 1; /* दृश्यता सुनिश्चित करें */
-            visibility: visible; /* दृश्यता सुनिश्चित करें */
+            margin-bottom: 8px; /* Some space between options */
+            /* Ensure options are not hidden by default */
+            opacity: 1; /* Ensure visibility */
+            visibility: visible; /* Ensure visibility */
         }
         #options-container input[type="radio"] {
-            margin-right: 10px; /* रेडियो बटन और लेबल के बीच जगह */
-            /* सुनिश्चित करें कि रेडियो बटन का आकार और रंग स्पष्ट हो */
-            -webkit-appearance: none; /* डिफ़ॉल्ट ब्राउज़र स्टाइल हटाएँ */
+            margin-right: 10px; /* Space between radio button and label */
+            /* Ensure the size and color of the radio button are clear */
+            -webkit-appearance: none; /* Remove default browser styles */
             -moz-appearance: none;
             appearance: none;
-            width: 18px; /* कस्टम आकार */
+            width: 18px; /* Custom size */
             height: 18px;
-            border: 2px solid #991b1b; /* लाल बॉर्डर */
-            border-radius: 50%; /* गोलाकार */
+            border: 2px solid #991b1b; /* Red border */
+            border-radius: 50%; /* Circular */
             outline: none;
             cursor: pointer;
             transition: background-color 0.2s ease, border-color 0.2s ease;
-            display: inline-block; /* सुनिश्चित करें कि यह डिस्प्ले में है */
+            display: inline-block; /* Ensure it is in display */
         }
         #options-container input[type="radio"]:checked {
-            background-color: #4a148c; /* बैंगनी जब चयनित हो */
-            border-color: #4a148c; /* बैंगनी बॉर्डर जब चयनित हो */
+            background-color: #4a148c; /* Purple when selected */
+            border-color: #4a148c; /* Purple border when selected */
         }
         #options-container input[type="radio"]:checked::before {
             content: '';
             display: block;
             width: 10px;
             height: 10px;
-            margin: 2px; /* केंद्र में डॉट */
-            background-color: white; /* चयनित डॉट का रंग */
+            margin: 2px; /* Dot in the center */
+            background-color: white; /* Color of the selected dot */
             border-radius: 50%;
         }
         #options-container label {
             cursor: pointer;
             font-size: 16px;
-            color: #333; /* लेबल टेक्स्ट का रंग */
-            display: inline-block; /* सुनिश्चित करें कि यह डिस्प्ले में है */
+            color: #333; /* Label text color */
+            display: inline-block; /* Ensure it is in display */
         }
     </style>
-    <!-- CSS स्टाइलिंग यहाँ समाप्त होती है -->
+    <!-- CSS Styling ends here -->
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">टूलमंत्रा</div>
+            <div class="logo">ToolMantra</div>
             <nav>
                 <ul>
-                    <li><a href="index.html">होम</a></li>
-                    <li><a href="blog.html">ब्लॉग</a></li>
-                    <li><a href="all-tools.html">सभी उपकरण</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
                 </ul>
             </nav>
         </div>
@@ -257,48 +257,48 @@
     <main>
         <section class="tool-container">
             <div class="tool-content">
-                <h2 id="tool-heading">ड्राइविंग लाइसेंस मॉक टेस्ट</h2>
-                <p id="tool-description">आरटीओ परीक्षा से पहले यातायात नियमों और संकेतों का अभ्यास करें ताकि आप अच्छी तरह से तैयार हो सकें।</p>
+                <h2 id="tool-heading">Driving License Mock Test</h2>
+                <p id="tool-description">Practice traffic rules and signs before the RTO exam to ensure you are well-prepared.</p>
 
-                <!-- इन-पेज संदेश बॉक्स के लिए प्लेसहोल्डर -->
+                <!-- Placeholder for in-page message box -->
                 <div id="message-box" class="hidden"></div>
 
                 <div class="form-group mb-5 text-left">
-                    <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">अपना राज्य चुनें (प्रासंगिक आरटीओ लिंक के लिए):</label>
+                    <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">Select Your State (for relevant RTO links):</label>
                     <select id="state-select" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <option value="">-- एक राज्य चुनें --</option>
-                        <option value="uttar-pradesh">उत्तर प्रदेश</option>
-                        <option value="maharashtra">महाराष्ट्र</option>
-                        <option value="delhi">दिल्ली</option>
-                        <option value="bihar">बिहार</option>
-                        <option value="west-bengal">पश्चिम बंगाल</option>
-                        <option value="madhya-pradesh">मध्य प्रदेश</option>
-                        <option value="rajasthan">राजस्थान</option>
-                        <option value="gujarat">गुजरात</option>
-                        <option value="karnataka">कर्नाटक</option>
-                        <option value="tamil-nadu">तमिलनाडु</option>
-                        <!-- आवश्यकतानुसार और राज्य जोड़ें -->
+                        <option value="">-- Select a State --</option>
+                        <option value="uttar-pradesh">Uttar Pradesh</option>
+                        <option value="maharashtra">Maharashtra</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="bihar">Bihar</option>
+                        <option value="west-bengal">West Bengal</option>
+                        <option value="madhya-pradesh">Madhya Pradesh</option>
+                        <option value="rajasthan">Rajasthan</option>
+                        <option value="gujarat">Gujarat</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="tamil-nadu">Tamil Nadu</option>
+                        <!-- Add more states as needed -->
                     </select>
                 </div>
 
                 <div id="quiz-container" class="text-left">
                     <div id="question-display" class="bg-gray-100 p-6 rounded-lg mb-4 shadow-sm">
-                        <p class="text-lg font-semibold" id="question-text">प्रश्न लोड हो रहा है...</p>
+                        <p class="text-lg font-semibold" id="question-text">Loading question...</p>
                         <div id="options-container" class="mt-4 space-y-2">
-                            <!-- विकल्प यहाँ गतिशील रूप से लोड किए जाएंगे -->
+                            <!-- Options will be dynamically loaded here -->
                         </div>
                     </div>
-                    <button id="next-question-btn" class="cta-button w-full py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors duration-300 text-lg">अगला प्रश्न</button>
-                    <button id="submit-quiz-btn" class="cta-button w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors duration-300 text-lg mt-4 hidden">टेस्ट जमा करें</button>
+                    <button id="next-question-btn" class="cta-button w-full py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors duration-300 text-lg">Next Question</button>
+                    <button id="submit-quiz-btn" class="cta-button w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors duration-300 text-lg mt-4 hidden">Submit Test</button>
                 </div>
 
                 <div id="quiz-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
-                    <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">परीक्षा परिणाम</h3>
-                    <p class="text-lg mb-2">आपका स्कोर: <span id="score-display" class="font-bold"></span></p>
-                    <p class="text-lg mb-4">आप टेस्ट में <span id="pass-fail-status" class="font-bold"></span>!</p>
-                    <button id="retake-test-btn" class="cta-button py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base">टेस्ट फिर से दें</button>
+                    <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">Test Results</h3>
+                    <p class="text-lg mb-2">Your Score: <span id="score-display" class="font-bold"></span></p>
+                    <p class="text-lg mb-4">You <span id="pass-fail-status" class="font-bold"></span> the test!</p>
+                    <button id="retake-test-btn" class="cta-button py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base">Retake Test</button>
                     <ul id="answers-review-list" class="list-none p-0 mt-4">
-                        <!-- उत्तरों की समीक्षा यहाँ गतिशील रूप से जोड़ी जाएगी -->
+                        <!-- Answer review will be dynamically added here -->
                     </ul>
                 </div>
             </div>
@@ -309,35 +309,35 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>टूलमंत्रा</h3>
-                    <p>टूलमंत्रा भारत का पहला मुफ्त टूलबॉक्स है जो आपकी रोजमर्रा की समस्याओं को सरल बनाता है। हमारा लक्ष्य हर भारतीय को मुफ्त में आवश्यक डिजिटल टूल प्रदान करना है।</p>
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>त्वरित लिंक</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">होम</a></li>
-                        <li><a href="blog.html">ब्लॉग</a></li>
-                        <li><a href="#">सभी उपकरण</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>कानूनी</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="privacy.html">गोपनीयता नीति</a></li>
-                        <li><a href="terms.html">नियम और शर्तें</a></li>
-                        <li><a href="terms.html">अस्वीकरण</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2024 टूलमंत्रा। सर्वाधिकार सुरक्षित।</p>
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
     
-    <!-- मुख्य JavaScript फाइलें -->
+    <!-- Main JavaScript files -->
     <script src="main.js"></script>
-    <!-- इस टूल के लिए विशिष्ट JavaScript फाइल -->
+    <!-- Specific JavaScript file for this tool -->
     <script src="dl-mock-test-tool.js"></script>
 </body>
 </html>
