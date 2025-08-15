@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which ITR Form to Fill? - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और ITR Form Selector टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input[type="radio"] {
+            margin-right: 8px;
+            transform: scale(1.2); /* Slightly larger radio buttons */
+            cursor: pointer;
+        }
+        .form-group .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .form-group .radio-option:hover {
+            background-color: #f0f0f0;
+        }
+        .form-group .radio-option input[type="radio"]:checked + label {
+            font-weight: 700;
+            color: #4a148c;
+        }
+        .form-group .radio-option input[type="radio"]:checked {
+            accent-color: #4a148c; /* Purple accent for checked radio */
+        }
+        .form-group input[type="number"], .form-group input[type="checkbox"] {
+            width: auto; /* Allow checkbox/number to be smaller */
+            margin-right: 8px;
+        }
+        .form-group input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+
+
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .result-itr-form {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #28a745; /* Green for positive result */
+        }
+        .result-description {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+        /* Dynamic question group styling */
+        .question-group {
+            display: none; /* Hidden by default */
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .question-group.active {
+            display: block; /* Shown when active */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">Which ITR Form to Fill?</h2>
+                <p id="tool-description">Answer a few simple questions to determine the correct Income Tax Return (ITR) Form for your filing needs.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <form id="itrFormSelector">
+                    <div class="question-group active" id="q1">
+                        <label>1. Are you an Individual or a Hindu Undivided Family (HUF)?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="individual" id="q1_individual">
+                            <label for="q1_individual">Individual</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="huf" id="q1_huf">
+                            <label for="q1_huf">HUF (Hindu Undivided Family)</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q2">
+                        <label>2. What is your primary source of income?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="salary_pension" id="q2_salary_pension">
+                            <label for="q2_salary_pension">Salary/Pension</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="house_property" id="q2_house_property">
+                            <label for="q2_house_property">House Property (Rent, etc.)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="business_profession" id="q2_business_profession">
+                            <label for="q2_business_profession">Business or Profession</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="capital_gains" id="q2_capital_gains">
+                            <label for="q2_capital_gains">Capital Gains (from sale of property, shares, etc.)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="other_sources" id="q2_other_sources">
+                            <label for="q2_other_sources">Other Sources (Interest, Dividends, etc.)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="multiple_sources" id="q2_multiple_sources">
+                            <label for="q2_multiple_sources">Multiple Sources (a mix of above, or complex income)</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q3">
+                        <label>3. Is your total income (before deductions) more than ₹50 Lakhs?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="income_above_50l" id="q3_above_50l">
+                            <label for="q3_above_50l">Yes, above ₹50 Lakhs</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="income_below_50l" id="q3_below_50l">
+                            <label for="q3_below_50l">No, up to ₹50 Lakhs</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q4">
+                        <label>4. Do you have income from more than one house property?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="multiple_house_property_yes" id="q4_multiple_hp_yes">
+                            <label for="q4_multiple_hp_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="multiple_house_property_no" id="q4_multiple_hp_no">
+                            <label for="q4_multiple_hp_no">No (only one house property)</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q5">
+                        <label>5. Do you have any income from Capital Gains (e.g., sale of shares, property, mutual funds)?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="capital_gains_yes" id="q5_cg_yes">
+                            <label for="q5_cg_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="capital_gains_no" id="q5_cg_no">
+                            <label for="q5_cg_no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q6">
+                        <label>6. Do you have any foreign income or foreign assets?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="foreign_income_assets_yes" id="q6_fia_yes">
+                            <label for="q6_fia_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="foreign_income_assets_no" id="q6_fia_no">
+                            <label for="q6_fia_no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q7">
+                        <label>7. Are you a Director in any company (other than a company in which you are a whole-time director and the company is not a start-up)? OR Have you held any unlisted equity shares at any time during the financial year?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="director_unlisted_shares_yes" id="q7_dus_yes">
+                            <label for="q7_dus_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="director_unlisted_shares_no" id="q7_dus_no">
+                            <label for="q7_dus_no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q8">
+                        <label>8. Do you have income from Business or Profession AND your total turnover/gross receipts are up to ₹2 Crore (for business) or ₹50 Lakh (for profession) AND you opt for Presumptive Taxation Scheme (Section 44AD/ADA)?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="presumptive_tax_yes" id="q8_pt_yes">
+                            <label for="q8_pt_yes">Yes, I opt for Presumptive Taxation Scheme (44AD/ADA)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="presumptive_tax_no" id="q8_pt_no">
+                            <label for="q8_pt_no">No, I don't opt for Presumptive Taxation Scheme OR my income/turnover exceeds limits</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group" id="q9">
+                        <label>9. Do you have agricultural income exceeding ₹5,000?</label>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="agricultural_income_yes" id="q9_agri_yes">
+                            <label for="q9_agri_yes">Yes, above ₹5,000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="agricultural_income_no" id="q9_agri_no">
+                            <label for="q9_agri_no">No, up to ₹5,000</label>
+                        </div>
+                    </div>
+
+                    <button type="button" id="nextQuestionBtn" class="cta-button">Next Question</button>
+                    <button type="button" id="getITRFormBtn" class="cta-button hidden">Get My ITR Form</button>
+                </form>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Your Recommended ITR Form:</h3>
+                    <div class="result-item">
+                        ITR Form: <span id="itrFormDisplay" class="result-value result-itr-form"></span>
+                    </div>
+                    <div class="result-item">
+                        Description: <span id="itrDescriptionDisplay" class="result-description"></span>
+                    </div>
+                    <button id="retakeQuizBtn" class="cta-button bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base mt-4">Retake Quiz</button>
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This ITR Form Selector #1 on Google (Unprecedented Features):</h3>
+                        <p>This tool provides a comprehensive, dynamic guide to help you select the correct ITR form. To truly dominate search results for "Which ITR Form to Fill India" and offer unparalleled value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Hyper-Personalized, Adaptive Questionnaire:</strong>
+                                <ul>
+                                    <li>Expand the questionnaire to cover **ALL intricate nuances** of ITR forms, including specific income types (e.g., income from virtual digital assets, dividend income details), complex deductions, audit requirements, residential status (NRI, RNOR), and more.</li>
+                                    <li>Implement a **sophisticated decision-tree algorithm** that dynamically presents only the most relevant questions based on *every* previous answer, ensuring a highly efficient and personalized user journey.</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. Real-time Tax Law Integration & Explanations:</strong>
+                                <ul>
+                                    <li>**Automatically fetch and apply the latest Income Tax Act rules, form applicability criteria, and financial year changes** directly from official government APIs (if available) or a continuously updated, legally vetted database. This ensures 100% accuracy and compliance.</li>
+                                    <li>Provide **contextual, interactive explanations/tooltips** for every complex tax term, section, or question, making tax jargon understandable to the layperson.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. AI-Powered Scenario Analysis & Optimization:</strong>
+                                <ul>
+                                    <li>Integrate an AI model that, given a user's income profile and answers, not only suggests the form but also **flags potential complexities** (e.g., "You might need to declare foreign assets," "Your business income requires an audit"), and even **suggests tax-saving strategies** relevant to their specific income structure and recommended form.</li>
+                                    <li>Offer "what-if" scenarios: "What if my capital gains were X?" to see how it affects the form.</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Interactive Flowchart & Audit Trail Visualization:</strong>
+                                <ul>
+                                    <li>After the quiz, display an **interactive flowchart** of the exact decision path taken by the user, visually explaining *why* a particular form was recommended based on their specific answers. This builds immense trust and understanding.</li>
+                                    <li>Provide a downloadable "audit trail" of their answers and the logic applied.</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. Direct, Dynamic Links to Official Resources:</strong>
+                                <ul>
+                                    <li>Provide direct, **dynamically updated links** to download the official ITR form (PDF/fillable utility) and the official instructions for that specific form from the Income Tax Department website.</li>
+                                    <li>Include links to relevant sections of the Income Tax Act for further reading.</li>
+                                </ul>
+                            </li>
+                            <li><strong>6. Comprehensive Educational Hub & Expert Insights:</strong>
+                                <ul>
+                                    <li>Offer a rich library of **articles, FAQs, video tutorials, and webinars** specific to each ITR form, covering common scenarios, pitfalls, and tips for accurate filing.</li>
+                                    <li>Feature insights from renowned Chartered Accountants and tax experts, potentially through integrated video snippets or articles.</li>
+                                </ul>
+                            </li>
+                            <li><strong>7. Robust Backend for Personalization & Data Security:</strong>
+                                <ul>
+                                    <li>A secure backend (e.g., Firebase Firestore with strong encryption) to store anonymized user preferences and interaction data. This data can be used to refine the AI models and decision trees, providing persistent, personalized guidance over time (e.g., "Welcome back, based on last year's filing, you might need ITR-X").</li>
+                                    <li>Ensure **highest data security and privacy compliance (GDPR, Indian IT Act)**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>8. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement highly detailed `HowTo`, `Q&A`, `Calculator`, or `FinancialService` schema markup to explicitly tell Google the tool's purpose, functionality, and the structured nature of its content.</li>
+                                    <li>**Topical Authority & Content Clusters:** Create vast, interconnected content clusters around "ITR forms," "income tax filing," "tax compliance," "tax audit," "capital gains tax," etc., positioning ToolMantra as the ultimate authority.</li>
+                                    <li>**Strategic, High-Quality Backlinks:** Actively seek backlinks from reputable financial institutions, government portals (if possible), major news outlets, and educational sites.</li>
+                                    <li>**Superior User Engagement Signals:** Optimize for low bounce rate, high time-on-page, and repeat visits through an exceptional UX, which Google values for ranking.</li>
+                                    <li>**Mobile-First Indexing & Core Web Vitals:** Ensure lightning-fast loading speeds, smooth interactivity, and excellent mobile responsiveness.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a strong foundation. Building out the dynamic decision tree, real-time tax law integration, and AI-powered advice, coupled with a robust backend, would truly set it apart as the #1 ITR Form Selector globally.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("ITR Form Selector: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const q1Group = document.getElementById('q1');
+            const q2Group = document.getElementById('q2');
+            const q3Group = document.getElementById('q3');
+            const q4Group = document.getElementById('q4'); // New
+            const q5Group = document.getElementById('q5'); // New
+            const q6Group = document.getElementById('q6'); // New
+            const q7Group = document.getElementById('q7'); // New
+            const q8Group = document.getElementById('q8'); // New
+            const q9Group = document.getElementById('q9'); // New
+
+            const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+            const getITRFormBtn = document.getElementById('getITRFormBtn');
+            const resultsSection = document.getElementById('results-section');
+            const itrFormDisplay = document.getElementById('itrFormDisplay');
+            const itrDescriptionDisplay = document.getElementById('itrDescriptionDisplay');
+            const retakeQuizBtn = document.getElementById('retakeQuizBtn');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            let currentQuestionIndex = 1; // Start with Q1
+            const questionsOrder = [q1Group, q2Group, q3Group, q4Group, q5Group, q6Group, q7Group, q8Group, q9Group]; // Order of questions
+
+            // Function to show a specific question group
+            function showQuestion(qNum) {
+                // Hide all questions first
+                questionsOrder.forEach(qGroup => qGroup.classList.remove('active'));
+                resultsSection.classList.add('hidden'); // Hide results
+
+                // Show the requested question
+                if (questionsOrder[qNum - 1]) {
+                    questionsOrder[qNum - 1].classList.add('active');
+                }
+
+                // Manage button visibility
+                nextQuestionBtn.classList.remove('hidden');
+                getITRFormBtn.classList.add('hidden');
+                showMessage("", "info"); // Clear any previous messages
+            }
+
+            // Function to get selected radio button value for a given question name
+            function getSelectedValue(questionName) {
+                const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+                return selected ? selected.value : null;
+            }
+
+            // Define ITR form logic and descriptions
+            const itrForms = {
+                'ITR-1 (SAHAJ)': {
+                    description: "For Resident Individuals having total income up to ₹50 Lakhs, from Salaries, one House Property, Other Sources (Interest, etc.), and Agricultural Income up to ₹5 thousand."
+                },
+                'ITR-2': {
+                    description: "For Individuals and HUFs not having income from Business or Profession. This includes income from multiple House Properties, Capital Gains, Foreign Assets/Income, Directorship in unlisted company, etc."
+                },
+                'ITR-3': {
+                    description: "For Individuals and HUFs having income from Business or Profession. This is for those who do not opt for presumptive taxation scheme or whose income/turnover exceeds the limits for presumptive taxation, or who have capital gains/foreign income along with business income."
+                },
+                'ITR-4 (SUGAM)': {
+                    description: "For Resident Individuals, HUFs and Firms (other than LLP) having total income up to ₹50 Lakhs and having income from Business and Profession computed under presumptive taxation scheme (Section 44AD, 44ADA, or 44AE)."
+                },
+                'ITR-5': {
+                    description: "For Persons other than Individual, HUF, Company and Person filing Form ITR-7. This includes Firms, LLPs, AOPs, BOIs etc."
+                },
+                'ITR-6': {
+                    description: "For Companies other than those claiming exemption under Section 11."
+                },
+                'ITR-7': {
+                    description: "For Persons including Companies required to furnish return under sections 139(4A) or 139(4B) or 139(4C) or 139(4D) (e.g., Trusts, Political Parties, Institutions)."
+                },
+                'Consult an Expert': {
+                    description: "Based on your complex income profile, it is highly recommended to consult a Chartered Accountant or a Tax Expert for accurate ITR form selection and filing."
+                }
+            };
+
+            // Function to determine ITR form based on answers
+            function determineITRForm() {
+                const q1Answer = getSelectedValue('q1');
+                const q2Answer = getSelectedValue('q2');
+                const q3Answer = getSelectedValue('q3'); // Total Income > 50L
+                const q4Answer = getSelectedValue('q4'); // Multiple House Property
+                const q5Answer = getSelectedValue('q5'); // Capital Gains
+                const q6Answer = getSelectedValue('q6'); // Foreign Income/Assets
+                const q7Answer = getSelectedValue('q7'); // Director/Unlisted Shares
+                const q8Answer = getSelectedValue('q8'); // Presumptive Tax
+                const q9Answer = getSelectedValue('q9'); // Agricultural Income > 5k
+
+                let recommendedForm = '';
+
+                // Logic for Individual/HUF
+                if (q1Answer === 'individual' || q1Answer === 'huf') {
+                    // Check for ITR-2/3/5/6/7 conditions first
+                    if (q2Answer === 'business_profession') {
+                        if (q8Answer === 'presumptive_tax_yes') { // Business/Profession with Presumptive Tax
+                            if (q3Answer === 'income_above_50l' || q6Answer === 'foreign_income_assets_yes' || q7Answer === 'director_unlisted_shares_yes') {
+                                recommendedForm = 'ITR-3'; // Presumptive but other complex conditions
+                            } else {
+                                recommendedForm = 'ITR-4 (SUGAM)';
+                            }
+                        } else { // Business/Profession without Presumptive Tax or exceeding limits
+                            recommendedForm = 'ITR-3';
+                        }
+                    } else if (q4Answer === 'multiple_house_property_yes' || q5Answer === 'capital_gains_yes' || q6Answer === 'foreign_income_assets_yes' || q7Answer === 'director_unlisted_shares_yes') {
+                        recommendedForm = 'ITR-2'; // Complex income sources, no business/profession
+                    } else if (q3Answer === 'income_above_50l') {
+                        recommendedForm = 'ITR-2'; // Income above 50L, no business/profession, no complex sources
+                    } else if (q9Answer === 'agricultural_income_yes') {
+                        recommendedForm = 'ITR-2'; // Agricultural income > 5k, no business/profession
+                    } else if (q2Answer === 'salary_pension' || q2Answer === 'house_property' || q2Answer === 'other_sources') {
+                        recommendedForm = 'ITR-1 (SAHAJ)'; // Simple income sources, income below 50L, no agri > 5k, no foreign/director/CG
+                    } else if (q2Answer === 'multiple_sources') {
+                        // If multiple sources but none of the ITR-2/3 conditions met, could be ITR-1 if simple, otherwise ITR-2
+                        // For simplicity here, if multiple sources and none of the specific ITR-2/3 triggers, default to ITR-2 for safety.
+                        recommendedForm = 'ITR-2'; 
+                    }
+                } else {
+                    // For entities other than Individual/HUF (e.g., Firms, Companies, Trusts)
+                    // This tool is primarily for Individual/HUF, so for others, recommend expert.
+                    recommendedForm = 'Consult an Expert';
+                }
+
+                // Final check for edge cases or unhandled combinations
+                if (!recommendedForm) {
+                    recommendedForm = 'Consult an Expert';
+                }
+                
+                itrFormDisplay.textContent = recommendedForm;
+                itrDescriptionDisplay.textContent = itrForms[recommendedForm].description;
+                resultsSection.classList.remove('hidden');
+                nextQuestionBtn.classList.add('hidden'); // Hide next button
+                getITRFormBtn.classList.add('hidden'); // Hide get form button
+            }
+
+            // Event listener for Next Question button
+            nextQuestionBtn.addEventListener('click', function() {
+                let currentAnswer = getSelectedValue(`q${currentQuestionIndex}`);
+                if (!currentAnswer) {
+                    showMessage("Please select an option before proceeding.", "error");
+                    return;
+                }
+
+                // Hide current question
+                questionsOrder[currentQuestionIndex - 1].classList.remove('active');
+
+                // Logic to navigate questions dynamically
+                if (currentQuestionIndex === 1) { // Q1: Individual/HUF
+                    showQuestion(2);
+                    currentQuestionIndex = 2;
+                } else if (currentQuestionIndex === 2) { // Q2: Primary Source of Income
+                    if (currentAnswer === 'business_profession') {
+                        showQuestion(8); // Go to Q8 (Presumptive Tax)
+                        currentQuestionIndex = 8;
+                    } else {
+                        showQuestion(3); // Go to Q3 (Total Income > 50L)
+                        currentQuestionIndex = 3;
+                    }
+                } else if (currentQuestionIndex === 3) { // Q3: Total Income > 50L
+                    showQuestion(4); // Go to Q4 (Multiple House Property)
+                    currentQuestionIndex = 4;
+                } else if (currentQuestionIndex === 4) { // Q4: Multiple House Property
+                    showQuestion(5); // Go to Q5 (Capital Gains)
+                    currentQuestionIndex = 5;
+                } else if (currentQuestionIndex === 5) { // Q5: Capital Gains
+                    showQuestion(6); // Go to Q6 (Foreign Income/Assets)
+                    currentQuestionIndex = 6;
+                } else if (currentQuestionIndex === 6) { // Q6: Foreign Income/Assets
+                    showQuestion(7); // Go to Q7 (Director/Unlisted Shares)
+                    currentQuestionIndex = 7;
+                } else if (currentQuestionIndex === 7) { // Q7: Director/Unlisted Shares
+                    showQuestion(9); // Go to Q9 (Agricultural Income)
+                    currentQuestionIndex = 9;
+                } else if (currentQuestionIndex === 8) { // Q8: Presumptive Tax (from Business/Profession path)
+                    // After Q8, determine form
+                    determineITRForm();
+                    return; // Exit as form is determined
+                } else if (currentQuestionIndex === 9) { // Q9: Agricultural Income
+                    // After Q9, determine form
+                    determineITRForm();
+                    return; // Exit as form is determined
+                }
+
+                // Show Get ITR Form button if it's the last question in a path
+                // This logic is handled within the determineITRForm call for terminal questions.
+                // For intermediate questions, nextQuestionBtn remains visible.
+                if (currentQuestionIndex > 0 && questionsOrder[currentQuestionIndex - 1].querySelectorAll('input[type="radio"]').length > 0) {
+                    // Check if all questions in the current path are answered
+                    // This is complex for a dynamic path. A simpler approach is to show "Get Form" when no more "Next" is possible.
+                    if (currentQuestionIndex === 3 && getSelectedValue('q2') !== 'business_profession') {
+                         nextQuestionBtn.classList.add('hidden');
+                         getITRFormBtn.classList.remove('hidden');
+                    } else if (currentQuestionIndex === 9) { // Last question in any path
+                        nextQuestionBtn.classList.add('hidden');
+                        getITRFormBtn.classList.remove('hidden');
+                    } else if (currentQuestionIndex === 8) { // Last question in business path
+                        nextQuestionBtn.classList.add('hidden');
+                        getITRFormBtn.classList.remove('hidden');
+                    }
+                }
+            });
+
+            // Event listener for Get My ITR Form button
+            getITRFormBtn.addEventListener('click', function() {
+                let currentAnswer = getSelectedValue(`q${currentQuestionIndex}`);
+                if (!currentAnswer) {
+                    showMessage("Please select an option before getting your ITR Form.", "error");
+                    return;
+                }
+                determineITRForm();
+            });
+
+            // Event listener for Retake Quiz button
+            retakeQuizBtn.addEventListener('click', function() {
+                // Reset all radio buttons
+                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                currentQuestionIndex = 1;
+                showQuestion(1); // Show first question
+                resultsSection.classList.add('hidden'); // Hide results
+                showMessage("", "info"); // Clear messages
+            });
+
+            // Initial load: Show the first question
+            showQuestion(1);
+        });
+    </script>
+</body>
+</html>
