@@ -321,6 +321,39 @@
                     <div class="result-item">
                         Notes: <span id="displayNotes" class="result-description"></span>
                     </div>
+                    
+                    <h4 class="text-xl font-semibold text-purple-700 mt-6 mb-3">Panchang Details for the Day:</h4>
+                    <div class="result-item">
+                        Tithi: <span id="displayTithi" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Nakshatra: <span id="displayPanchangNakshatra" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Yoga: <span id="displayYoga" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Karana: <span id="displayKarana" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Vaar (Day of Week): <span id="displayVaar" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Sunrise: <span id="displaySunrise" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Sunset: <span id="displaySunset" class="result-value"></span>
+                    </div>
+                    <div class="result-item">
+                        Rahu Kaal: <span id="displayRahuKaal" class="result-value result-inauspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Gulika Kaal: <span id="displayGulikaKaal" class="result-value result-inauspicious"></span>
+                    </div>
+                    <div class="result-item">
+                        Yamaganda Kaal: <span id="displayYamagandaKaal" class="result-value result-inauspicious"></span>
+                    </div>
+
                     <div class="seo-note mt-8">
                         <h3>Important Note: How to Make This Auspicious Time Finder #1 on Google (Unprecedented Features):</h3>
                         <p>This tool provides a foundational understanding of auspicious times. To truly dominate search results for "Shubh Muhurat Finder India" and offer unparalleled value, consider these advanced, "never-before-seen" strategies:</p>
@@ -331,7 +364,7 @@
                                     <li>Account for **Ayanamsha** (Lahiri, KP, etc.) and **time zone differences** automatically.</li>
                                 </ul>
                             </li>
-                            <li><strong>2. Personalized Muhurat Calculation:</strong>
+                            <li><strong>2. Personalized Muhurat Calculation (Kundli-based):</strong>
                                 <ul>
                                     <li>Allow users to input their **birth details (date, time, place)** to calculate a personalized Muhurat that is auspicious not just generally, but also specifically favorable for *their* individual birth chart (Kundli). This is a **game-changer**.</li>
                                     <li>Factor in **Tara Bala, Chandra Bala, Lagna Shuddhi**, and **Dosha Nivaran** (e.g., avoiding Bhadra, Panchaka, etc.) for deeper personalization.</li>
@@ -429,6 +462,16 @@
             const displayLocation = document.getElementById('displayLocation');
             const displayMuhurat = document.getElementById('displayMuhurat');
             const displayNotes = document.getElementById('displayNotes');
+            const displayTithi = document.getElementById('displayTithi'); // New
+            const displayPanchangNakshatra = document.getElementById('displayPanchangNakshatra'); // New
+            const displayYoga = document.getElementById('displayYoga'); // New
+            const displayKarana = document.getElementById('displayKarana'); // New
+            const displayVaar = document.getElementById('displayVaar'); // New
+            const displaySunrise = document.getElementById('displaySunrise'); // New
+            const displaySunset = document.getElementById('displaySunset'); // New
+            const displayRahuKaal = document.getElementById('displayRahuKaal'); // New
+            const displayGulikaKaal = document.getElementById('displayGulikaKaal'); // New
+            const displayYamagandaKaal = document.getElementById('displayYamagandaKaal'); // New
             const messageBox = document.getElementById('message-box');
 
             // Initialize message box content
@@ -458,10 +501,23 @@
 
             // Simplified Muhurat Data (Illustrative - Real astrological calculations are complex and require a backend)
             // This data does NOT perform actual astrological calculations. It's for demonstration.
+            // Added Panchang details for demonstration.
             const muhuratData = {
                 "2024-08-15": { // Example date: August 15, 2024
                     "Delhi": {
-                        "new-venture": { time: "10:30 AM - 12:00 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal (1:30 PM - 3:00 PM)." },
+                        "panchang": {
+                            tithi: "Shukla Paksha Dashami",
+                            nakshatra: "Anuradha",
+                            yoga: "Ayushman",
+                            karana: "Gara",
+                            vaar: "Thursday",
+                            sunrise: "05:50 AM",
+                            sunset: "07:00 PM",
+                            rahuKaal: "01:30 PM - 03:00 PM",
+                            gulikaKaal: "09:00 AM - 10:30 AM",
+                            yamagandaKaal: "06:00 AM - 07:30 AM"
+                        },
+                        "new-venture": { time: "10:30 AM - 12:00 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal." },
                         "vehicle-purchase": { time: "09:00 AM - 10:30 AM", notes: "Good for new beginnings. Avoid Bhadra." },
                         "housewarming": { time: "07:00 AM - 08:30 AM", notes: "Shubh Lagna. Consult a priest for detailed Griha Pravesh." },
                         "marriage": { time: "08:00 PM - 09:30 PM", notes: "Godhuli Lagna. Match Kundli for personalized Muhurat." },
@@ -471,7 +527,19 @@
                         "general": { time: "10:00 AM - 12:00 PM", notes: "General auspicious period. Avoid Amavasya." }
                     },
                     "Mumbai": {
-                        "new-venture": { time: "11:00 AM - 12:30 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal (1:45 PM - 3:15 PM)." },
+                        "panchang": {
+                            tithi: "Shukla Paksha Dashami",
+                            nakshatra: "Anuradha",
+                            yoga: "Ayushman",
+                            karana: "Vanija",
+                            vaar: "Thursday",
+                            sunrise: "06:10 AM",
+                            sunset: "07:15 PM",
+                            rahuKaal: "01:45 PM - 03:15 PM",
+                            gulikaKaal: "09:30 AM - 11:00 AM",
+                            yamagandaKaal: "06:10 AM - 07:40 AM"
+                        },
+                        "new-venture": { time: "11:00 AM - 12:30 PM", notes: "Abhijit Muhurat. Avoid Rahu Kaal." },
                         "vehicle-purchase": { time: "09:30 AM - 11:00 AM", notes: "Good for new beginnings. Avoid Bhadra." },
                         "housewarming": { time: "07:30 AM - 09:00 AM", notes: "Shubh Lagna. Consult a priest for detailed Griha Pravesh." },
                         "marriage": { time: "08:30 PM - 10:00 PM", notes: "Godhuli Lagna. Match Kundli for personalized Muhurat." },
@@ -483,6 +551,18 @@
                 },
                 "2024-08-16": { // Example date: August 16, 2024
                     "Delhi": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Ekadashi",
+                            nakshatra: "Jyeshtha",
+                            yoga: "Saubhagya",
+                            karana: "Vishti",
+                            vaar: "Friday",
+                            sunrise: "05:51 AM",
+                            sunset: "06:59 PM",
+                            rahuKaal: "10:30 AM - 12:00 PM", // Example: Rahu Kaal can be different
+                            gulikaKaal: "07:30 AM - 09:00 AM",
+                            yamagandaKaal: "03:00 PM - 04:30 PM"
+                        },
                         "new-venture": { time: "12:00 PM - 01:30 PM", notes: "Good for new ventures. Avoid Yamaganda Kaal." },
                         "vehicle-purchase": { time: "10:00 AM - 11:30 AM", notes: "Favorable for vehicle purchase." },
                         "housewarming": { time: "09:00 AM - 10:30 AM", notes: "Good for new home." },
@@ -493,6 +573,18 @@
                         "general": { time: "11:00 AM - 01:00 PM", notes: "General good time." }
                     },
                     "Mumbai": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Ekadashi",
+                            nakshatra: "Jyeshtha",
+                            yoga: "Saubhagya",
+                            karana: "Bava",
+                            vaar: "Friday",
+                            sunrise: "06:11 AM",
+                            sunset: "07:14 PM",
+                            rahuKaal: "10:45 AM - 12:15 PM",
+                            gulikaKaal: "07:45 AM - 09:15 AM",
+                            yamagandaKaal: "03:15 PM - 04:45 PM"
+                        },
                         "new-venture": { time: "12:30 PM - 02:00 PM", notes: "Good for new ventures. Avoid Yamaganda Kaal." },
                         "vehicle-purchase": { time: "10:30 AM - 12:00 PM", notes: "Favorable for vehicle purchase." },
                         "housewarming": { time: "09:30 AM - 11:00 AM", notes: "Good for new home." },
@@ -506,27 +598,99 @@
                 // Add more dates and locations for richer data
                 "2024-08-17": {
                     "Delhi": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Dwadashi",
+                            nakshatra: "Moola",
+                            yoga: "Shobhana",
+                            karana: "Balava",
+                            vaar: "Saturday",
+                            sunrise: "05:52 AM",
+                            sunset: "06:58 PM",
+                            rahuKaal: "09:00 AM - 10:30 AM",
+                            gulikaKaal: "06:00 AM - 07:30 AM",
+                            yamagandaKaal: "01:30 PM - 03:00 PM"
+                        },
                         "new-venture": { time: "09:00 AM - 10:30 AM", notes: "Good for new ventures." },
                         "housewarming": { time: "07:00 AM - 08:30 AM", notes: "Excellent for Griha Pravesh." }
                     },
                     "Bengaluru": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Dwadashi",
+                            nakshatra: "Moola",
+                            yoga: "Shobhana",
+                            karana: "Kaulava",
+                            vaar: "Saturday",
+                            sunrise: "06:05 AM",
+                            sunset: "06:50 PM",
+                            rahuKaal: "09:00 AM - 10:30 AM",
+                            gulikaKaal: "06:00 AM - 07:30 AM",
+                            yamagandaKaal: "01:30 PM - 03:00 PM"
+                        },
                         "new-venture": { time: "09:30 AM - 11:00 AM", notes: "Favorable for new projects." },
                         "vehicle-purchase": { time: "11:00 AM - 12:30 PM", notes: "Good for vehicle purchase." }
                     }
                 },
                 "2024-08-18": {
                     "Delhi": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Trayodashi",
+                            nakshatra: "Purva Ashadha",
+                            yoga: "Atiganda",
+                            karana: "Taitila",
+                            vaar: "Sunday",
+                            sunrise: "05:53 AM",
+                            sunset: "06:57 PM",
+                            rahuKaal: "05:00 PM - 06:30 PM",
+                            gulikaKaal: "03:30 PM - 05:00 PM",
+                            yamagandaKaal: "12:00 PM - 01:30 PM"
+                        },
                         "marriage": { time: "06:00 PM - 07:30 PM", notes: "Auspicious for marriage." }
                     },
                     "Chennai": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Trayodashi",
+                            nakshatra: "Purva Ashadha",
+                            yoga: "Atiganda",
+                            karana: "Garaja",
+                            vaar: "Sunday",
+                            sunrise: "06:00 AM",
+                            sunset: "06:40 PM",
+                            rahuKaal: "04:30 PM - 06:00 PM",
+                            gulikaKaal: "03:00 PM - 04:30 PM",
+                            yamagandaKaal: "12:00 PM - 01:30 PM"
+                        },
                         "travel": { time: "05:00 AM - 06:30 AM", notes: "Good for long distance travel." }
                     }
                 },
                 "2024-08-19": {
                     "Delhi": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Chaturdashi",
+                            nakshatra: "Uttara Ashadha",
+                            yoga: "Sukarma",
+                            karana: "Vanija",
+                            vaar: "Monday",
+                            sunrise: "05:54 AM",
+                            sunset: "06:56 PM",
+                            rahuKaal: "07:30 AM - 09:00 AM",
+                            gulikaKaal: "01:30 PM - 03:00 PM",
+                            yamagandaKaal: "10:30 AM - 12:00 PM"
+                        },
                         "education": { time: "10:00 AM - 11:30 AM", notes: "Ideal for starting new courses." }
                     },
                     "Hyderabad": {
+                        "panchang": {
+                            tithi: "Shukla Paksha Chaturdashi",
+                            nakshatra: "Uttara Ashadha",
+                            yoga: "Sukarma",
+                            karana: "Bava",
+                            vaar: "Monday",
+                            sunrise: "06:00 AM",
+                            sunset: "06:45 PM",
+                            rahuKaal: "07:30 AM - 09:00 AM",
+                            gulikaKaal: "01:30 PM - 03:00 PM",
+                            yamagandaKaal: "10:30 AM - 12:00 PM"
+                        },
                         "medical-treatment": { time: "04:00 PM - 05:30 PM", notes: "Favorable for health treatments." }
                     }
                 }
@@ -549,18 +713,22 @@
                 const normalizedCity = locationCity.toLowerCase();
 
                 let muhuratFound = null;
+                let panchangDetails = null;
 
-                if (muhuratData[formattedDate] && muhuratData[formattedDate][normalizedCity] && muhuratData[formattedDate][normalizedCity][purpose]) {
-                    muhuratFound = muhuratData[formattedDate][normalizedCity][purpose];
-                } else {
-                    // Fallback to general if specific purpose not found
-                    if (muhuratData[formattedDate] && muhuratData[formattedDate][normalizedCity] && muhuratData[formattedDate][normalizedCity]['general']) {
-                        muhuratFound = muhuratData[formattedDate][normalizedCity]['general'];
-                        showMessage("Specific Muhurat not found for this purpose. Showing general auspicious time.", "info");
+                if (muhuratData[formattedDate] && muhuratData[formattedDate][normalizedCity]) {
+                    panchangDetails = muhuratData[formattedDate][normalizedCity].panchang;
+                    if (muhuratData[formattedDate][normalizedCity][purpose]) {
+                        muhuratFound = muhuratData[formattedDate][normalizedCity][purpose];
+                    } else {
+                        // Fallback to general if specific purpose not found
+                        if (muhuratData[formattedDate][normalizedCity]['general']) {
+                            muhuratFound = muhuratData[formattedDate][normalizedCity]['general'];
+                            showMessage("Specific Muhurat not found for this purpose. Showing general auspicious time.", "info");
+                        }
                     }
                 }
 
-                if (muhuratFound) {
+                if (muhuratFound && panchangDetails) {
                     displayDate.textContent = new Date(eventDate).toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
                     displayPurpose.textContent = purposeSelect.options[purposeSelect.selectedIndex].text;
                     displayLocation.textContent = locationCity;
@@ -568,6 +736,19 @@
                     displayNotes.textContent = muhuratFound.notes;
                     displayMuhurat.classList.remove('result-inauspicious');
                     displayMuhurat.classList.add('result-auspicious');
+
+                    // Display Panchang Details
+                    displayTithi.textContent = panchangDetails.tithi;
+                    displayPanchangNakshatra.textContent = panchangDetails.nakshatra;
+                    displayYoga.textContent = panchangDetails.yoga;
+                    displayKarana.textContent = panchangDetails.karana;
+                    displayVaar.textContent = panchangDetails.vaar;
+                    displaySunrise.textContent = panchangDetails.sunrise;
+                    displaySunset.textContent = panchangDetails.sunset;
+                    displayRahuKaal.textContent = panchangDetails.rahuKaal;
+                    displayGulikaKaal.textContent = panchangDetails.gulikaKaal;
+                    displayYamagandaKaal.textContent = panchangDetails.yamagandaKaal;
+
                     resultsSection.classList.remove('hidden');
                     showMessage("Muhurat found successfully!", "success");
                 } else {
@@ -578,6 +759,19 @@
                     displayNotes.textContent = "It is highly recommended to consult a professional astrologer for this date and purpose.";
                     displayMuhurat.classList.remove('result-auspicious');
                     displayMuhurat.classList.add('result-inauspicious');
+
+                    // Clear Panchang details if not found
+                    displayTithi.textContent = "N/A";
+                    displayPanchangNakshatra.textContent = "N/A";
+                    displayYoga.textContent = "N/A";
+                    displayKarana.textContent = "N/A";
+                    displayVaar.textContent = "N/A";
+                    displaySunrise.textContent = "N/A";
+                    displaySunset.textContent = "N/A";
+                    displayRahuKaal.textContent = "N/A";
+                    displayGulikaKaal.textContent = "N/A";
+                    displayYamagandaKaal.textContent = "N/A";
+
                     resultsSection.classList.remove('hidden');
                     showMessage("No specific Muhurat found. Please consult an expert.", "error");
                 }
