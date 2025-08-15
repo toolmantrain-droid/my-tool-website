@@ -3,104 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driving License Mock Test - ToolMantra</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ड्राइविंग लाइसेंस मॉक टेस्ट - टूलमंत्रा</title>
+    <!-- Tailwind CSS CDN लोड करें -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins फॉन्ट फैमिली के लिए Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome आइकन्स के लिए CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Note: CSS Styling ko hata diya gaya hai. Ab styling ke liye mukhy roop se Tailwind CSS ka upyog kiya jayega. -->
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">ToolMantra</div>
+    <header class="bg-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-purple-700">टूलमंत्रा</div>
             <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="all-tools.html">All Tools</a></li>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">होम</a></li>
+                    <li><a href="blog.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">ब्लॉग</a></li>
+                    <li><a href="all-tools.html" class="text-gray-700 font-medium hover:text-purple-700 transition-colors duration-300">सभी उपकरण</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="tool-container">
-            <div class="tool-content">
-                <h2 id="tool-heading">Driving License Mock Test</h2>
-                <p id="tool-description">Practice traffic rules and signs before the RTO exam to ensure you are well-prepared.</p>
+        <section class="tool-container py-16 px-4 bg-gray-50">
+            <div class="tool-content max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg text-center">
+                <h2 id="tool-heading" class="text-4xl font-semibold text-purple-800 mb-4">ड्राइविंग लाइसेंस मॉक टेस्ट</h2>
+                <p id="tool-description" class="text-lg text-gray-600 mb-8">आरटीओ परीक्षा से पहले यातायात नियमों और संकेतों का अभ्यास करें ताकि आप अच्छी तरह से तैयार हो सकें।</p>
+
+                <!-- इन-पेज संदेश बॉक्स के लिए प्लेसहोल्डर -->
+                <div id="message-box" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-left"></div>
 
                 <div class="form-group mb-5 text-left">
-                    <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">Select Your State (for relevant RTO links):</label>
+                    <label for="state-select" id="label-state" class="block font-semibold mb-2 text-purple-700">अपना राज्य चुनें (प्रासंगिक आरटीओ लिंक के लिए):</label>
                     <select id="state-select" class="w-full p-3 text-base border border-gray-300 rounded-lg box-border focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <option value="">-- Select a State --</option>
-                        <option value="uttar-pradesh">Uttar Pradesh</option>
-                        <option value="maharashtra">Maharashtra</option>
-                        <option value="delhi">Delhi</option>
-                        <option value="bihar">Bihar</option>
-                        <option value="west-bengal">West Bengal</option>
-                        <option value="madhya-pradesh">Madhya Pradesh</option>
-                        <option value="rajasthan">Rajasthan</option>
-                        <option value="gujarat">Gujarat</option>
-                        <option value="karnataka">Karnataka</option>
-                        <option value="tamil-nadu">Tamil Nadu</option>
-                        <!-- Add more states as needed -->
+                        <option value="">-- एक राज्य चुनें --</option>
+                        <option value="uttar-pradesh">उत्तर प्रदेश</option>
+                        <option value="maharashtra">महाराष्ट्र</option>
+                        <option value="delhi">दिल्ली</option>
+                        <option value="bihar">बिहार</option>
+                        <option value="west-bengal">पश्चिम बंगाल</option>
+                        <option value="madhya-pradesh">मध्य प्रदेश</option>
+                        <option value="rajasthan">राजस्थान</option>
+                        <option value="gujarat">गुजरात</option>
+                        <option value="karnataka">कर्नाटक</option>
+                        <option value="tamil-nadu">तमिलनाडु</option>
+                        <!-- आवश्यकतानुसार और राज्य जोड़ें -->
                     </select>
                 </div>
 
                 <div id="quiz-container" class="text-left">
                     <div id="question-display" class="bg-gray-100 p-6 rounded-lg mb-4 shadow-sm">
-                        <p class="text-lg font-semibold" id="question-text">Loading question...</p>
+                        <p class="text-lg font-semibold" id="question-text">प्रश्न लोड हो रहा है...</p>
                         <div id="options-container" class="mt-4 space-y-2">
-                            <!-- Options will be dynamically loaded here -->
+                            <!-- विकल्प यहाँ गतिशील रूप से लोड किए जाएंगे -->
                         </div>
                     </div>
-                    <button id="next-question-btn" class="cta-button w-full py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors duration-300 text-lg">Next Question</button>
-                    <button id="submit-quiz-btn" class="cta-button w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors duration-300 text-lg mt-4 hidden">Submit Test</button>
+                    <button id="next-question-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-lg">अगला प्रश्न</button>
+                    <button id="submit-quiz-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-lg mt-4 hidden">टेस्ट जमा करें</button>
                 </div>
 
                 <div id="quiz-results-section" class="mt-8 pt-5 border-t border-gray-200 text-left hidden">
-                    <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">Test Results</h3>
-                    <p class="text-lg mb-2">Your Score: <span id="score-display" class="font-bold"></span></p>
-                    <p class="text-lg mb-4">You <span id="pass-fail-status" class="font-bold"></span> the test!</p>
-                    <button id="retake-test-btn" class="cta-button py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white rounded-full text-base">Retake Test</button>
-                    <ul id="answers-review-list" class="list-none p-0 mt-4">
-                        <!-- Answer review will be dynamically added here -->
+                    <h3 id="quiz-results-title" class="text-2xl font-semibold text-purple-700 mb-4">परीक्षा परिणाम</h3>
+                    <p class="text-lg mb-2">आपका स्कोर: <span id="score-display" class="font-bold"></span></p>
+                    <p class="text-lg mb-4">आप टेस्ट में <span id="pass-fail-status" class="font-bold"></span>!</p>
+                    <button id="retake-test-btn" class="bg-gray-500 hover:bg-gray-600 text-white rounded-full py-2 px-4 text-base">टेस्ट फिर से दें</button>
+                    <ul id="answers-review-list" class="list-none p-0 mt-4 space-y-3">
+                        <!-- उत्तरों की समीक्षा यहाँ गतिशील रूप से जोड़ी जाएगी -->
                     </ul>
                 </div>
             </div>
         </section>
     </main>
     
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>ToolMantra</h3>
-                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+    <footer class="bg-gray-900 text-gray-300 py-16 text-center">
+        <div class="container mx-auto px-4">
+            <div class="footer-content flex flex-wrap justify-between text-left gap-10 mb-10">
+                <div class="footer-brand max-w-md">
+                    <h3 class="text-3xl font-bold text-white mb-3">टूलमंत्रा</h3>
+                    <p class="text-sm leading-relaxed">टूलमंत्रा भारत का पहला मुफ्त टूलबॉक्स है जो आपकी रोजमर्रा की समस्याओं को सरल बनाता है। हमारा लक्ष्य हर भारतीय को मुफ्त में आवश्यक डिजिटल टूल प्रदान करना है।</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="#">All Tools</a></li>
+                    <h4 class="text-xl font-semibold text-white mb-4">त्वरित लिंक</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">होम</a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">ब्लॉग</a></li>
+                        <li><a href="all-tools.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">सभी उपकरण</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                        <li><a href="terms.html">Disclaimer</a></li>
+                    <h4 class="text-xl font-semibold text-white mb-4">कानूनी</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">गोपनीयता नीति</a></li>
+                        <li><a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">नियम और शर्तें</a></li>
+                        <li><a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm">अस्वीकरण</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            <div class="copyright border-t border-gray-700 pt-6">
+                <p class="text-sm text-gray-500">&copy; 2024 टूलमंत्रा। सर्वाधिकार सुरक्षित।</p>
             </div>
         </div>
     </footer>
     
+    <!-- मुख्य JavaScript फाइलें -->
     <script src="main.js"></script>
+    <!-- इस टूल के लिए विशिष्ट JavaScript फाइल -->
     <script src="dl-mock-test-tool.js"></script>
 </body>
 </html>
