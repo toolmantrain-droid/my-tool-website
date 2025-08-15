@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITR Refund Calculator - ToolMantra</title>
+    <!-- Tailwind CSS CDN load karein -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins font family ke liye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons ke liye CDN (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+         * यह CSS styling पूरी वेबसाइट के सामान्य लेआउट और ITR Refund Calculator टूल के लिए है।
+         * इसमें फॉन्ट, हेडर, फुटर, बटन और फॉर्म एलिमेंट्स के लिए स्टाइल शामिल हैं।
+         * 'Poppins' फॉन्ट का उपयोग किया गया है, और रंगों को टूलमंत्रा की ब्रांडिंग से मैच करने के लिए चुना गया है।
+         */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a148c; /* Purple */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #4a148c;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff9800; /* Orange */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e65100;
+        }
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand {
+            max-width: 400px;
+        }
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        .copyright p {
+            font-size: 14px;
+            color: #888;
+        }
+        /* Tool-specific styling */
+        .tool-container {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+        }
+        .tool-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tool-content h2 {
+            font-size: 36px;
+            color: #4a148c;
+            margin-bottom: 10px;
+        }
+        .tool-content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a148c;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .tool-content .cta-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #results-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .result-item {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 10px;
+            color: #4a148c;
+            font-weight: 500;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #222;
+        }
+        .result-old-regime { color: #007bff; }
+        .result-new-regime { color: #28a745; }
+        .result-savings { color: #28a745; }
+        .result-no-savings { color: #dc3545; }
+        .result-refund { color: #28a745; } /* Green for refund */
+        .result-payable { color: #dc3545; } /* Red for payable */
+
+        /* In-page message box styling */
+        #message-box {
+            background-color: #fef2f2; /* Light red */
+            border: 1px solid #fee2e2; /* Red border */
+            color: #dc2626; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #message-box.bg-green-100 {
+            background-color: #d1fae5; /* Light green */
+            border-color: #a7f3d0; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        /* SEO Note Styling */
+        .seo-note {
+            background-color: #e0f2f7; /* Light blue for SEO note */
+            border: 1px solid #b2ebf2; /* Blue border */
+            color: #00796b; /* Dark cyan text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px; /* Increased margin */
+            text-align: left;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            width: 100%; /* Full width */
+        }
+        .seo-note h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 10px;
+            color: #004d40; /* Even darker cyan */
+        }
+        .seo-note ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .seo-note li {
+            margin-bottom: 5px;
+        }
+        .seo-note strong {
+            color: #00332e; /* Stronger color for bold text */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ToolMantra</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="all-tools.html">All Tools</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tool-container">
+            <div class="tool-content">
+                <h2 id="tool-heading">ITR Refund Calculator</h2>
+                <p id="tool-description">Estimate your potential Income Tax Refund or Tax Payable based on your income and TDS. Compare Old vs. New Tax Regimes for optimal savings.</p>
+
+                <!-- In-page message box placeholder -->
+                <div id="message-box" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="grossIncome">Gross Annual Income (₹):</label>
+                    <input type="number" id="grossIncome" placeholder="e.g., 800000" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="age">Your Age:</label>
+                    <input type="number" id="age" placeholder="e.g., 35" required min="18" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="existing80C">Existing 80C Investments (₹):</label>
+                    <input type="number" id="existing80C" placeholder="e.g., 50000" value="0" min="0" max="150000">
+                    <p class="text-xs text-gray-500 mt-1">Max limit for 80C is ₹1.5 Lakh.</p>
+                </div>
+                <div class="form-group">
+                    <label for="existing80D">Existing 80D (Medical Insurance) (₹):</label>
+                    <input type="number" id="existing80D" placeholder="e.g., 10000" value="0" min="0">
+                    <p class="text-xs text-gray-500 mt-1">Max limit for self/family (non-senior) is ₹25,000; for senior citizen parents, it's ₹50,000.</p>
+                </div>
+                <div class="form-group">
+                    <label for="npsContribution">NPS (80CCD(1B)) Contribution (₹):</label>
+                    <input type="number" id="npsContribution" placeholder="e.g., 50000" value="0" min="0" max="50000">
+                    <p class="text-xs text-gray-500 mt-1">Additional deduction up to ₹50,000 for NPS.</p>
+                </div>
+                <div class="form-group">
+                    <label for="homeLoanInterest">Home Loan Interest (Section 24) (₹):</label>
+                    <input type="number" id="homeLoanInterest" placeholder="e.g., 200000" value="0" min="0" max="200000">
+                    <p class="text-xs text-gray-500 mt-1">Max deduction for self-occupied property is ₹2 Lakh.</p>
+                </div>
+                <div class="form-group">
+                    <label for="hraReceived">HRA Received (₹):</label>
+                    <input type="number" id="hraReceived" placeholder="e.g., 100000" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="rentPaid">Rent Paid (₹):</label>
+                    <input type="number" id="rentPaid" placeholder="e.g., 120000" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="cityType">City Type for HRA:</label>
+                    <select id="cityType" class="w-full p-2 border rounded-md">
+                        <option value="metro">Metro (Delhi, Mumbai, Chennai, Kolkata)</option>
+                        <option value="non-metro">Non-Metro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tdsDeducted">Total TDS Deducted (₹):</label>
+                    <input type="number" id="tdsDeducted" placeholder="e.g., 30000" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="financialYear">Financial Year:</label>
+                    <select id="financialYear" class="w-full p-2 border rounded-md">
+                        <option value="2024-2025">FY 2024-2025 (AY 2025-2026)</option>
+                        <option value="2023-2024" selected>FY 2023-2024 (AY 2024-2025)</option>
+                    </select>
+                </div>
+                
+                <button id="calculateBtn" class="cta-button">Calculate Tax & Savings</button>
+
+                <div id="results-section" class="hidden mt-8 pt-5 border-t border-gray-200 text-left">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">Your Tax Calculation & Savings</h3>
+                    
+                    <div class="result-item text-xl font-bold mb-4">
+                        Best Regime: <span id="bestRegimeDisplay" class="result-value"></span>
+                    </div>
+
+                    <div class="result-item">
+                        Taxable Income (Old Regime): <span id="taxableIncomeOldDisplay" class="result-value result-old-regime"></span>
+                    </div>
+                    <div class="result-item">
+                        Tax Liability (Old Regime): <span id="taxLiabilityOldDisplay" class="result-value result-old-regime"></span>
+                    </div>
+                    <div class="result-item mt-4">
+                        Taxable Income (New Regime): <span id="taxableIncomeNewDisplay" class="result-value result-new-regime"></span>
+                    </div>
+                    <div class="result-item">
+                        Tax Liability (New Regime): <span id="taxLiabilityNewDisplay" class="result-value result-new-regime"></span>
+                    </div>
+                    
+                    <div class="result-item text-xl font-bold mt-4">
+                        Potential Tax Savings: <span id="taxSavingsDisplay" class="result-value result-savings"></span>
+                    </div>
+                    <div class="result-item">
+                        Net Tax (After TDS): <span id="netTaxDisplay" class="result-value"></span>
+                    </div>
+
+                    <div class="seo-note mt-8">
+                        <h3>Important Note: How to Make This Tax Planner #1 on Google (Unprecedented Features):</h3>
+                        <p>This planner provides a comprehensive comparison. To truly dominate search results for "Tax Saving Planner India" and offer unmatched value, consider these advanced, "never-before-seen" strategies:</p>
+                        <ul>
+                            <li><strong>1. Dynamic Tax Regime Comparison with Real-time Updates:</strong>
+                                <ul>
+                                    <li>Automatically fetch and apply the **latest tax slabs, deductions, and rules** for both Old and New Regimes directly from official government APIs (if available) or a continuously updated database.</li>
+                                    <li>Provide a **visual breakdown** (e.g., interactive charts) of how each deduction impacts tax liability in both regimes.</li>
+                                </ul>
+                            </li>
+                            <li><strong>2. AI-Powered Personalized Investment Recommendations:</strong>
+                                <ul>
+                                    <li>Integrate an AI model that analyzes user's age, income, risk appetite, financial goals (e.g., retirement, child education, home purchase), and **suggests specific tax-saving instruments (ELSS, PPF, NPS, Health Insurance, etc.)** with projected returns and lock-in periods.</li>
+                                    <li>This would be a **game-changer**, moving beyond just calculation to actionable, tailored advice.</li>
+                                </ul>
+                            </li>
+                            <li><strong>3. Scenario Planning & "What-If" Analysis:</strong>
+                                <ul>
+                                    <li>Allow users to easily adjust investment amounts in various sections (e.g., "What if I invest ₹50,000 more in 80C?") and see the **real-time impact on tax liability and savings**.</li>
+                                    <li>Include a "Goal-Based Saving" feature: "To save X amount of tax, you need to invest Y in Z."</li>
+                                </ul>
+                            </li>
+                            <li><strong>4. Comprehensive Income & Deduction Breakdown:</strong>
+                                <ul>
+                                    <li>Allow input for all types of income (salary, house property, business, capital gains, other sources) and **all major deduction sections** (80C, 80D, 80E, 80G, 80TTA/TTB, Section 24, HRA exemption calculation, Standard Deduction, etc.) with their specific limits and conditions.</li>
+                                    <li>Provide **in-line explanations** for each section.</li>
+                                </ul>
+                            </li>
+                            <li><strong>5. Integration with Form 16/26AS (Future):</strong> (If secure APIs become available from Income Tax Dept.) Allow users to upload or securely connect their Form 16/26AS data to auto-populate income and TDS figures, ensuring maximum accuracy.</li>
+                            <li><strong>6. Educational Hub & Expert Insights:</strong>
+                                <ul>
+                                    <li>Beyond calculation, offer a rich library of **articles, FAQs, video tutorials, and webinars** on tax planning, ITR filing, and investment strategies.</li>
+                                    <li>Feature insights from certified financial planners/tax experts.</li>
+                                </ul>
+                            </li>
+                            <li><strong>7. Interactive Data Visualization:</strong> Use D3.js or similar libraries to create engaging charts showing tax breakdown, savings over years, and comparison of regimes.</li>
+                            <li><strong>8. Robust Backend for Personalization & Data Security:</strong>
+                                <ul>
+                                    <li>A backend (e.g., Firebase Firestore) to securely store user preferences (anonymized) to refine AI models and provide persistent, personalized planning.</li>
+                                    <li>Ensure **highest data security and privacy compliance (GDPR, Indian IT Act)**.</li>
+                                </ul>
+                            </li>
+                            <li><strong>9. Advanced SEO & Authority Building:</strong>
+                                <ul>
+                                    <li>**Schema Markup (JSON-LD):** Implement detailed `Calculator` or `FinancialService` schema to explicitly tell Google what the tool does.</li>
+                                    <li>**Topical Authority:** Create comprehensive content clusters around "tax saving," "ITR filing," "investment planning," etc.</li>
+                                    <li>**Strategic Backlinks:** From reputable financial institutions, government portals, and educational sites.</li>
+                                    <li>**User Engagement Signals:** Focus on low bounce rate, long session duration, and repeat visits through excellent UX.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This tool provides a solid foundation. Building out the AI-powered personalized advice and secure backend integration would truly set it apart as a #1 tax planning tool.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ToolMantra</h3>
+                    <p>ToolMantra is India's first free toolbox that simplifies your daily problems. Our goal is to provide essential digital tools to every Indian for free.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">All Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ToolMantra. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Wait for the DOM content to be fully loaded before executing the script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Personal Tax Saving Planner: DOM content loaded. Initializing script.");
+
+            // Get references to HTML elements
+            const grossIncomeInput = document.getElementById('grossIncome');
+            const ageInput = document.getElementById('age');
+            const existing80CInput = document.getElementById('existing80C');
+            const existing80DInput = document.getElementById('existing80D');
+            const npsContributionInput = document.getElementById('npsContribution');
+            const homeLoanInterestInput = document.getElementById('homeLoanInterest');
+            const hraReceivedInput = document.getElementById('hraReceived');
+            const rentPaidInput = document.getElementById('rentPaid');
+            const cityTypeSelect = document.getElementById('cityType');
+            const tdsDeductedInput = document.getElementById('tdsDeducted');
+            const financialYearSelect = document.getElementById('financialYear');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultsSection = document.getElementById('results-section');
+            const bestRegimeDisplay = document.getElementById('bestRegimeDisplay');
+            const taxableIncomeOldDisplay = document.getElementById('taxableIncomeOldDisplay');
+            const taxLiabilityOldDisplay = document.getElementById('taxLiabilityOldDisplay');
+            const taxableIncomeNewDisplay = document.getElementById('taxableIncomeNewDisplay');
+            const taxLiabilityNewDisplay = document.getElementById('taxLiabilityNewDisplay');
+            const taxSavingsDisplay = document.getElementById('taxSavingsDisplay');
+            const netTaxDisplay = document.getElementById('netTaxDisplay');
+            const messageBox = document.getElementById('message-box');
+
+            // Initialize message box content
+            if (messageBox) {
+                messageBox.innerHTML = '<strong class="font-bold">Error!</strong> <span class="block sm:inline" id="message-box-text"></span>';
+            }
+
+            // Function to show in-page messages
+            function showMessage(text, type = 'error') {
+                const messageBoxText = document.getElementById('message-box-text');
+                if (messageBox && messageBoxText) {
+                    messageBoxText.textContent = text;
+                    messageBox.classList.remove('hidden'); // Show message box
+                    if (type === 'error') {
+                        messageBox.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                        messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                    } else { // For success or info
+                        messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                        messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                    }
+                    // Hide message after some time
+                    setTimeout(() => {
+                        messageBox.classList.add('hidden');
+                    }, 5000);
+                }
+            }
+
+            // Define Tax Slabs for Old and New Regimes (Simplified for illustration)
+            // Note: Real tax calculations are complex and depend on many factors (age, specific deductions, etc.).
+            // This is a simplified example for demonstration.
+            const taxSlabs = {
+                '2023-2024': { // AY 2024-2025
+                    old: {
+                        general: [
+                            { limit: 250000, rate: 0 },
+                            { limit: 500000, rate: 0.05 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ],
+                        senior: [ // 60 to 80 years
+                            { limit: 300000, rate: 0 },
+                            { limit: 500000, rate: 0.05 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ],
+                        superSenior: [ // 80+ years
+                            { limit: 500000, rate: 0 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ]
+                    },
+                    new: [ // Simplified New Tax Regime
+                        { limit: 300000, rate: 0 },
+                        { limit: 600000, rate: 0.05 },
+                        { limit: 900000, rate: 0.10 },
+                        { limit: 1200000, rate: 0.15 },
+                        { limit: 1500000, rate: 0.20 },
+                        { limit: Infinity, rate: 0.30 }
+                    ]
+                },
+                '2024-2025': { // AY 2025-2026 (assuming same for illustration)
+                    old: {
+                        general: [
+                            { limit: 250000, rate: 0 },
+                            { limit: 500000, rate: 0.05 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ],
+                        senior: [
+                            { limit: 300000, rate: 0 },
+                            { limit: 500000, rate: 0.05 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ],
+                        superSenior: [
+                            { limit: 500000, rate: 0 },
+                            { limit: 1000000, rate: 0.20 },
+                            { limit: Infinity, rate: 0.30 }
+                        ]
+                    },
+                    new: [
+                        { limit: 300000, rate: 0 },
+                        { limit: 600000, rate: 0.05 },
+                        { limit: 900000, rate: 0.10 },
+                        { limit: 1200000, rate: 0.15 },
+                        { limit: 1500000, rate: 0.20 },
+                        { limit: Infinity, rate: 0.30 }
+                    ]
+                }
+            };
+
+            /**
+             * Calculates tax liability for a given taxable income and financial year/regime.
+             * @param {number} income - The taxable income.
+             * @param {string} financialYear - The selected financial year (e.g., '2023-2024').
+             * @param {string} regimeType - 'old' or 'new'.
+             * @param {number} age - Age of the individual.
+             * @returns {number} Calculated tax liability.
+             */
+            function calculateTax(income, financialYear, regimeType, age) {
+                let currentSlabs;
+                if (regimeType === 'old') {
+                    if (age >= 80) {
+                        currentSlabs = taxSlabs[financialYear].old.superSenior;
+                    } else if (age >= 60) {
+                        currentSlabs = taxSlabs[financialYear].old.senior;
+                    } else {
+                        currentSlabs = taxSlabs[financialYear].old.general;
+                    }
+                } else { // new regime
+                    currentSlabs = taxSlabs[financialYear].new;
+                }
+
+                let tax = 0;
+                let remainingIncome = income;
+
+                for (let i = 0; i < currentSlabs.length; i++) {
+                    const slab = currentSlabs[i];
+                    const prevLimit = i > 0 ? currentSlabs[i-1].limit : 0;
+                    
+                    if (remainingIncome > prevLimit) {
+                        const taxableInThisSlab = Math.min(remainingIncome - prevLimit, slab.limit - prevLimit);
+                        tax += taxableInThisSlab * slab.rate;
+                    }
+                }
+
+                // Rebate under Section 87A
+                if (regimeType === 'new' && income <= 700000 && (financialYear === '2023-2024' || financialYear === '2024-2025')) {
+                    tax = 0; // Full rebate for new regime up to 7L
+                } else if (regimeType === 'old' && income <= 500000 && (financialYear === '2023-2024' || financialYear === '2024-2025')) {
+                    tax = 0; // Full rebate for old regime up to 5L
+                }
+
+                // Health and Education Cess (4%)
+                tax += tax * 0.04;
+
+                return Math.round(tax);
+            }
+
+            /**
+             * Calculates HRA exemption.
+             * @param {number} hraReceived - HRA received from employer.
+             * @param {number} rentPaid - Actual rent paid.
+             * @param {number} basicSalary - Basic salary component.
+             * @param {string} cityType - 'metro' or 'non-metro'.
+             * @returns {number} HRA exemption amount.
+             */
+            function calculateHRAExemption(hraReceived, rentPaid, basicSalary, cityType) {
+                if (hraReceived === 0 || rentPaid === 0) return 0;
+                
+                // Assuming basicSalary is 50% of Gross Annual Income for simplicity if not provided.
+                // In a real scenario, basic salary is a specific component.
+                const actualBasicSalary = basicSalary > 0 ? basicSalary : (parseFloat(grossIncomeInput.value) * 0.5);
+
+                const condition1 = hraReceived;
+                const condition2 = Math.max(0, rentPaid - (actualBasicSalary * 0.10));
+                const condition3 = cityType === 'metro' ? (actualBasicSalary * 0.50) : (actualBasicSalary * 0.40);
+
+                return Math.min(condition1, condition2, condition3);
+            }
+
+
+            // Event listener for calculation button
+            calculateBtn.addEventListener('click', function() {
+                const grossIncome = parseFloat(grossIncomeInput.value || 0);
+                const age = parseInt(ageInput.value || 0);
+                const existing80C = parseFloat(existing80CInput.value || 0);
+                const existing80D = parseFloat(existing80DInput.value || 0);
+                const npsContribution = parseFloat(npsContributionInput.value || 0);
+                const homeLoanInterest = parseFloat(homeLoanInterestInput.value || 0);
+                const hraReceived = parseFloat(hraReceivedInput.value || 0);
+                const rentPaid = parseFloat(rentPaidInput.value || 0);
+                const cityType = cityTypeSelect.value;
+                const tdsDeducted = parseFloat(tdsDeductedInput.value || 0);
+                const financialYear = financialYearSelect.value;
+
+                // Validation
+                if (isNaN(grossIncome) || grossIncome < 0 || isNaN(age) || age < 18 || isNaN(existing80C) || existing80C < 0 ||
+                    isNaN(existing80D) || existing80D < 0 || isNaN(npsContribution) || npsContribution < 0 ||
+                    isNaN(homeLoanInterest) || homeLoanInterest < 0 || isNaN(hraReceived) || hraReceived < 0 ||
+                    isNaN(rentPaid) || rentPaid < 0 || isNaN(tdsDeducted) || tdsDeducted < 0) {
+                    showMessage("Please enter valid positive numbers for all fields.", "error");
+                    return;
+                }
+
+                if (!taxSlabs[financialYear]) {
+                    showMessage("Tax slabs for the selected Financial Year are not available. Please choose FY 2023-2024 or 2024-2025.", "error");
+                    return;
+                }
+
+                // --- Old Regime Calculation ---
+                let totalDeductionsOld = 0;
+                let standardDeduction = 50000; // Standard deduction for salaried individuals
+
+                // 80C (max 1.5 Lakh)
+                totalDeductionsOld += Math.min(existing80C, 150000);
+
+                // 80D (Medical Insurance)
+                let max80D = 25000; // Self, spouse, dependent children
+                if (age >= 60) { // If self is senior citizen
+                    max80D = 50000;
+                }
+                // For simplicity, assuming no separate parent deduction here. A real tool would have more inputs.
+                totalDeductionsOld += Math.min(existing80D, max80D);
+
+                // 80CCD(1B) for NPS (additional 50,000)
+                totalDeductionsOld += Math.min(npsContribution, 50000);
+
+                // HRA Exemption (Old Regime only)
+                const hraExemption = calculateHRAExemption(hraReceived, rentPaid, grossIncome * 0.5, cityType); // Assuming basic is 50% of gross
+                totalDeductionsOld += hraExemption;
+
+                // Section 24 (Home Loan Interest)
+                totalDeductionsOld += Math.min(homeLoanInterest, 200000); // Max 2 Lakh for self-occupied
+
+                // Total taxable income for Old Regime
+                const taxableIncomeOld = Math.max(0, grossIncome - totalDeductionsOld - standardDeduction);
+                const taxLiabilityOld = calculateTax(taxableIncomeOld, financialYear, 'old', age);
+
+                // --- New Regime Calculation ---
+                // New regime has very few deductions: only employer's NPS contribution (not covered here), and standard deduction for salaried (not applicable here as per new rules for FY23-24 onwards)
+                // For FY 2023-24 onwards, standard deduction of 50,000 is also available in new regime for salaried.
+                let totalDeductionsNew = 0;
+                if (financialYear === '2023-2024' || financialYear === '2024-2025') {
+                    // Standard deduction is now available in new regime for salaried
+                    totalDeductionsNew += 50000;
+                }
+                // NPS 80CCD(2) employer contribution is deductible in both regimes, but we are taking 80CCD(1B) here.
+                // For simplicity, we are not adding 80CCD(2) here as it requires employer contribution input.
+
+                const taxableIncomeNew = Math.max(0, grossIncome - totalDeductionsNew);
+                const taxLiabilityNew = calculateTax(taxableIncomeNew, financialYear, 'new', age);
+
+                // --- Compare and Display Results ---
+                let bestRegime = "";
+                let finalTaxLiability = 0;
+                let taxSavings = 0;
+
+                if (taxLiabilityOld <= taxLiabilityNew) {
+                    bestRegime = "Old Tax Regime";
+                    finalTaxLiability = taxLiabilityOld;
+                    taxSavings = taxLiabilityNew - taxLiabilityOld;
+                } else {
+                    bestRegime = "New Tax Regime";
+                    finalTaxLiability = taxLiabilityNew;
+                    taxSavings = taxLiabilityOld - taxLiabilityNew;
+                }
+
+                const netTax = finalTaxLiability - tdsDeducted;
+
+                bestRegimeDisplay.textContent = bestRegime;
+                taxableIncomeOldDisplay.textContent = `₹ ${taxableIncomeOld.toLocaleString('en-IN')}`;
+                taxLiabilityOldDisplay.textContent = `₹ ${taxLiabilityOld.toLocaleString('en-IN')}`;
+                taxableIncomeNewDisplay.textContent = `₹ ${taxableIncomeNew.toLocaleString('en-IN')}`;
+                taxLiabilityNewDisplay.textContent = `₹ ${taxLiabilityNew.toLocaleString('en-IN')}`;
+                
+                if (taxSavings > 0) {
+                    taxSavingsDisplay.textContent = `₹ ${taxSavings.toLocaleString('en-IN')}`;
+                    taxSavingsDisplay.classList.remove('result-no-savings');
+                    taxSavingsDisplay.classList.add('result-savings');
+                } else {
+                    taxSavingsDisplay.textContent = `₹ 0`;
+                    taxSavingsDisplay.classList.remove('result-savings');
+                    taxSavingsDisplay.classList.add('result-no-savings');
+                }
+
+                if (netTax > 0) {
+                    netTaxDisplay.textContent = `₹ ${netTax.toLocaleString('en-IN')} (Payable)`;
+                    netTaxDisplay.classList.remove('result-refund');
+                    netTaxDisplay.classList.add('result-payable');
+                } else if (netTax < 0) {
+                    netTaxDisplay.textContent = `₹ ${Math.abs(netTax).toLocaleString('en-IN')} (Refund)`;
+                    netTaxDisplay.classList.remove('result-payable');
+                    netTaxDisplay.classList.add('result-refund');
+                } else {
+                    netTaxDisplay.textContent = `₹ 0 (No Refund/Payable)`;
+                    netTaxDisplay.classList.remove('result-refund', 'result-payable');
+                }
+
+                resultsSection.classList.remove('hidden');
+                showMessage("Tax calculation complete! Review your options.", "success");
+            });
+        });
+    </script>
+</body>
+</html>
